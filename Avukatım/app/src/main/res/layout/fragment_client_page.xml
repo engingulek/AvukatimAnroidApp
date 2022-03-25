@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="fragmentClientPage"
+            type="com.example.test.fragment.ClientPageFragment" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".fragment.ClientPageFragment">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewClientSingUp"
+            android:layout_width="381dp"
+            android:layout_height="349dp"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="33dp"
+            android:layout_marginEnd="18dp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewCheckClientTitle">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/lawyer_list_card_corner"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <EditText
+                    android:id="@+id/singUpClientNameSurnameEditText"
+                    android:layout_width="291dp"
+                    android:layout_height="48dp"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:text="Ad Soyad"
+                    app:layout_constraintBottom_toTopOf="@+id/singUpClientEmailEditText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/singUpClientEmailEditText"
+                    android:layout_width="291dp"
+                    android:layout_height="48dp"
+                    android:ems="10"
+                    android:inputType="textEmailAddress"
+                    android:text="E-posta Adresi"
+                    app:layout_constraintBottom_toTopOf="@+id/singUpClientPasswordEditText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/singUpClientNameSurnameEditText" />
+
+                <EditText
+                    android:id="@+id/singUpClientPasswordEditText"
+                    android:layout_width="291dp"
+                    android:layout_height="48dp"
+                    android:ems="10"
+                    android:inputType="textPassword"
+                    android:text="dsadsdadef*fa"
+                    app:layout_constraintBottom_toTopOf="@+id/buttonSingUp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/singUpClientEmailEditText" />
+
+                <Button
+                    android:id="@+id/buttonSingUp"
+                    android:layout_width="235dp"
+                    android:layout_height="48dp"
+                    android:text="Kayıt Ol"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/singUpClientPasswordEditText" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewClientSingIn"
+            android:layout_width="371dp"
+            android:layout_height="296dp"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="33dp"
+            android:layout_marginEnd="18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewCheckClientTitle">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:background="@drawable/lawyer_list_card_corner"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/singInClientButton"
+                    android:layout_width="263dp"
+                    android:layout_height="48dp"
+                    android:text="Giriş Yap"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/singInClientPasswordEditText" />
+
+                <EditText
+                    android:id="@+id/singInClientPasswordEditText"
+                    android:layout_width="312dp"
+                    android:layout_height="48dp"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:minHeight="48dp"
+                    android:text="Şifre"
+                    app:layout_constraintBottom_toTopOf="@+id/singInClientButton"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/singInClientEmailEditText" />
+
+                <EditText
+                    android:id="@+id/singInClientEmailEditText"
+                    android:layout_width="312dp"
+                    android:layout_height="48dp"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:minHeight="48dp"
+                    android:text="E-posta Adresi"
+                    app:layout_constraintBottom_toTopOf="@+id/singInClientPasswordEditText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipClientSingIn"
+            android:layout_width="112dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="67dp"
+            android:text="Giriş Yap"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/chipClientSingUp"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Giriş Yap" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipClientSingUp"
+            android:layout_width="112dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="67dp"
+            android:text="Kayıt Ol"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/chipClientSingIn"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Kayıt Ol" />
+
+        <TextView
+            android:id="@+id/textViewCheckClientTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="53dp"
+            android:text="Müvekkil Giriş Yap"
+            android:textColor="#000000"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chipClientSingIn" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

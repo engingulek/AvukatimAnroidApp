@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="fragmentLawyerHomePage"
+            type="com.example.test.fragment.LawyerHomePageFragment" />
+        <variable
+            name="authUser"
+            type="com.google.firebase.auth.FirebaseAuth" />
+
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".fragment.LawyerHomePageFragment" >
+
+
+        <ImageView
+            android:id="@+id/lawyerUserImagView"
+            android:layout_width="65dp"
+            android:layout_height="68dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="35dp"
+            android:layout_marginEnd="22dp"
+            android:src="@drawable/lawyer"
+            app:layout_constraintEnd_toStartOf="@+id/welcomText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/welcomText"
+            android:layout_width="121dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="40dp"
+            android:text="Hoş Geldiniz"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/laywerUserNameSurname"
+            app:layout_constraintStart_toStartOf="@+id/laywerUserNameSurname"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/laywerUserNameSurname"
+            android:layout_width="121dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="187dp"
+            android:text="@{authUser.currentUser.displayName}"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/lawyerUserImagView"
+            app:layout_constraintTop_toBottomOf="@+id/welcomText" />
+
+        <TextView
+            android:id="@+id/meetingTitleText"
+            android:layout_width="180dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="45dp"
+            android:layout_marginEnd="219dp"
+            android:text="Gelen Randevu İstekleri"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lawyerUserImagView" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/getMeetingConstLa"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="14dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/meetingTitleText">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvvLawyerMeetingList"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/nullLawyerAdvert"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="14dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/meetingTitleText">
+
+
+            <Button
+                android:id="@+id/bttntoCreateAdvert"
+                android:layout_width="154dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="120dp"
+                android:layout_marginTop="34dp"
+                android:layout_marginEnd="137dp"
+                android:text="İlan Oluştur"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nullAdvertText" />
+
+            <TextView
+                android:id="@+id/nullAdvertText"
+                android:layout_width="383dp"
+                android:layout_height="75dp"
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="114dp"
+                android:layout_marginEnd="14dp"
+                android:text="Şuanda bir ilanınız bulunmadığından istek gözükmemekktedir."
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

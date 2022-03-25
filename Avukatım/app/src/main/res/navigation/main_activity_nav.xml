@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_activity_nav"
+    app:startDestination="@id/selectionPageFragment">
+
+    <fragment
+        android:id="@+id/homePageFragment"
+        android:name="com.example.test.fragment.ClientHomePageFragment"
+        tools:layout="@layout/fragment_client_home_page"
+        android:label="HomePageFragment" >
+        <action
+            android:id="@+id/toDetails"
+            app:destination="@id/lawyerDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/lawyerDetailsFragment"
+        android:name="com.example.test.fragment.LawyerDetailsFragment"
+        tools:layout="@layout/fragment_lawyer_details"
+        android:label="LawyerDetailsFragment" >
+        <argument
+            android:name="lawyer"
+            app:argType="com.example.test.entity.LawyerInfo" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectionPageFragment"
+        android:name="com.example.test.fragment.SelectionPageFragment"
+        tools:layout="@layout/fragment_selection_page"
+        android:label="SelectionPageFragment" >
+        <action
+            android:id="@+id/toCheckInLawyer"
+            app:destination="@id/lawyerCheckInFragment" />
+        <action
+            android:id="@+id/toCheckInClient"
+            app:destination="@id/clientPageFragment" />
+        <action
+            android:id="@+id/toClientHomePageTwo"
+            app:destination="@id/homePageFragment" />
+        <action
+            android:id="@+id/toLawyerHomePageTwo"
+            app:destination="@id/lawyerTabLayoutFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/lawyerCheckInFragment"
+        android:name="com.example.test.fragment.LawyerCheckInFragment"
+        android:label="fragment_lawyer_check_in"
+        tools:layout="@layout/fragment_lawyer_check_in" >
+        <action
+            android:id="@+id/toLawyerHomePage"
+            app:destination="@id/lawyerTabLayoutFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/clientPageFragment"
+        android:name="com.example.test.fragment.ClientPageFragment"
+        android:label="fragment_client_page"
+        tools:layout="@layout/fragment_client_page" >
+        <action
+            android:id="@+id/toClientHomePage"
+            app:destination="@id/homePageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/lawyerHomePageFragment"
+        android:name="com.example.test.fragment.LawyerHomePageFragment"
+        android:label="fragment_lawyer_home_page"
+        tools:layout="@layout/fragment_lawyer_home_page" />
+    <fragment
+        android:id="@+id/lawyerTabLayoutFragment"
+        android:name="com.example.test.fragment.LawyerTabLayoutFragment"
+        android:label="LawyerTabLayoutFragment"
+        tools:layout="@layout/fragment_lawyer_tab_layout"
+        >
+        <action
+            android:id="@+id/toLawyerCreateAdvert"
+            app:destination="@id/createLawyerAdvertFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createLawyerAdvertFragment"
+        android:name="com.example.test.fragment.CreateLawyerAdvertFragment"
+        android:label="CreateLawyerAdvertFragment"
+        tools:layout="@layout/fragment_create_lawyer_advert"
+        >
+        <action
+            android:id="@+id/toMaps"
+            app:destination="@id/mapsFragment" />
+        <argument
+            android:name="latitude"
+            app:argType="string" />
+        <argument
+            android:name="longtude"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/mapsFragment"
+        android:name="com.example.test.MapsFragment"
+        android:label="fragment_maps"
+        tools:layout="@layout/fragment_maps" >
+        <action
+            android:id="@+id/toCreate"
+            app:destination="@id/createLawyerAdvertFragment" />
+    </fragment>
+</navigation>

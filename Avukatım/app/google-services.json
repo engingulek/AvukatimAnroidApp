@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "395571966452",
+    "project_id": "avukatimauth",
+    "storage_bucket": "avukatimauth.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:395571966452:android:89fd022ae85122556dc9a1",
+        "android_client_info": {
+          "package_name": "com.example.test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "395571966452-n425jknvrd5h2ukk7drvi729j1bdbkvp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDdNQqGnlAHdgtrzHN_VvY0W-DGjuYOwh8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "395571966452-n425jknvrd5h2ukk7drvi729j1bdbkvp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
