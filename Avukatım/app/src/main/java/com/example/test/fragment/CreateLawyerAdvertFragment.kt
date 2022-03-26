@@ -44,6 +44,7 @@ class CreateLawyerAdvertFragment : Fragment() {
 
 
     private var imageUri: Uri? = null
+    private var imageLawyerUrl:String? = ""
 
 
     companion object {
@@ -127,9 +128,9 @@ class CreateLawyerAdvertFragment : Fragment() {
         }
 
 //Üniversite
-        /*   val items = listOf("Ankara Üniversitesi", "İstanbul Üniversitesi", "Hacettep Üniversitesi")
+          val items = listOf("Ankara Üniversitesi", "İstanbul Üniversitesi", "Hacettep Üniversitesi")
            val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, items)
-           desing.autoCompleteTextViewUni.setAdapter(arrayAdapter)*/
+           desing.autoCompleteTextViewUni.setAdapter(arrayAdapter)
 
 
 
@@ -207,6 +208,7 @@ class CreateLawyerAdvertFragment : Fragment() {
 
 
 
+        val bundle : CreateLawyerAdvertFragmentArgs by navArgs()
 
 
 
@@ -223,27 +225,39 @@ class CreateLawyerAdvertFragment : Fragment() {
             Log.e("location","${location}")
             val age = desing.a.text.toString()
             Log.e("age","${age}")
-            val a  = Lawyer("ddd","${auth.currentUser?.displayName}","${selectionGender}"
-                ,age,professionList,"${location}",estiOnliHours,"açıklama","kordinatlar")
+
+            val universyt = desing.autoCompleteTextViewUni.text.toString()
+            val description = "Merhaba ben ${auth.currentUser?.displayName}. $age yaşındayım. $universyt okulundan mezun oldum. Şuanda çoğunlukla aşşağıda belirtilen alanlarada avukatlık yapmaktayım "
+            Log.e("Açıklama","$description")
+
+            val getLongtude = bundle.longtude
+            val getLatitude = bundle.latitude
+      Log.e("Gelen Latitude",getLatitude)
+      Log.e("Gelen Longtitude",getLongtude)
+            desing.ada.text = getLatitude
+            desing.asa.text = getLongtude
+
+
+            val locCordinate = arrayOf("","")
+
+            val a  = Lawyer("${auth.currentUser?.uid}","$imageLawyerUrl","${auth.currentUser?.displayName}","${selectionGender}" ,age,professionList,"${location}",estiOnliHours,"$description",locCordinate)
             createLawyerAdvertViewModel.createAdvert(a)
 
-            val adada = uploadStrongeImage(imageUri!!)
-            Log.e("veri gönderme ","${adada}")
-
 
 
         }
 
-        desing.bttnLoc.setOnClickListener {
+      /*  desing.bttnLoc.setOnClickListener {
 
-            Navigation.findNavController(it).navigate(R.id.toMaps)
-        }
+            Navigation.findNavController(it).navigate(R.id.toTest)
+        }*/
 
-        val bundle : CreateLawyerAdvertFragmentArgs by navArgs()
+      /*  val bundle : CreateLawyerAdvertFragmentArgs by navArgs()
         val getLongtude = bundle.longtude
         val getLatitude = bundle.latitude
         Log.e("Gelen Latitude",getLatitude)
-        Log.e("Gelen Longtitude",getLongtude)
+        Log.e("Gelen Longtitude",getLongtude)*/
+
 
 
 
@@ -276,7 +290,7 @@ class CreateLawyerAdvertFragment : Fragment() {
 
 
 
-    fun uploadStrongeImage(fileUri: Uri) : String {
+    fun uploadStrongeImage(fileUri: Uri) {
         val fileName = UUID.randomUUID().toString()+".jpg"
         val database = FirebaseDatabase.getInstance()
 
@@ -287,6 +301,7 @@ class CreateLawyerAdvertFragment : Fragment() {
                 OnSuccessListener<UploadTask.TaskSnapshot> { taskSnapshot ->
                     taskSnapshot.storage.downloadUrl.addOnSuccessListener {
                         imageUrl = it.toString()
+                        imageUrlString(imageUrl)
                         Log.e("Resimin urlsi","${imageUrl}")
                     }
                 })
@@ -294,9 +309,14 @@ class CreateLawyerAdvertFragment : Fragment() {
             .addOnFailureListener(OnFailureListener { e ->
                 print(e.message)
             })
+        Log.e("Resimin urlsi 2","${imageLawyerUrl}")
 
-        return imageUrl
 
+
+    }
+
+    fun imageUrlString(k:String) {
+        imageLawyerUrl = k
 
     }
 
@@ -323,6 +343,7 @@ class CreateLawyerAdvertFragment : Fragment() {
         if(requestCode == IMAGE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             desing.lawyerImageView.setImageURI(data!!.data)
             imageUri = data?.data
+            uploadStrongeImage(imageUri!!)
 
 
 

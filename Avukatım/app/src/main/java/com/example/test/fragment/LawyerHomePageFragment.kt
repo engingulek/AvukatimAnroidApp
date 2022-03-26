@@ -31,6 +31,11 @@ class LawyerHomePageFragment : Fragment() {
             Navigation.findNavController(it).navigate(R.id.toLawyerCreateAdvert)
         }
 
+
+        design.lawyerUserImagView.setOnClickListener {
+            Navigation.findNavController(it).navigate(R.id.toLawyerAuth)
+        }
+
         return design.root
     }
 

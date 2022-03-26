@@ -73,6 +73,9 @@
         <action
             android:id="@+id/toLawyerCreateAdvert"
             app:destination="@id/createLawyerAdvertFragment" />
+        <action
+            android:id="@+id/toLawyerAuth"
+            app:destination="@id/lawyerAuthPageFragment" />
     </fragment>
     <fragment
         android:id="@+id/createLawyerAdvertFragment"
@@ -89,6 +92,12 @@
         <argument
             android:name="longtude"
             app:argType="string" />
+        <action
+            android:id="@+id/toTest"
+            app:destination="@id/testFragment" />
+        <action
+            android:id="@+id/toLHomePage"
+            app:destination="@id/lawyerTabLayoutFragment" />
     </fragment>
     <fragment
         android:id="@+id/mapsFragment"
@@ -99,4 +108,15 @@
             android:id="@+id/toCreate"
             app:destination="@id/createLawyerAdvertFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/testFragment"
+        android:name="com.example.test.TestFragment"
+        android:label="TestFragment"
+        tools:layout="@layout/fragment_test"
+        />
+    <fragment
+        android:id="@+id/lawyerAuthPageFragment"
+        android:name="com.example.test.fragment.LawyerAuthPageFragment"
+        android:label="fragment_lawyer_auth_page"
+        tools:layout="@layout/fragment_lawyer_auth_page" />
 </navigation>

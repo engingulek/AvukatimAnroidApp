@@ -54,8 +54,8 @@ val a  = Test("url","A","A","A"
 
         desing.buttonA.setOnClickListener {
 
-            Navigation.findNavController(it).navigate(R.id.toMaps)
-         /*   izinKontrol = ContextCompat.checkSelfPermission(requireContext(),Manifest.permission.ACCESS_FINE_LOCATION)
+            //Navigation.findNavController(it).navigate(R.id.toMaps)
+           izinKontrol = ContextCompat.checkSelfPermission(requireContext(),Manifest.permission.ACCESS_FINE_LOCATION)
 
             if(izinKontrol != PackageManager.PERMISSION_GRANTED){
 
@@ -71,7 +71,7 @@ val a  = Test("url","A","A","A"
                     desing.textViewBoy.text = "Konum yok"
                     desing.textViewEn.text = "Konum yok"
                 }
-            }*/
+            }
 
         }
 

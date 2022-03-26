@@ -1,6 +1,7 @@
 package com.example.test.entity
 
-class Lawyer(var lawyerImageUrl:String,
+class Lawyer(var authUserId:String,
+             var lawyerImageUrl:String,
              var lawyerNameSurname:String,
              var lawyerGender:String,
              var lawyerAge:String,
@@ -8,9 +9,10 @@ class Lawyer(var lawyerImageUrl:String,
              var lawyerLocation:String,
              var lawyerEstiOnliHours:String,
              var lawyerDescription:String,
-             var lawyerLocCoordinate:String) {
+             var lawyerLocCoordinate:Array<String>) {
 
     init {
+        this.authUserId = authUserId
         this.lawyerImageUrl = lawyerImageUrl
         this.lawyerNameSurname = lawyerNameSurname
         this.lawyerGender = lawyerGender

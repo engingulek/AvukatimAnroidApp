@@ -2,9 +2,8 @@ package com.example.test.retrofit
 
 import com.example.test.entity.*
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.Callback
+import retrofit2.http.*
 
 interface MyLawyerDaoInterface {
     @GET("lawyerInfo")
@@ -32,9 +31,23 @@ interface MyLawyerDaoInterface {
                            @Field("lawyerLocCoordinate") lawyerLocCoordinate:String
     ):Call<CRUDResult>*/
 
-
     @POST("lawyerRegister")
     fun createLawyerInterface(@Body test: Lawyer): Call<Lawyer>
+
+
+    @POST("/lawyerInfoAuth")
+    fun getAuthInfoLawyer(@Body ada: Lawyer): Call<LawyerInfoResult>
+
+    // delete
+    @POST("/deleteAdvert")
+    fun delete(@Body adaa : Lawyer) :Call<LawyerInfoResult>
+
+
+
+
+
+
+
 
 
 

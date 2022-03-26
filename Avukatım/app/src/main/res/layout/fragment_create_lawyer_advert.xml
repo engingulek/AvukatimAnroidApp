@@ -292,6 +292,30 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout7" />
 
+            <TextView
+                android:id="@+id/ada"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="69dp"
+                android:text="TextView"
+                app:layout_constraintEnd_toStartOf="@+id/bttnLoc"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout7" />
+
+            <TextView
+                android:id="@+id/asa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="17dp"
+                android:layout_marginEnd="69dp"
+                android:text="TextView"
+                app:layout_constraintEnd_toStartOf="@+id/bttnLoc"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ada" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
