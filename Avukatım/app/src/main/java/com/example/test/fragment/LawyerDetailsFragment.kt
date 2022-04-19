@@ -13,6 +13,7 @@ import com.example.test.R
 import com.example.test.adapter.LawyerCommentAdapter
 import com.example.test.databinding.FragmentLawyerDetailsBinding
 import com.example.test.viewModel.LawyerDetailsViewModel
+import com.squareup.picasso.Picasso
 
 class LawyerDetailsFragment : Fragment() {
     private lateinit var  design : FragmentLawyerDetailsBinding
@@ -23,9 +24,13 @@ class LawyerDetailsFragment : Fragment() {
         design = DataBindingUtil.inflate(inflater,
             R.layout.fragment_lawyer_details, container, false)
         design.fragmentLawyerDetails = this
-       /* val bundle : LawyerDetailsFragmentArgs by navArgs()
+       val bundle : LawyerDetailsFragmentArgs by navArgs()
         val getLawyerDetails = bundle.lawyer
-        design.lawyerObject = getLawyerDetails*/
+        val loc = getLawyerDetails.lawyerLocationCity+"/"+getLawyerDetails.lawyerLocationCounty
+        design.loc = loc
+        Log.e("Avukat details",getLawyerDetails.lawyerNameSurname)
+        design.lawyerObject = getLawyerDetails
+        Picasso.get().load(getLawyerDetails.lawyerImageUrl).into(design.imageView3)
 
         lawyerDetailViewModel.lawyerCommentList.observe(viewLifecycleOwner,{
             lawyerCommentAdapter = LawyerCommentAdapter(requireContext(),it,lawyerDetailViewModel)

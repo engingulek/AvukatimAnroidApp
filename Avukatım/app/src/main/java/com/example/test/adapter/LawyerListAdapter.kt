@@ -7,7 +7,9 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.test.databinding.LawyerListCardDesignBinding
 import com.example.test.entity.LawyerInfo
+import com.example.test.fragment.ClientTabLayoutFragmentDirections
 import com.example.test.viewModel.HomePageViewModel
+import com.squareup.picasso.Picasso
 
 class LawyerListAdapter(var mContext: Context, var lawyerList: List<LawyerInfo>, var viewModel: HomePageViewModel)
     : RecyclerView.Adapter<LawyerListAdapter.CardDesignConservative>(){
@@ -33,9 +35,12 @@ class LawyerListAdapter(var mContext: Context, var lawyerList: List<LawyerInfo>,
         val cardDesign = holder.lawyerListCardDesignBinding
 
         cardDesign.lawyerObject = lawyer
+        Picasso.get().load(lawyer.lawyerImageUrl).into(cardDesign.imageViewLawyer)
 
 
         cardDesign.lawyerCardView.setOnClickListener {
+            val pass = ClientTabLayoutFragmentDirections.toDetails(lawyer)
+            Navigation.findNavController(it).navigate(pass)
           /*val pass = ClientHomePageFragmentDirections.toDetails(lawyer)
             Navigation.findNavController(it).navigate(pass)*/
 

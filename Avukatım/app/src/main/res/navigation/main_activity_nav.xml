@@ -9,11 +9,7 @@
         android:id="@+id/homePageFragment"
         android:name="com.example.test.fragment.ClientHomePageFragment"
         tools:layout="@layout/fragment_client_home_page"
-        android:label="HomePageFragment" >
-        <action
-            android:id="@+id/toDetails"
-            app:destination="@id/lawyerDetailsFragment" />
-    </fragment>
+        android:label="HomePageFragment" />
     <fragment
         android:id="@+id/lawyerDetailsFragment"
         android:name="com.example.test.fragment.LawyerDetailsFragment"
@@ -35,11 +31,11 @@
             android:id="@+id/toCheckInClient"
             app:destination="@id/clientPageFragment" />
         <action
-            android:id="@+id/toClientHomePageTwo"
-            app:destination="@id/homePageFragment" />
-        <action
             android:id="@+id/toLawyerHomePageTwo"
             app:destination="@id/lawyerTabLayoutFragment" />
+        <action
+            android:id="@+id/toClientHomePageTwo"
+            app:destination="@id/clientTabLayoutFragment" />
     </fragment>
     <fragment
         android:id="@+id/lawyerCheckInFragment"
@@ -57,7 +53,7 @@
         tools:layout="@layout/fragment_client_page" >
         <action
             android:id="@+id/toClientHomePage"
-            app:destination="@id/homePageFragment" />
+            app:destination="@id/clientTabLayoutFragment" />
     </fragment>
     <fragment
         android:id="@+id/lawyerHomePageFragment"
@@ -119,4 +115,14 @@
         android:name="com.example.test.fragment.LawyerAuthPageFragment"
         android:label="fragment_lawyer_auth_page"
         tools:layout="@layout/fragment_lawyer_auth_page" />
+    <fragment
+        android:id="@+id/clientTabLayoutFragment"
+        android:name="com.example.test.fragment.ClientTabLayoutFragment"
+        android:label="ClientTabLayoutFragment"
+        tools:layout="@layout/fragment_client_tab_layout"
+        >
+        <action
+            android:id="@+id/toDetails"
+            app:destination="@id/lawyerDetailsFragment" />
+    </fragment>
 </navigation>
