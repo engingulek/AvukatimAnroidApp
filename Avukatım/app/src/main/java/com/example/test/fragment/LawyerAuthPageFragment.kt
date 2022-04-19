@@ -63,11 +63,22 @@ design = DataBindingUtil.inflate(inflater,R.layout.fragment_lawyer_auth_page, co
         Log.e("Tetstaad","1")
 
         val aa = arrayOf("")
-        val a  = Lawyer(uid,"","","" ,"",aa,"","","",aa)
+       // val a  = Lawyer(uid,"","","" ,"",aa,"","","",aa)
 
+
+        val lawyer = Lawyer(uid,"",
+            "",
+            "" ,
+            "",
+            aa,"",
+            "",
+            "",
+            "",
+            "universyt"
+        )
         d = APIUtils.getMyLawyerDaoInterface()
 
-       d.getAuthInfoLawyer(a).enqueue(object : Callback<LawyerInfoResult>{
+       d.getAuthInfoLawyer(lawyer).enqueue(object : Callback<LawyerInfoResult>{
            override fun onResponse(
                call: Call<LawyerInfoResult>,
                response: Response<LawyerInfoResult>
@@ -177,22 +188,25 @@ design = DataBindingUtil.inflate(inflater,R.layout.fragment_lawyer_auth_page, co
 
 
         design.deleteLawyerAdvertbttn.setOnClickListener {
-
             val aa = arrayOf("")
-            Log.e("İSD","${info.id}")
-            val a  = Lawyer(info.id.toString(),"","","" ,"",aa,"","","",aa)
+           // val a  = Lawyer(info.id.toString(),"","","" ,"",aa,"","","",aa)
+            val lawyer = Lawyer(info.id.toString(),"",
+                "",
+                "" ,
+                "",
+                aa,"",
+                "",
+                "",
+                "",
+                "universyt"
+            )
+
             d = APIUtils.getMyLawyerDaoInterface()
-            d.delete(a).enqueue(object : Callback<LawyerInfoResult>{
-                override fun onResponse(
-                    call: Call<LawyerInfoResult>,
-                    response: Response<LawyerInfoResult>
-                ) {
-                    // Navigation.findNavController(it).navigate(R.id.toLHomePage)
-                }
-
-                override fun onFailure(call: Call<LawyerInfoResult>?, t: Throwable?) {
-
-                }
+            d.delete(lawyer).enqueue(object : Callback<LawyerInfoResult>{
+                override fun onResponse(call: Call<LawyerInfoResult>,
+                    response: Response<LawyerInfoResult>) {
+                    Navigation.findNavController(it).navigate(R.id.toLHomePage)
+                }override fun onFailure(call: Call<LawyerInfoResult>?, t: Throwable?) {}
 
 
             })

@@ -13,8 +13,6 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation
-import androidx.navigation.fragment.navArgs
 import com.example.test.R
 import com.example.test.databinding.FragmentCreateLawyerAdvertBinding
 import com.example.test.entity.Lawyer
@@ -95,7 +93,6 @@ class CreateLawyerAdvertFragment : Fragment() {
                 .setMinute(0)
                 .setInputMode(MaterialTimePicker.INPUT_MODE_KEYBOARD)
                 .setTitleText("Uygun olduğunuz bitiş aralığını seçiniz")
-
                 .build()
 
 
@@ -208,7 +205,7 @@ class CreateLawyerAdvertFragment : Fragment() {
 
 
 
-        val bundle : CreateLawyerAdvertFragmentArgs by navArgs()
+      //  val bundle : CreateLawyerAdvertFragmentArgs by navArgs()
 
 
 
@@ -218,36 +215,56 @@ class CreateLawyerAdvertFragment : Fragment() {
             val professionList = arrayOf("${desing.autoCompleteTextViewOnePer.text.toString()}",
                 "${desing.autoCompleteTextViewSeconPer.text.toString()}",
                 "${desing.autoCompleteTextViewThirdPer.text.toString()}")
-            Log.e("professionList","${professionList}")
+
             val estiOnliHours = "${desing.timeOneTextView.text.toString()} / ${desing.timeTwoTextView.text.toString()}"
-            Log.e("estiOnliHours","${estiOnliHours}")
+
             val location ="${desing.autoCompleteTextViewCity.text.toString()} / ${desing.autoCompleteTextViewDistrict.text.toString()}"
-            Log.e("location","${location}")
+
             val age = desing.a.text.toString()
-            Log.e("age","${age}")
+
 
             val universyt = desing.autoCompleteTextViewUni.text.toString()
             val description = "Merhaba ben ${auth.currentUser?.displayName}. $age yaşındayım. $universyt okulundan mezun oldum. Şuanda çoğunlukla aşşağıda belirtilen alanlarada avukatlık yapmaktayım "
-            Log.e("Açıklama","$description")
 
-            val getLongtude = bundle.longtude
-            val getLatitude = bundle.latitude
-      Log.e("Gelen Latitude",getLatitude)
-      Log.e("Gelen Longtitude",getLongtude)
-            desing.ada.text = getLatitude
-            desing.asa.text = getLongtude
+
+           // val getLongtude = bundle.longtude
+         //   val getLatitude = bundle.latitude
+
+           // desing.ada.text = getLatitude
+           // desing.asa.text = getLongtude
 
 
             val locCordinate = arrayOf("","")
 
-            val a  = Lawyer("${auth.currentUser?.uid}","$imageLawyerUrl","${auth.currentUser?.displayName}","${selectionGender}" ,age,professionList,"${location}",estiOnliHours,"$description",locCordinate)
-            createLawyerAdvertViewModel.createAdvert(a)
+
+            val newLawyer = Lawyer("${auth.currentUser?.uid}","$imageLawyerUrl",
+                "${auth.currentUser?.displayName}",
+                "${selectionGender}" ,
+                age,
+                professionList,"${desing.autoCompleteTextViewCity.text.toString()}",
+                desing.autoCompleteTextViewDistrict.text.toString(),
+                estiOnliHours,
+                "$description",
+                universyt
+            )
+
+           /* val a  = Lawyer("${auth.currentUser?.uid}",
+                "$imageLawyerUrl",
+                "${auth.currentUser?.displayName}",
+                "${selectionGender}" ,
+                age,
+                professionList,
+                "${location}",
+                estiOnliHours,
+                "$description",
+                locCordinate)*/
+            createLawyerAdvertViewModel.createAdvert(newLawyer)
 
 
 
         }
 
-      /*  desing.bttnLoc.setOnClickListener {
+      /* desing.bttnLoc.setOnClickListener {
 
             Navigation.findNavController(it).navigate(R.id.toTest)
         }*/
@@ -310,9 +327,6 @@ class CreateLawyerAdvertFragment : Fragment() {
                 print(e.message)
             })
         Log.e("Resimin urlsi 2","${imageLawyerUrl}")
-
-
-
     }
 
     fun imageUrlString(k:String) {
@@ -344,9 +358,6 @@ class CreateLawyerAdvertFragment : Fragment() {
             desing.lawyerImageView.setImageURI(data!!.data)
             imageUri = data?.data
             uploadStrongeImage(imageUri!!)
-
-
-
 
         }
     }

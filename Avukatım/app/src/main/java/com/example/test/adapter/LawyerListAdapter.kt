@@ -36,7 +36,7 @@ class LawyerListAdapter(var mContext: Context, var lawyerList: List<LawyerInfo>,
 
 
         cardDesign.lawyerCardView.setOnClickListener {
-         /*   val pass = ClientHomePageFragmentDirections.toDetails(lawyer)
+          /*val pass = ClientHomePageFragmentDirections.toDetails(lawyer)
             Navigation.findNavController(it).navigate(pass)*/
 
         }
