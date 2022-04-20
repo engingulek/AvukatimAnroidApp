@@ -1,11 +1,15 @@
 package com.example.test.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
+import com.example.test.R
 import com.example.test.databinding.LawyerListCardDesignBinding
+import com.example.test.entity.FavoriteLawyer
+import com.example.test.entity.Lawyer
 import com.example.test.entity.LawyerInfo
 import com.example.test.fragment.ClientTabLayoutFragmentDirections
 import com.example.test.viewModel.HomePageViewModel
@@ -34,6 +38,7 @@ class LawyerListAdapter(var mContext: Context, var lawyerList: List<LawyerInfo>,
         val lawyer = lawyerList.get(position)
         val cardDesign = holder.lawyerListCardDesignBinding
 
+
         cardDesign.lawyerObject = lawyer
         Picasso.get().load(lawyer.lawyerImageUrl).into(cardDesign.imageViewLawyer)
 
@@ -45,6 +50,19 @@ class LawyerListAdapter(var mContext: Context, var lawyerList: List<LawyerInfo>,
             Navigation.findNavController(it).navigate(pass)*/
 
         }
+        val locCordinate = arrayOf("","")
+        cardDesign.imageViewLawyer.setOnClickListener {
+            println("Tıklandı")
+           val tets = Lawyer(lawyer.authUserId,lawyer.lawyerImageUrl,lawyer.lawyerNameSurname,lawyer.lawyerGender,lawyer.lawyerAge,lawyer.lawyerProfession,
+               lawyer.lawyerLocationCity,lawyer.lawyerLocationCounty, lawyer.lawyerEstiOnliHours,lawyer.lawyerDescription,lawyer.lawyerDescription)
+            viewModel.addLayertoFav(tets)
+
+        }
+
+
+
+
+
 
     }
 

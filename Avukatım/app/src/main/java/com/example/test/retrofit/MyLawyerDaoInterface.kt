@@ -31,8 +31,7 @@ interface MyLawyerDaoInterface {
                            @Field("lawyerLocCoordinate") lawyerLocCoordinate:String
     ):Call<CRUDResult>*/
 
-    @POST("lawyerRegister")
-    fun createLawyerInterface(@Body test: Lawyer): Call<Lawyer>
+
 
 
     @POST("/lawyerInfoAuth")
@@ -41,6 +40,21 @@ interface MyLawyerDaoInterface {
     // delete
     @POST("/deleteAdvert")
     fun delete(@Body adaa : Lawyer) :Call<LawyerInfoResult>
+
+    // favLawyer
+    @GET("favLawyerInfo")
+    fun getFavoriteLawyerInfo():Call<FavLawyerResult>
+
+
+    @POST("lawyerRegister")
+    fun createLawyerInterface(@Body test: Lawyer): Call<Lawyer>
+
+   @POST("favlawyerRegister")
+  fun addFavList(@Body a : Lawyer) : Call<Lawyer>
+
+
+    @POST("/deletefavAdvert")
+    fun favdelete(@Body adaa : Lawyer) :Call<FavLawyerResult>
 
 
 

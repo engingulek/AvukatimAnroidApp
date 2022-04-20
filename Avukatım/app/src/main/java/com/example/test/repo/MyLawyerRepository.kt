@@ -19,7 +19,9 @@ class MyLawyerRepository {
     val professionList: MutableLiveData<List<Profession>>
     val lawyerAuthInfo : MutableLiveData<List<LawyerInfoResult>>
     private lateinit var  call : Call<Lawyer>
+    private lateinit var favCall : Call<Lawyer>
     private lateinit var callAuth : Call<LawyerInfoResult>
+    var favLawyerInfo : MutableLiveData<List<LawyerInfo>>
 
     init {
         myLawyerDao = APIUtils.getMyLawyerDaoInterface()
@@ -29,6 +31,7 @@ class MyLawyerRepository {
         citylist = MutableLiveData()
         professionList = MutableLiveData()
         lawyerAuthInfo = MutableLiveData()
+        favLawyerInfo = MutableLiveData()
     }
 
     fun bringLawyerInfos() : MutableLiveData<List<LawyerInfo>> {
@@ -45,6 +48,10 @@ class MyLawyerRepository {
 
     fun bringProfession(): MutableLiveData<List<Profession>> {
         return professionList
+    }
+
+    fun bringFavLawyer():MutableLiveData<List<LawyerInfo>> {
+        return  favLawyerInfo
     }
 
 
@@ -118,7 +125,41 @@ class MyLawyerRepository {
 
     fun addAdvertToLawyerAdvert(a:Lawyer) {
         call =myLawyerDao.createLawyerInterface(a)
+
         call.enqueue(object : Callback<Lawyer> {
+            override fun onResponse(call: Call<Lawyer>?, response: Response<Lawyer>?) {
+
+            }
+
+            override fun onFailure(call: Call<Lawyer>?, t: Throwable?) {
+
+            }
+
+        })
+
+    }
+
+
+
+
+    fun getAllFavLawyerInfo() {
+        myLawyerDao.getFavoriteLawyerInfo().enqueue(object: Callback<FavLawyerResult> {
+            override fun onResponse(call: Call<FavLawyerResult>, response: Response<FavLawyerResult>) {
+                val liste = response.body().favlawyerInfoList
+                favLawyerInfo.value = liste
+            }
+
+            override fun onFailure(call: Call<FavLawyerResult>?, t: Throwable?) {
+
+            }
+
+        })
+    }
+
+
+    fun lawyerAddToFav(a:Lawyer) {
+        favCall = myLawyerDao.addFavList(a)
+        favCall.enqueue(object : Callback<Lawyer> {
             override fun onResponse(call: Call<Lawyer>?, response: Response<Lawyer>?) {
 
             }

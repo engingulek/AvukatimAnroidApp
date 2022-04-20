@@ -6,6 +6,7 @@ import com.example.test.entity.City
 import com.example.test.entity.Lawyer
 import com.example.test.entity.Profession
 import com.example.test.repo.MyLawyerRepository
+import com.example.test.retrofit.MyLawyerDaoInterface
 
 class CreateLawyerAdvertViewModel : ViewModel() {
     val myLayyerDao = MyLawyerRepository()
@@ -54,6 +55,7 @@ class CreateLawyerAdvertViewModel : ViewModel() {
 
     fun createAdvert(a: Lawyer) {
         myLayyerDao.addAdvertToLawyerAdvert(a)
+      // myLayyerDao.lawyerAddToFav(a)
     }
 
 

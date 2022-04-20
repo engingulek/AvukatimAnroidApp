@@ -124,5 +124,20 @@
         <action
             android:id="@+id/toDetails"
             app:destination="@id/lawyerDetailsFragment" />
+        <action
+            android:id="@+id/toFav"
+            app:destination="@+id/clientFavFragment"
+            />
     </fragment>
+    <fragment
+        android:id="@+id/clientAuthPageFragment"
+        android:name="com.example.test.fragment.ClientAuthPageFragment"
+        android:label="ClientAuthPageFragment"
+        tools:layout="@layout/fragment_client_auth_page"
+        />
+    <fragment
+        android:id="@+id/clientFavFragment"
+        android:name="com.example.test.fragment.ClientFavFragment"
+        android:label="fragment_client_fav"
+        tools:layout="@layout/fragment_client_fav" />
 </navigation>

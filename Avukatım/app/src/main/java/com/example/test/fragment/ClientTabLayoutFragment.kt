@@ -32,10 +32,10 @@ class ClientTabLayoutFragment : Fragment() {
       if (fragmentTitleList.isEmpty()) {
           fragmentList.add(ClientHomePageFragment())
           fragmentTitleList.add("Ana Sayfa")
-        //  fragmentList.add(ClientHomePageFragment())
+          fragmentList.add(ClientAuthPageFragment())
 
           if (fragmentTitleList.size == 1) {
-              fragmentTitleList.add("B")
+              fragmentTitleList.add("Profil")
 
           }
       }
