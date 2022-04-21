@@ -11,6 +11,8 @@
         <entry key="app/src/main/res/drawable/lawyer_list_card_corner.xml" value="0.32037037037037036" />
         <entry key="app/src/main/res/drawable/map_card.xml" value="0.32037037037037036" />
         <entry key="app/src/main/res/drawable/map_cardview.xml" value="0.32037037037037036" />
+        <entry key="app/src/main/res/drawable/test.xml" value="0.321025641025641" />
+        <entry key="app/src/main/res/drawable/test_red.xml" value="0.321025641025641" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.27870370370370373" />
         <entry key="app/src/main/res/layout/client_fav_list_card_design.xml" value="0.30512820512820515" />
         <entry key="app/src/main/res/layout/dropdown_item.xml" value="0.27685185185185185" />
@@ -22,7 +24,7 @@
         <entry key="app/src/main/res/layout/fragment_create_lawyer_advert.xml" value="0.27685185185185185" />
         <entry key="app/src/main/res/layout/fragment_lawyer_auth_page.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/fragment_lawyer_check_in.xml" value="0.27685185185185185" />
-        <entry key="app/src/main/res/layout/fragment_lawyer_details.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/fragment_lawyer_details.xml" value="0.375" />
         <entry key="app/src/main/res/layout/fragment_lawyer_home_page.xml" value="0.27685185185185185" />
         <entry key="app/src/main/res/layout/fragment_lawyer_tab_layout.xml" value="0.27685185185185185" />
         <entry key="app/src/main/res/layout/fragment_maps.xml" value="0.335" />
