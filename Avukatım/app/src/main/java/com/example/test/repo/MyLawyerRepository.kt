@@ -20,6 +20,7 @@ class MyLawyerRepository {
     val lawyerAuthInfo : MutableLiveData<List<LawyerInfoResult>>
     private lateinit var  call : Call<Lawyer>
     private lateinit var favCall : Call<Lawyer>
+    private lateinit var meetCall : Call<Meeting>
     private lateinit var callAuth : Call<LawyerInfoResult>
     var favLawyerInfo : MutableLiveData<List<LawyerInfo>>
 
@@ -165,6 +166,22 @@ class MyLawyerRepository {
             }
 
             override fun onFailure(call: Call<Lawyer>?, t: Throwable?) {
+
+            }
+
+        })
+
+    }
+
+
+    fun meetingAddToMeetList(meet:Meeting) {
+        meetCall = myLawyerDao.addMeeting(meet)
+        meetCall.enqueue(object :Callback<Meeting>{
+            override fun onResponse(call: Call<Meeting>, response: Response<Meeting>) {
+
+            }
+
+            override fun onFailure(call: Call<Meeting>, t: Throwable) {
 
             }
 

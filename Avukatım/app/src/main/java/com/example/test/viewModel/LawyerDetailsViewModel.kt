@@ -3,6 +3,7 @@ package com.example.test.viewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.test.entity.LawyerComment
+import com.example.test.entity.Meeting
 import com.example.test.repo.MyLawyerRepository
 
 class LawyerDetailsViewModel : ViewModel() {
@@ -15,5 +16,9 @@ class LawyerDetailsViewModel : ViewModel() {
     }
     fun load() {
         myLawyerRepo.getAllLawyerComment()
+    }
+
+    fun addMeetingInfo(meet:Meeting) {
+        myLawyerRepo.meetingAddToMeetList(meet)
     }
 }

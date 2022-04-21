@@ -59,6 +59,7 @@
 
 
                     android:translationZ="1dp"
+                    android:visibility="visible"
                     app:cardCornerRadius="20sp"
                     app:cardElevation="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -211,7 +212,7 @@
 
 
                     android:translationZ="2dp"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:cardCornerRadius="20sp"
                     app:cardElevation="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -221,7 +222,10 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
 
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent">
 
 
                         <TextView
@@ -232,7 +236,7 @@
 
                             android:layout_marginTop="25dp"
                             android:layout_marginEnd="100dp"
-                            android:text="Randevu Tarihleri"
+                            android:text="Uygun Randevular"
                             android:textColor="#000000"
                             android:textSize="20sp"
                             android:textStyle="bold"
@@ -241,7 +245,30 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <TextView
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/textInputLayout3"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                            android:layout_width="254dp"
+                            android:layout_height="55dp"
+                            android:layout_marginStart="32dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="32dp"
+                            android:hint="Tarih Seçiniz"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textView14">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/autoCompleteTextViewCity"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:inputType="none"
+                                tools:text="Seçim" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <!--<TextView
                             android:id="@+id/textView15"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -252,21 +279,20 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.5"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textView14" />
+                            app:layout_constraintTop_toBottomOf="@+id/textView14" />-->
 
                         <androidx.cardview.widget.CardView
                             android:id="@+id/chipOne"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
 
+                            android:layout_marginTop="30dp"
                             android:text="22 Nisan"
                             android:textColor="@color/white"
-
                             app:layout_constraintEnd_toStartOf="@+id/chipTwo"
                             app:layout_constraintHorizontal_bias="0.5"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textView15">
+                            app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
 
                             <androidx.constraintlayout.widget.ConstraintLayout
                                 android:id="@+id/chipOneC"
@@ -275,9 +301,10 @@
                                 android:background="@drawable/test">
 
                                 <TextView
+                                    android:id="@+id/chipOneT"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
 
+                                    android:layout_height="wrap_content"
                                     android:layout_marginStart="10dp"
                                     android:layout_marginTop="10dp"
                                     android:layout_marginEnd="10dp"
@@ -300,14 +327,14 @@
                             android:id="@+id/chipTwo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
 
+                            android:layout_marginTop="30dp"
                             android:text="11:00"
                             android:textColor="@color/white"
                             app:layout_constraintEnd_toStartOf="@+id/chipThree"
                             app:layout_constraintHorizontal_bias="0.5"
                             app:layout_constraintStart_toEndOf="@+id/chipOne"
-                            app:layout_constraintTop_toBottomOf="@+id/textView15">
+                            app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
 
                             <androidx.constraintlayout.widget.ConstraintLayout
                                 android:id="@+id/chipTwoC"
@@ -316,9 +343,10 @@
                                 android:background="@drawable/test">
 
                                 <TextView
+                                    android:id="@+id/chipTwoT"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
 
+                                    android:layout_height="wrap_content"
                                     android:layout_marginStart="10dp"
                                     android:layout_marginTop="10dp"
                                     android:layout_marginEnd="10dp"
@@ -339,14 +367,14 @@
                             android:id="@+id/chipThree"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
 
 
+                            android:layout_marginTop="30dp"
                             android:textColor="@color/white"
                             app:layout_constraintEnd_toStartOf="@+id/chipFour"
                             app:layout_constraintHorizontal_bias="0.5"
                             app:layout_constraintStart_toEndOf="@+id/chipTwo"
-                            app:layout_constraintTop_toBottomOf="@+id/textView15">
+                            app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
 
                             <androidx.constraintlayout.widget.ConstraintLayout
                                 android:id="@+id/chipThreeC"
@@ -355,9 +383,10 @@
                                 android:background="@drawable/test">
 
                                 <TextView
+                                    android:id="@+id/chipThreeT"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
 
+                                    android:layout_height="wrap_content"
                                     android:layout_marginStart="10dp"
                                     android:layout_marginTop="10dp"
                                     android:layout_marginEnd="10dp"
@@ -379,14 +408,14 @@
                             android:id="@+id/chipFour"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
 
 
+                            android:layout_marginTop="30dp"
                             android:textColor="@color/white"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.5"
                             app:layout_constraintStart_toEndOf="@+id/chipThree"
-                            app:layout_constraintTop_toBottomOf="@+id/textView15">
+                            app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
 
                             <androidx.constraintlayout.widget.ConstraintLayout
                                 android:id="@+id/chipFourC"
@@ -395,9 +424,10 @@
                                 android:background="@drawable/test">
 
                                 <TextView
+                                    android:id="@+id/chipFourT"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
 
+                                    android:layout_height="wrap_content"
                                     android:layout_marginStart="10dp"
                                     android:layout_marginTop="10dp"
                                     android:layout_marginEnd="10dp"
@@ -415,11 +445,11 @@
                         </androidx.cardview.widget.CardView>
 
                         <Button
-                            android:id="@+id/button3"
+                            android:id="@+id/bttnSendMeeting"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="35dp"
-                            android:layout_marginBottom="25dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="20dp"
                             android:text="Randevu Al"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"

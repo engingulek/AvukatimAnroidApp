@@ -52,6 +52,9 @@ interface MyLawyerDaoInterface {
    @POST("favlawyerRegister")
   fun addFavList(@Body a : Lawyer) : Call<Lawyer>
 
+  @POST("addMeeting")
+  fun addMeeting(@Body a: Meeting) : Call<Meeting>
+
 
     @POST("/deletefavAdvert")
     fun favdelete(@Body adaa : Lawyer) :Call<FavLawyerResult>
