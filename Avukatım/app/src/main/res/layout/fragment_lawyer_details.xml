@@ -212,7 +212,7 @@
 
 
                     android:translationZ="2dp"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     app:cardCornerRadius="20sp"
                     app:cardElevation="20dp"
                     app:layout_constraintEnd_toEndOf="parent"

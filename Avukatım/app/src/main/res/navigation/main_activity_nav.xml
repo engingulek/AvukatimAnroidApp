@@ -140,4 +140,9 @@
         android:name="com.example.test.fragment.ClientFavFragment"
         android:label="fragment_client_fav"
         tools:layout="@layout/fragment_client_fav" />
+    <fragment
+        android:id="@+id/lawyerMeetingPageFragment"
+        android:name="com.example.test.fragment.LawyerMeetingPageFragment"
+        android:label="fragment_lawyer_meeting_page"
+        tools:layout="@layout/fragment_lawyer_meeting_page" />
 </navigation>

@@ -37,7 +37,7 @@ class SelectionPageFragment : Fragment() {
         super.onStart()
         val currentUser = auth.currentUser
         if (currentUser != null ) {
-            Navigation.findNavController(desing.root).navigate(R.id.toClientHomePageTwo)
+            Navigation.findNavController(desing.root).navigate(R.id.toLawyerHomePageTwo)
 
         }
 

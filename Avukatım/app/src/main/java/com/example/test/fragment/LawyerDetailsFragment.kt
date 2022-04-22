@@ -55,9 +55,27 @@ class LawyerDetailsFragment : Fragment() {
             design.adapter = lawyerCommentAdapter
             Log.e("Tarih",it[0].commentDate)
         })
-
+        val cityItems = ArrayList<String>()
         design.bttnMeetingOne.setOnClickListener {
             design.randevu.visibility = View.VISIBLE
+
+            val current = LocalDateTime.now()
+            val day = current.dayOfMonth
+            val mount = current.monthValue
+            val year = current.year
+
+            cityItems.add("${day}/0${mount}/${year}")
+            cityItems.add("${day+1}/0${mount}/${year}")
+            cityItems.add("${day+2}/0${mount}/${year}")
+            cityItems.add("${day+3}/0${mount}/${year}")
+            val cityArrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, cityItems)
+            design.autoCompleteTextViewCity.setAdapter(cityArrayAdapter)
+
+
+            design.chipOneC.setBackgroundResource(R.drawable.test)
+            design.chipTwoC.setBackgroundResource(R.drawable.test)
+            design.chipThreeC.setBackgroundResource(R.drawable.test)
+            design.chipFourC.setBackgroundResource(R.drawable.test)
 
         }
 
@@ -66,21 +84,10 @@ class LawyerDetailsFragment : Fragment() {
             design.randevu.visibility = View.GONE
         }
 
-        val current = LocalDateTime.now()
-        val day = current.dayOfMonth
-        val mount = current.monthValue
-        val year = current.year
 
-        Log.e("gün ay yıl","${day}/${mount}/${year}")
 
         stateMeetin()
-        val cityItems = ArrayList<String>()
-        cityItems.add("${day}/0${mount}/${year}")
-        cityItems.add("${day+1}/0${mount}/${year}")
-        cityItems.add("${day+2}/0${mount}/${year}")
-        cityItems.add("${day+3}/0${mount}/${year}")
-        val cityArrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, cityItems)
-        design.autoCompleteTextViewCity.setAdapter(cityArrayAdapter)
+
 
 
         design.bttnSendMeeting.setOnClickListener {
@@ -100,9 +107,20 @@ class LawyerDetailsFragment : Fragment() {
                 Log.e("Seçilen ilan id","${getLawyerDetails.id}")
                 Log.e("Seçen kişinin kullanıcı id ","${auth.currentUser?.uid}")
                 Log.e("Seçilen gün ve tarih ","${selectDate} / ${selectedTime}")
+                Log.e("Seçilen ilan avukat id","${getLawyerDetails.authUserId}")
 
 
-                val meetInfo = Meeting("${auth.currentUser?.uid}",getLawyerDetails.id,selectDate,selectedTime)
+                val meetInfo = Meeting(
+                    "${auth.currentUser?.uid}",
+                    getLawyerDetails.id,
+                    selectDate,
+                    selectedTime,
+                    "test lawyerAuthUserId",
+                    getLawyerDetails.lawyerNameSurname,
+                    getLawyerDetails.lawyerImageUrl,
+                    "${auth.currentUser?.displayName}",
+                    "müvekkil profil resmi")
+
 
                 lawyerDetailViewModel.addMeetingInfo(meetInfo)
 
@@ -124,6 +142,8 @@ class LawyerDetailsFragment : Fragment() {
                     override fun onFinish() {
                         design.randevu.visibility = View.GONE
                         Toast.makeText(requireContext(),"Randevunuz Alınmıştır",Toast.LENGTH_SHORT).show()
+                        design.autoCompleteTextViewCity.setText("")
+
                     }
                 }
                 timer.start()
