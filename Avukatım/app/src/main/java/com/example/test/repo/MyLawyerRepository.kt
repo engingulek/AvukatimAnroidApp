@@ -5,6 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import com.example.test.entity.*
 import com.example.test.retrofit.APIUtils
 import com.example.test.retrofit.MyLawyerDaoInterface
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -23,6 +26,9 @@ class MyLawyerRepository {
     private lateinit var meetCall : Call<Meeting>
     private lateinit var callAuth : Call<LawyerInfoResult>
     var favLawyerInfo : MutableLiveData<List<LawyerInfo>>
+    var meetingList : MutableLiveData<List<MeetingDataClass>>
+
+    var meetingFilterList : MutableLiveData<List<MeetingDataClass>>
 
     init {
         myLawyerDao = APIUtils.getMyLawyerDaoInterface()
@@ -33,6 +39,8 @@ class MyLawyerRepository {
         professionList = MutableLiveData()
         lawyerAuthInfo = MutableLiveData()
         favLawyerInfo = MutableLiveData()
+        meetingList  = MutableLiveData()
+        meetingFilterList = MutableLiveData()
     }
 
     fun bringLawyerInfos() : MutableLiveData<List<LawyerInfo>> {
@@ -55,6 +63,9 @@ class MyLawyerRepository {
         return  favLawyerInfo
     }
 
+    fun bringMeetingList() : MutableLiveData<List<MeetingDataClass>> {
+        return  meetingList
+    }
 
 
     fun getAllLawyerInfo() {
@@ -151,6 +162,37 @@ class MyLawyerRepository {
             }
 
             override fun onFailure(call: Call<FavLawyerResult>?, t: Throwable?) {
+
+            }
+
+        })
+    }
+
+
+
+    fun getAllMeetingListRepo() {
+        myLawyerDao.getAllMeetingList().enqueue(object :Callback<MeetingDataClassResult>{
+            override fun onResponse(
+                call: Call<MeetingDataClassResult>,
+                response: Response<MeetingDataClassResult>
+            ) {
+                val list = response.body().meetingsList
+
+
+
+                        meetingList.value = list
+
+
+
+
+
+
+
+
+
+            }
+
+            override fun onFailure(call: Call<MeetingDataClassResult>, t: Throwable) {
 
             }
 

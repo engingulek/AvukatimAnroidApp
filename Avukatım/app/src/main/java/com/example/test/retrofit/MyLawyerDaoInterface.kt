@@ -59,6 +59,9 @@ interface MyLawyerDaoInterface {
     @POST("/deletefavAdvert")
     fun favdelete(@Body adaa : Lawyer) :Call<FavLawyerResult>
 
+    @GET("/meetings")
+    fun getAllMeetingList():Call<MeetingDataClassResult>
+
 
 
 
