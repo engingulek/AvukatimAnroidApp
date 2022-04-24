@@ -50,7 +50,8 @@ class LawyerFavListAdapter(var mContext:Context,var lawyerList: List<LawyerInfo>
                 "",
                 aa,"",
                 "",
-                "",
+                aa,
+                "hh",
                 "",
                 ""
             )

@@ -7,15 +7,18 @@
             name="adapter"
             type="android.widget.ArrayAdapter" />
     </data>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="visible"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="55dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:visibility="visible">
 
 
             <TextView
@@ -105,7 +108,7 @@
                 android:id="@+id/timeOneTextView"
                 android:layout_width="87dp"
                 android:layout_height="22dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="60dp"
                 android:text="14:00"
                 android:textAlignment="center"
                 android:textSize="20sp"
@@ -113,22 +116,53 @@
                 app:layout_constraintEnd_toStartOf="@+id/timeTwoTextView"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout34" />
 
             <TextView
-                android:id="@+id/timeTwoTextView"
+                android:id="@+id/timeThreeTextView"
                 android:layout_width="87dp"
                 android:layout_height="22dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="60dp"
                 android:text="16:00"
+
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/timeFourTextView"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/timeTwoTextView"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout34" />
+
+            <TextView
+                android:id="@+id/timeFourTextView"
+                android:layout_width="87dp"
+                android:layout_height="22dp"
+                android:layout_marginTop="60dp"
+
+                android:text="18:00"
                 android:textAlignment="center"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/timeThreeTextView"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout34" />
 
+            <TextView
+                android:id="@+id/timeTwoTextView"
+                android:layout_width="87dp"
+                android:layout_height="22dp"
+                android:layout_marginTop="60dp"
+                android:text="17:00"
+                android:textAlignment="center"
+
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/timeThreeTextView"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/timeOneTextView"
-                app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout34" />
+
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout"
@@ -154,7 +188,7 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout3"
+                android:id="@+id/textViewMeetDate"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -186,7 +220,7 @@
                 android:hint="İkamet İlçe"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
+                app:layout_constraintTop_toBottomOf="@+id/textViewMeetDate">
 
                 <AutoCompleteTextView
                     android:id="@+id/autoCompleteTextViewDistrict"
@@ -317,206 +351,44 @@
                 app:layout_constraintTop_toBottomOf="@+id/ada" />
 
 
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout34"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="254dp"
+                android:layout_height="55dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="32dp"
+                android:hint="Tarih Seçiniz"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/radioGroup">
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoCompleteTextViewDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:inputType="none"
+                    tools:text="Seçim" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     </ScrollView>
+
+
 
 
 
 </layout>
 
-
-    <!--
-
-                    <TextView
-                        android:id="@+id/lawyerAdvertCreateTitleTextView"
-                        android:layout_width="191dp"
-                        android:layout_height="32dp"
-                        android:layout_marginTop="30dp"
-                        android:text="İlan Oluştur"
-                        android:textAlignment="center"
-                        android:textSize="24sp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <ImageView
-                        android:id="@+id/lawyerImageView"
-                        android:layout_width="88dp"
-                        android:layout_height="88dp"
-                        android:layout_marginTop="21dp"
-                        android:src="@drawable/lawyer"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/lawyerAdvertCreateTitleTextView" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/bttnChangeImage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="13dp"
-                        android:text="Resmi Değiştir"
-                        android:textAllCaps="false"
-                        app:cornerRadius="15dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/lawyerImageView" />
-
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textField"
-                        android:layout_width="311dp"
-                        android:layout_height="50dp"
-                        android:layout_marginTop="10dp"
-                        android:hint="Yaş"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/bttnChangeImage">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="number" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <RadioGroup
-                        android:id="@+id/radioGroup"
-                        android:layout_width="311dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:checkedButton="@+id/radioButtonWoman"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textField">
-
-                        <RadioButton
-                            android:id="@+id/radioButtonWoman"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:text="Kadın" />
-
-                        <RadioButton
-                            android:id="@+id/radioButtonMan"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:text="Erkek" />
-
-                    </RadioGroup>
-
-                    <TextView
-                        android:id="@+id/timeOneTextView"
-                        android:layout_width="87dp"
-                        android:layout_height="22dp"
-                        android:layout_marginTop="30dp"
-                        android:text="14:00"
-                        android:textAlignment="center"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toStartOf="@+id/timeTwoTextView"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
-
-                    <TextView
-                        android:id="@+id/timeTwoTextView"
-                        android:layout_width="87dp"
-                        android:layout_height="22dp"
-                        android:layout_marginTop="30dp"
-                        android:text="16:00"
-                        android:textAlignment="center"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-
-                        app:layout_constraintStart_toEndOf="@+id/timeOneTextView"
-                        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textInputLayout"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="32dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginEnd="32dp"
-                        android:hint="Üniversite"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/timeOneTextView">
-
-                        <AutoCompleteTextView
-                            android:id="@+id/autoCompleteTextViewUni"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:inputType="none"
-                            tools:text="Seçim" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textInputLayout2"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="32dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="32dp"
-                        android:hint="İkamet Şehir"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
-
-                        <AutoCompleteTextView
-                            android:id="@+id/autoCompleteTextViewCity"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:inputType="none"
-                            tools:text="Seçim" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textInputLayout3"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="32dp"
-                        android:layout_marginEnd="32dp"
-                        android:hint="İkamet Şehir"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="parent">
-
-                        <AutoCompleteTextView
-                            android:id="@+id/autoCompleteTextViewDistrict"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:inputType="none"
-                            tools:text="Seçim" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-
-                     <EditText
-                      android:id="@+id/editTextAge"
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:layout_marginTop="23dp"
-                      android:ems="10"
-                      android:hint="Yaş"
-                      android:inputType="number"
-                      app:layout_constraintEnd_toEndOf="parent"
-                      app:layout_constraintHorizontal_bias="0.5"
-                      app:layout_constraintStart_toStartOf="parent"
-                      app:layout_constraintTop_toBottomOf="@+id/bttnChangeImage" />-->
 

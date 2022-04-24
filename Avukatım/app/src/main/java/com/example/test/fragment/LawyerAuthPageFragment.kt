@@ -72,7 +72,7 @@ design = DataBindingUtil.inflate(inflater,R.layout.fragment_lawyer_auth_page, co
             "",
             aa,"",
             "",
-            "",
+            aa,"jj",
             "",
             "universyt"
         )
@@ -196,7 +196,7 @@ design = DataBindingUtil.inflate(inflater,R.layout.fragment_lawyer_auth_page, co
                 "",
                 aa,"",
                 "",
-                "",
+                aa,"jj",
                 "",
                 "universyt"
             )

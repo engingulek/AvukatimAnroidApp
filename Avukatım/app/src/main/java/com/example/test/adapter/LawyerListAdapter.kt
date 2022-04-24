@@ -54,7 +54,7 @@ class LawyerListAdapter(var mContext: Context, var lawyerList: List<LawyerInfo>,
         cardDesign.imageViewLawyer.setOnClickListener {
             println("Tıklandı")
            val tets = Lawyer(lawyer.authUserId,lawyer.lawyerImageUrl,lawyer.lawyerNameSurname,lawyer.lawyerGender,lawyer.lawyerAge,lawyer.lawyerProfession,
-               lawyer.lawyerLocationCity,lawyer.lawyerLocationCounty, lawyer.lawyerEstiOnliHours,lawyer.lawyerDescription,lawyer.lawyerDescription)
+               lawyer.lawyerLocationCity,lawyer.lawyerLocationCounty, locCordinate,"jj",lawyer.lawyerDescription,lawyer.lawyerDescription)
             viewModel.addLayertoFav(tets)
 
         }

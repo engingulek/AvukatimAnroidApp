@@ -19,6 +19,7 @@ import com.example.test.R
 import com.example.test.adapter.LawyerCommentAdapter
 import com.example.test.databinding.FragmentLawyerDetailsBinding
 import com.example.test.entity.Meeting
+import com.example.test.entity.MeetingDataClass
 import com.example.test.viewModel.LawyerDetailsViewModel
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -35,6 +36,7 @@ class LawyerDetailsFragment : Fragment() {
     private lateinit var lawyerDetailViewModel : LawyerDetailsViewModel
     private lateinit var lawyerCommentAdapter: LawyerCommentAdapter
     private lateinit var auth: FirebaseAuth
+
     var time =  ""
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
@@ -59,23 +61,17 @@ class LawyerDetailsFragment : Fragment() {
         design.bttnMeetingOne.setOnClickListener {
             design.randevu.visibility = View.VISIBLE
 
-            val current = LocalDateTime.now()
-            val day = current.dayOfMonth
-            val mount = current.monthValue
-            val year = current.year
 
-            cityItems.add("${day}/0${mount}/${year}")
-            cityItems.add("${day+1}/0${mount}/${year}")
-            cityItems.add("${day+2}/0${mount}/${year}")
-            cityItems.add("${day+3}/0${mount}/${year}")
-            val cityArrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, cityItems)
-            design.autoCompleteTextViewCity.setAdapter(cityArrayAdapter)
+
+
+
 
 
             design.chipOneC.setBackgroundResource(R.drawable.test)
             design.chipTwoC.setBackgroundResource(R.drawable.test)
             design.chipThreeC.setBackgroundResource(R.drawable.test)
             design.chipFourC.setBackgroundResource(R.drawable.test)
+            lawyerMeetingFreeTime(getLawyerDetails.authUserId)
 
         }
 
@@ -86,15 +82,15 @@ class LawyerDetailsFragment : Fragment() {
 
 
 
-        stateMeetin()
+
 
 
 
         design.bttnSendMeeting.setOnClickListener {
-          val selectDate =  design.autoCompleteTextViewCity.text.toString()
+          val selectDate =  design.textViewMeetDate.text.toString()
             val selectedTime = time
 
-            if (selectDate == "" || selectedTime == "") {
+            if ( selectedTime == "") {
                 Toast.makeText(requireContext(),"Tarih veya saat seçmediniz",Toast.LENGTH_SHORT).show()
             }
             else {
@@ -115,7 +111,7 @@ class LawyerDetailsFragment : Fragment() {
                     getLawyerDetails.id,
                     selectDate,
                     selectedTime,
-                    "test lawyerAuthUserId",
+                    "${getLawyerDetails.authUserId}",
                     getLawyerDetails.lawyerNameSurname,
                     getLawyerDetails.lawyerImageUrl,
                     "${auth.currentUser?.displayName}",
@@ -142,7 +138,7 @@ class LawyerDetailsFragment : Fragment() {
                     override fun onFinish() {
                         design.randevu.visibility = View.GONE
                         Toast.makeText(requireContext(),"Randevunuz Alınmıştır",Toast.LENGTH_SHORT).show()
-                        design.autoCompleteTextViewCity.setText("")
+
 
                     }
                 }
@@ -161,17 +157,63 @@ class LawyerDetailsFragment : Fragment() {
         return design.root
     }
 
+    fun lawyerMeetingFreeTime(lawyerId:String) {
+        lawyerDetailViewModel.meetingList.observe(viewLifecycleOwner,{
+            auth =  Firebase.auth
+            val ita = it.filter { it.lawyerAuthUserId == lawyerId }
+            stateMeetin(ita)
 
-    fun stateMeetin(){
+        })
+
+    }
+
+
+    fun stateMeetin(list:List<MeetingDataClass>){
         var stateChipOne = false
         var stateChipTwo = false
         var stateChipThree = false
         var stateChipFour = false
-        var stateChipOnee = false
+        var stateChipOneNotAvaible = false
+        var stateChipTwoNotAvaible = false
+        var stateChipThreeNotAvaible = false
+        var stateChipFourNotAvaible = false
+
+        for (a in list) {
+            Log.e("Avukata Gelen randevu saatleri","${a.time}")
+            Log.e("Avukata saat 2","${design.chipTwoT.text.toString()}")
+
+            if (a.time == design.chipTwoT.text.toString()) {
+                design.chipTwoC.setBackgroundResource(R.drawable.test_gray)
+                stateChipTwoNotAvaible = true
+
+            }
+
+            if (a.time == design.chipOneT.text.toString()) {
+                design.chipOneC.setBackgroundResource(R.drawable.test_gray)
+                stateChipOneNotAvaible = true
+
+            }
+
+            if (a.time == design.chipThreeT.text.toString()) {
+                design.chipThreeC.setBackgroundResource(R.drawable.test_gray)
+                stateChipThreeNotAvaible = true
+
+            }
+
+            if (a.time == design.chipFourT.text.toString()) {
+                design.chipFourC.setBackgroundResource(R.drawable.test_gray)
+                stateChipFourNotAvaible = true
+
+            }
+            else {
+                Log.e("aynı değil","da")
+            }
+        }
 
 
-            // başkası tarafından randevu alınmış
-           // design.chipOneC.setBackgroundResource(R.drawable.test_red)
+
+
+
 
 
         design.chipOne.setOnClickListener{
@@ -179,37 +221,67 @@ class LawyerDetailsFragment : Fragment() {
             if (stateChipFour == true || stateChipTwo == true || stateChipThree == true) {
 
             }
+
+            if (stateChipOneNotAvaible == true ) {
+                 Toast.makeText(requireContext(),"Bu saat uygun değil",Toast.LENGTH_SHORT).show()
+            }
             else {
-                if(stateChipOne == false) {
-                    design.chipOneC.setBackgroundResource(R.drawable.test_red)
-                    time = design.chipOneT.text.toString()
-                    stateChipOne = true
+
+                if (stateChipFour == true || stateChipTwo == true || stateChipThree == true) {
 
                 }
                 else {
-                    design.chipOneC.setBackgroundResource(R.drawable.test)
-                    stateChipOne = false
+                    if(stateChipOne == false) {
+                        design.chipOneC.setBackgroundResource(R.drawable.test_red)
+                        time = design.chipOneT.text.toString()
+                        stateChipOne = true
+
+                    }
+                    else {
+                        design.chipOneC.setBackgroundResource(R.drawable.test)
+                        stateChipOne = false
+                    }
+
                 }
+
+
+
             }
         }
+
+
 
         design.chipTwo.setOnClickListener{
 
             if (stateChipOne == true || stateChipThree == true || stateChipFour == true) {
 
             }
+
+            if (stateChipTwoNotAvaible == true ) {
+                Toast.makeText(requireContext(),"Bu saat uygun değil",Toast.LENGTH_SHORT).show()
+            }
+
+
             else {
-                if(stateChipTwo == false) {
-                    design.chipTwoC.setBackgroundResource(R.drawable.test_red)
-                    time = design.chipTwoT.text.toString()
-                    stateChipTwo = true
+
+                if (stateChipOne == true || stateChipThree == true || stateChipFour == true) {
 
                 }
                 else {
-                    design.chipTwoC.setBackgroundResource(R.drawable.test)
-                    stateChipTwo = false
+                    if(stateChipTwo == false) {
+                        design.chipTwoC.setBackgroundResource(R.drawable.test_red)
+                        time = design.chipTwoT.text.toString()
+                        stateChipTwo = true
+
+                    }
+                    else {
+                        design.chipTwoC.setBackgroundResource(R.drawable.test)
+                        stateChipTwo = false
+
+                    }
 
                 }
+
 
             }
 
@@ -224,18 +296,31 @@ class LawyerDetailsFragment : Fragment() {
             if (stateChipOne == true || stateChipTwo == true || stateChipFour == true) {
 
             }
+
+            if (stateChipThreeNotAvaible == true ){
+                Toast.makeText(requireContext(),"Bu saat uygun değil",Toast.LENGTH_SHORT).show()
+            }
             else {
-                if(stateChipThree == false) {
-                    design.chipThreeC.setBackgroundResource(R.drawable.test_red)
-                    time = design.chipThreeT.text.toString()
-                    stateChipThree = true
+
+                if (stateChipOne == true || stateChipTwo == true || stateChipFour == true) {
 
                 }
+
                 else {
-                    design.chipThreeC.setBackgroundResource(R.drawable.test)
-                    stateChipThree = false
+                    if(stateChipThree == false) {
+                        design.chipThreeC.setBackgroundResource(R.drawable.test_red)
+                        time = design.chipThreeT.text.toString()
+                        stateChipThree = true
+
+                    }
+                    else {
+                        design.chipThreeC.setBackgroundResource(R.drawable.test)
+                        stateChipThree = false
+
+                    }
 
                 }
+
 
             }
 
@@ -247,19 +332,31 @@ class LawyerDetailsFragment : Fragment() {
 
             if (stateChipOne == true || stateChipTwo == true || stateChipThree == true) {
 
-            }else {
+            }
+            if (stateChipFourNotAvaible == true) {
+                Toast.makeText(requireContext(),"Bu saat uygun değil",Toast.LENGTH_SHORT).show()
+            }
+            else {
 
-                if(stateChipFour == false) {
-                    design.chipFourC.setBackgroundResource(R.drawable.test_red)
-                    time = design.chipFourT.text.toString()
-                    stateChipFour = true
+                if (stateChipOne == true || stateChipTwo == true || stateChipThree == true) {
 
                 }
                 else {
-                    design.chipFourC.setBackgroundResource(R.drawable.test)
-                    stateChipFour = false
+
+                    if(stateChipFour == false) {
+                        design.chipFourC.setBackgroundResource(R.drawable.test_red)
+                        time = design.chipFourT.text.toString()
+                        stateChipFour = true
+
+                    }
+                    else {
+                        design.chipFourC.setBackgroundResource(R.drawable.test)
+                        stateChipFour = false
+
+                    }
 
                 }
+
             }
 
 

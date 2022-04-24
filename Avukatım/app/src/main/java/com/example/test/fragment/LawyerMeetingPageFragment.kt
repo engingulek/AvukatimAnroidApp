@@ -34,6 +34,7 @@ class LawyerMeetingPageFragment : Fragment() {
     ): View? {
         design = DataBindingUtil.inflate(inflater,R.layout.fragment_lawyer_meeting_page, container, false)
         design.meetingPageFragment = this
+
         lawyerMeetingListViewModel.meetingList.observe(viewLifecycleOwner,{
 
 auth =  Firebase.auth

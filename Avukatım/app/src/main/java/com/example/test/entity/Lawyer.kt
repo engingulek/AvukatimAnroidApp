@@ -9,7 +9,8 @@ class Lawyer(
     var lawyerProfession: Array<String>,
     var lawyerLocationCity: String,
     var lawyerLocationCounty: String,
-    var lawyerEstiOnliHours: String,
+    var lawyerEstiOnliHours: Array<String>,
+    var lawyerMeetDate:String,
     var lawyerDescription: String,
     var lawyerUniversty: String
 ) {
@@ -24,6 +25,7 @@ class Lawyer(
         this.lawyerLocationCity = lawyerLocationCity
         this.lawyerLocationCounty= lawyerLocationCounty
         this.lawyerEstiOnliHours = lawyerEstiOnliHours
+        this.lawyerMeetDate = lawyerMeetDate
         this.lawyerDescription = lawyerDescription
         this.lawyerUniversty = lawyerUniversty
 

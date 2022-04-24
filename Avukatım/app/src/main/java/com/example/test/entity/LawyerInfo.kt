@@ -15,13 +15,10 @@ data class LawyerInfo(@SerializedName("_id") @Expose var id:String,
                       @SerializedName("lawyerProfession") @Expose var lawyerProfession:Array<String>,
                       @SerializedName("lawyerLocationCity") @Expose var lawyerLocationCity:String,
                       @SerializedName("lawyerLocationCounty") @Expose var lawyerLocationCounty:String,
-                      @SerializedName("lawyerEstiOnliHours") @Expose var lawyerEstiOnliHours:String,
+                      @SerializedName("lawyerEstiOnliHours") @Expose var lawyerEstiOnliHours:Array<String>,
+                      @SerializedName("lawyerMeetDate") @Expose var lawyerMeetDate:String,
                       @SerializedName("lawyerDescription") @Expose var lawyerDescription:String,
                       @SerializedName("lawyerUniversty") @Expose var lawyerUniversty:String,
-
-
-
-
 
 ):Serializable {
 }

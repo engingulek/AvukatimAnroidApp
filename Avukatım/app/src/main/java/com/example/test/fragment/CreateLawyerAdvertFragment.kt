@@ -30,6 +30,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.UploadTask
 import retrofit2.Call
+import java.time.LocalDateTime
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -83,7 +84,7 @@ class CreateLawyerAdvertFragment : Fragment() {
                 .setHour(14)
                 .setMinute(0)
                 .setInputMode(MaterialTimePicker.INPUT_MODE_KEYBOARD)
-                .setTitleText("Uygun olduğunuz başlangıç aralığını seçiniz")
+                .setTitleText("İlk Randevu Saatini Seçiniz")
                 .build()
 
         val timeTwo =
@@ -92,8 +93,29 @@ class CreateLawyerAdvertFragment : Fragment() {
                 .setHour(14)
                 .setMinute(0)
                 .setInputMode(MaterialTimePicker.INPUT_MODE_KEYBOARD)
-                .setTitleText("Uygun olduğunuz bitiş aralığını seçiniz")
+                .setTitleText("İkinci Randevu Saatini Seçiniz")
                 .build()
+
+        val timeThree =
+            MaterialTimePicker.Builder()
+                .setTimeFormat(TimeFormat.CLOCK_24H)
+                .setHour(14)
+                .setMinute(0)
+                .setInputMode(MaterialTimePicker.INPUT_MODE_KEYBOARD)
+                .setTitleText("Üçüncü Randevu Saatini Seçiniz")
+                .build()
+
+
+        val timeFour =
+            MaterialTimePicker.Builder()
+                .setTimeFormat(TimeFormat.CLOCK_24H)
+                .setHour(14)
+                .setMinute(0)
+                .setInputMode(MaterialTimePicker.INPUT_MODE_KEYBOARD)
+                .setTitleText("Dördüncü Randevu Saatini Seçiniz")
+                .build()
+
+
 
 
         desing.timeOneTextView.setOnClickListener {
@@ -108,19 +130,35 @@ class CreateLawyerAdvertFragment : Fragment() {
             fragmentManager?.let { timeTwo.show(it,"tag") }
 
         }
+        desing.timeThreeTextView.setOnClickListener {
+            fragmentManager?.let { timeThree.show(it,"tag") }
+
+        }
+        desing.timeFourTextView.setOnClickListener {
+            fragmentManager?.let { timeFour.show(it,"tag") }
+
+        }
 
         timeOne.addOnPositiveButtonClickListener {
-            desing.timeOneTextView.text = "${timeOne.hour} : ${timeOne.minute}"
+            desing.timeOneTextView.text = "${timeOne.hour}:${timeOne.minute}+0"
 
         }
 
         timeTwo.addOnPositiveButtonClickListener {
-            if (timeOne.hour > timeTwo.hour) {
-                Toast.makeText(context,"Birinci seçilen saate dikkat ederek seçiniz", Toast.LENGTH_LONG).show()
-                desing.timeTwoTextView.text = "${timeOne.hour + 2} : ${timeOne.minute}"
-            }else {
-                desing.timeTwoTextView.text = "${timeTwo.hour} : ${timeTwo.minute}"
-            }
+
+                desing.timeTwoTextView.text = "${timeTwo.hour}:${timeTwo.minute}+0"
+
+        }
+
+        timeThree.addOnPositiveButtonClickListener {
+
+            desing.timeThreeTextView.text = "${timeThree.hour}:${timeThree.minute}+0"
+
+        }
+
+        timeFour.addOnPositiveButtonClickListener {
+
+            desing.timeFourTextView.text = "${timeFour.hour}:${timeFour.minute}+0"
 
         }
 
@@ -208,7 +246,19 @@ class CreateLawyerAdvertFragment : Fragment() {
       //  val bundle : CreateLawyerAdvertFragmentArgs by navArgs()
 
 
+        val current = LocalDateTime.now()
+        val day = current.dayOfMonth
+        val mount = current.monthValue
+        val year = current.year
 
+        val cityItems = java.util.ArrayList<String>()
+        cityItems.add("${day}/0${mount}/${year}")
+        cityItems.add("${day+1}/0${mount}/${year}")
+        cityItems.add("${day+2}/0${mount}/${year}")
+        cityItems.add("${day+3}/0${mount}/${year}")
+
+        val cityArrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, cityItems)
+        desing.autoCompleteTextViewDate.setAdapter(cityArrayAdapter)
 
         desing.addLawyerAdvertbttn.setOnClickListener {
 
@@ -216,7 +266,7 @@ class CreateLawyerAdvertFragment : Fragment() {
                 "${desing.autoCompleteTextViewSeconPer.text.toString()}",
                 "${desing.autoCompleteTextViewThirdPer.text.toString()}")
 
-            val estiOnliHours = "${desing.timeOneTextView.text.toString()} / ${desing.timeTwoTextView.text.toString()}"
+           // val estiOnliHours = "${desing.timeOneTextView.text.toString()} / ${desing.timeTwoTextView.text.toString()}"
 
             val location ="${desing.autoCompleteTextViewCity.text.toString()} / ${desing.autoCompleteTextViewDistrict.text.toString()}"
 
@@ -234,71 +284,44 @@ class CreateLawyerAdvertFragment : Fragment() {
            // desing.asa.text = getLongtude
 
 
+
+
+
+
+
+
+            val timeOneText = desing.timeOneTextView.text.toString()
+            val timeTwoText = desing.timeTwoTextView.text.toString()
+            val timeThreeText = desing.timeThreeTextView.text.toString()
+            val timeFourText = desing.timeFourTextView.text.toString()
             val locCordinate = arrayOf("","")
+            val estiMeetHours = arrayOf(timeOneText,timeTwoText,timeThreeText,timeFourText)
+            val selectDate =  desing.autoCompleteTextViewDate.text.toString()
 
 
-            val newLawyer = Lawyer("${auth.currentUser?.uid}","$imageLawyerUrl",
+
+
+
+            val newLawyer = Lawyer("${auth.currentUser?.uid}","dsa",
                 "${auth.currentUser?.displayName}",
                 "${selectionGender}" ,
                 age,
                 professionList,"${desing.autoCompleteTextViewCity.text.toString()}",
                 desing.autoCompleteTextViewDistrict.text.toString(),
-                estiOnliHours,
+                estiMeetHours,
+                "${selectDate}",
                 "$description",
                 universyt
             )
 
-           /* val a  = Lawyer("${auth.currentUser?.uid}",
-                "$imageLawyerUrl",
-                "${auth.currentUser?.displayName}",
-                "${selectionGender}" ,
-                age,
-                professionList,
-                "${location}",
-                estiOnliHours,
-                "$description",
-                locCordinate)*/
+
             createLawyerAdvertViewModel.createAdvert(newLawyer)
 
 
 
         }
 
-      /* desing.bttnLoc.setOnClickListener {
 
-            Navigation.findNavController(it).navigate(R.id.toTest)
-        }*/
-
-      /*  val bundle : CreateLawyerAdvertFragmentArgs by navArgs()
-        val getLongtude = bundle.longtude
-        val getLatitude = bundle.latitude
-        Log.e("Gelen Latitude",getLatitude)
-        Log.e("Gelen Longtitude",getLongtude)*/
-
-
-
-
-
-
-
-
-
-
-
-
-/*  if (desing.autoCompleteTextViewCity.text.toString() == "İstanbul") {
-                val list = resources.getStringArray(R.array.İstanbul)
-                val istanbulDistruct = listOf("Bahçelievler", "Bakırköy", "Merter")
-                val disrcitArrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, istanbulDistruct)
-                desing.autoCompleteTextViewDistrict.setAdapter(disrcitArrayAdapter)
-            }
-
-
-                if (desing.autoCompleteTextViewCity.text.toString() == "Ankara") {
-                    val ankaraDistruct = listOf("Mamak", "Çankaya")
-                    val disrcitArrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, ankaraDistruct)
-                    desing.autoCompleteTextViewDistrict.setAdapter(disrcitArrayAdapter)
-                }*/
 
 
         return desing.root
@@ -353,13 +376,15 @@ class CreateLawyerAdvertFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
         if(requestCode == IMAGE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             desing.lawyerImageView.setImageURI(data!!.data)
             imageUri = data?.data
+            Log.e("daa","${imageUri}")
             uploadStrongeImage(imageUri!!)
 
         }
+
+
     }
 
 
