@@ -46,7 +46,7 @@ class LawyerHomePageFragment : Fragment() {
             }
             design.lawyerMeetingListAdapter = lawyerMeetinfListAdapter
 
-           /* if (ita.size > 0) {
+            if (ita.size > 0) {
                 design.nullLawyerAdvert.visibility = View.GONE
                 design.getMeetingConstLa.visibility = View.VISIBLE
 
@@ -57,7 +57,7 @@ class LawyerHomePageFragment : Fragment() {
                 design.getMeetingConstLa.visibility = View.GONE
 
 
-            }*/
+            }
 
         })
 

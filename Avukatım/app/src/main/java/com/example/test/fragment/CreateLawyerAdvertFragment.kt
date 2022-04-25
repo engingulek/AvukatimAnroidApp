@@ -140,25 +140,25 @@ class CreateLawyerAdvertFragment : Fragment() {
         }
 
         timeOne.addOnPositiveButtonClickListener {
-            desing.timeOneTextView.text = "${timeOne.hour}:${timeOne.minute}+0"
+            desing.timeOneTextView.text = "${timeOne.hour}:${timeOne.minute}0"
 
         }
 
         timeTwo.addOnPositiveButtonClickListener {
 
-                desing.timeTwoTextView.text = "${timeTwo.hour}:${timeTwo.minute}+0"
+                desing.timeTwoTextView.text = "${timeTwo.hour}:${timeTwo.minute}0"
 
         }
 
         timeThree.addOnPositiveButtonClickListener {
 
-            desing.timeThreeTextView.text = "${timeThree.hour}:${timeThree.minute}+0"
+            desing.timeThreeTextView.text = "${timeThree.hour}:${timeThree.minute}0"
 
         }
 
         timeFour.addOnPositiveButtonClickListener {
 
-            desing.timeFourTextView.text = "${timeFour.hour}:${timeFour.minute}+0"
+            desing.timeFourTextView.text = "${timeFour.hour}:${timeFour.minute}0"
 
         }
 

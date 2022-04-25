@@ -52,15 +52,27 @@ interface MyLawyerDaoInterface {
    @POST("favlawyerRegister")
   fun addFavList(@Body a : Lawyer) : Call<Lawyer>
 
-  @POST("addMeeting")
-  fun addMeeting(@Body a: Meeting) : Call<Meeting>
+
 
 
     @POST("/deletefavAdvert")
     fun favdelete(@Body adaa : Lawyer) :Call<FavLawyerResult>
 
+
+    @POST("addMeeting")
+    fun addMeeting(@Body a: Meeting) : Call<Meeting>
+
     @GET("/meetings")
     fun getAllMeetingList():Call<MeetingDataClassResult>
+
+
+    @POST("/createAccount")
+    fun createAccount(@Body account: Account) : Call<Account>
+
+    @GET("allAccount")
+    fun getAllAccount():Call<AccountResult>
+
+
 
 
 

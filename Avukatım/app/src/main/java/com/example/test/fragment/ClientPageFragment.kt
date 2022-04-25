@@ -8,9 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import com.example.test.R
 import com.example.test.databinding.FragmentClientPageBinding
+import com.example.test.entity.Account
+import com.example.test.viewModel.CreateAccountViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
@@ -20,6 +23,7 @@ import com.google.firebase.ktx.Firebase
 class ClientPageFragment : Fragment() {
     private lateinit var design : FragmentClientPageBinding
     private lateinit var auth: FirebaseAuth
+    private lateinit var viewModel : CreateAccountViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,7 +51,9 @@ class ClientPageFragment : Fragment() {
                         }.build()
                         user?.updateProfile(profileUpdate)?.addOnCompleteListener{ task ->
                             if (task.isSuccessful){
-                                Navigation.findNavController(it).navigate(R.id.toClientHomePage)
+                                val newAccount = Account(design.singUpClientEmailEditText.text.toString(),"client")
+                                viewModel.createAccount(newAccount)
+                               // Navigation.findNavController(it).navigate(R.id.toClientHomePage)
                             }
                         }
                     }else {
@@ -78,18 +84,35 @@ class ClientPageFragment : Fragment() {
             }
             else {
                 // kullanıcı girişi Yapılamaktadır.
-                auth.signInWithEmailAndPassword(
-                    design.singInClientEmailEditText.text.toString(),
-                    design.singInClientPasswordEditText.text.toString()
-                )
-                    .addOnCompleteListener() { task->
-                        // giriş işlemi başarılı bir şekilde gerçekleşti
-                        if (task.isSuccessful) {
-                            Navigation.findNavController(it).navigate(R.id.toClientHomePage)
-                        }else{
-                            alertMessage("Hatalı Giriş. E-posta adresinizi ve şifrenizi kontrol ediniz")
+
+
+                    viewModel.accountList.observe(viewLifecycleOwner,{
+                        for (a in it)  {
+                            if (a.email == design.singInClientEmailEditText.text.toString()) {
+                                if (a.accountType == "client") {
+                                    auth.signInWithEmailAndPassword(
+                                        design.singInClientEmailEditText.text.toString(),
+                                        design.singInClientPasswordEditText.text.toString()
+                                    )
+                                        .addOnCompleteListener() { task->
+                                            // giriş işlemi başarılı bir şekilde gerçekleşti
+                                            if (task.isSuccessful) {
+                                                Navigation.findNavController(requireView()).navigate(R.id.toClientHomePage)
+                                            }else{
+                                                alertMessage("Hatalı Giriş. E-posta adresinizi ve şifrenizi kontrol ediniz")
+                                            }
+                                        }
+
+                                }else {
+                                    alertMessage("Müşteri değil")
+                                }
+                            }
                         }
-                    }
+                    })
+
+
+
+
             }
         }
 
@@ -101,6 +124,12 @@ class ClientPageFragment : Fragment() {
 
 
         return design.root
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val tempViewModel :  CreateAccountViewModel by viewModels()
+        viewModel = tempViewModel
     }
 
 

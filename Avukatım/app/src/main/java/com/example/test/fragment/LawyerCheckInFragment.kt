@@ -8,9 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import com.example.test.R
+import com.example.test.ViewModel
 import com.example.test.databinding.FragmentLawyerCheckInBinding
+import com.example.test.entity.Account
+import com.example.test.viewModel.CreateAccountViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
@@ -20,6 +24,7 @@ import com.google.firebase.ktx.Firebase
 class LawyerCheckInFragment : Fragment() {
     private lateinit var design : FragmentLawyerCheckInBinding
     private lateinit var auth: FirebaseAuth
+    private lateinit var viewModel : CreateAccountViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,7 +52,15 @@ class LawyerCheckInFragment : Fragment() {
                         }.build()
                         user?.updateProfile(profileUpdate)?.addOnCompleteListener{ task ->
                             if (task.isSuccessful){
-                                Navigation.findNavController(it).navigate(R.id.toLawyerHomePage)
+
+
+                                val newAccount = Account(design.singUpEmailEditText.text.toString(),"lawyer")
+                                viewModel.createAccount(newAccount)
+                              //  Navigation.findNavController(it).navigate(R.id.toLawyerHomePage)
+
+
+
+
                             }
                         }
                     }else {
@@ -77,24 +90,54 @@ class LawyerCheckInFragment : Fragment() {
                 alertMessage("Boş Kalan yerleri doldurunuz")
             }
             else {
-                // kullanıcı girişi Yapılamaktadır.
-                auth.signInWithEmailAndPassword(
-                    design.singInEmailEditText.text.toString(),
-                    design.singInPasswordEditText.text.toString()
-                )
-                    .addOnCompleteListener() { task->
-                        // giriş işlemi başarılı bir şekilde gerçekleşti
-                        if (task.isSuccessful) {
-                            Navigation.findNavController(it).navigate(R.id.toLawyerHomePage)
-                        }else{
-                            alertMessage("Hatalı Giriş. E-posta adresinizi ve şifrenizi kontrol ediniz")
+
+
+                viewModel.accountList.observe(viewLifecycleOwner,{
+
+                    for (a in it) {
+                        if (a.email == design.singInEmailEditText.text.toString()){
+                            if (a.accountType == "lawyer") {
+
+                                auth.signInWithEmailAndPassword(
+                                    design.singInEmailEditText.text.toString(),
+                                    design.singInPasswordEditText.text.toString()
+                                )
+                                    .addOnCompleteListener() { task->
+                                        // giriş işlemi başarılı bir şekilde gerçekleşti
+                                        if (task.isSuccessful) {
+                                            Navigation.findNavController(requireView()).navigate(R.id.toLawyerHomePage)
+                                        }else{
+                                            alertMessage("Hatalı Giriş. E-posta adresinizi ve şifrenizi kontrol ediniz")
+                                        }
+                                    }
+
+
+                            }
+                            else {
+                                alertMessage("Avukat değil")
+
+                            }
+
+                        }
+
+                        else {
+                           // alertMessage("Burada hesabı yok")
                         }
                     }
+
+                })
+
             }
         }
 
 
         return design.root
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val tempViewModel :  CreateAccountViewModel by viewModels()
+        viewModel = tempViewModel
     }
 
 
