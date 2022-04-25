@@ -21,12 +21,18 @@ class MyLawyerRepository {
     val citylist : MutableLiveData<List<City>>
     val professionList: MutableLiveData<List<Profession>>
     val lawyerAuthInfo : MutableLiveData<List<LawyerInfoResult>>
+
     private lateinit var  call : Call<Lawyer>
     private lateinit var favCall : Call<Lawyer>
     private lateinit var meetCall : Call<Meeting>
     private lateinit var callAuth : Call<LawyerInfoResult>
+    private lateinit var accountCall : Call<Account>
     var favLawyerInfo : MutableLiveData<List<LawyerInfo>>
     var meetingList : MutableLiveData<List<MeetingDataClass>>
+
+
+
+    var accountList : MutableLiveData<List<AccountDataClass>>
 
     var meetingFilterList : MutableLiveData<List<MeetingDataClass>>
 
@@ -39,6 +45,7 @@ class MyLawyerRepository {
         professionList = MutableLiveData()
         lawyerAuthInfo = MutableLiveData()
         favLawyerInfo = MutableLiveData()
+        accountList  = MutableLiveData()
         meetingList  = MutableLiveData()
         meetingFilterList = MutableLiveData()
     }
@@ -66,6 +73,11 @@ class MyLawyerRepository {
     fun bringMeetingList() : MutableLiveData<List<MeetingDataClass>> {
         return  meetingList
     }
+
+    fun bringAccountList() : MutableLiveData<List<AccountDataClass>> {
+        return  accountList
+    }
+
 
 
     fun getAllLawyerInfo() {
@@ -170,34 +182,6 @@ class MyLawyerRepository {
 
 
 
-    fun getAllMeetingListRepo() {
-        myLawyerDao.getAllMeetingList().enqueue(object :Callback<MeetingDataClassResult>{
-            override fun onResponse(
-                call: Call<MeetingDataClassResult>,
-                response: Response<MeetingDataClassResult>
-            ) {
-                val list = response.body().meetingsList
-
-
-
-                        meetingList.value = list
-
-
-
-
-
-
-
-
-
-            }
-
-            override fun onFailure(call: Call<MeetingDataClassResult>, t: Throwable) {
-
-            }
-
-        })
-    }
 
 
     fun lawyerAddToFav(a:Lawyer) {
@@ -216,6 +200,34 @@ class MyLawyerRepository {
     }
 
 
+
+
+
+
+    fun getAllMeetingListRepo() {
+        myLawyerDao.getAllMeetingList().enqueue(object :Callback<MeetingDataClassResult>{
+            override fun onResponse(
+                call: Call<MeetingDataClassResult>,
+                response: Response<MeetingDataClassResult>
+            ) {
+                val list = response.body().meetingsList
+
+
+
+                meetingList.value = list
+
+            }
+
+            override fun onFailure(call: Call<MeetingDataClassResult>, t: Throwable) {
+
+            }
+
+        })
+    }
+
+
+
+
     fun meetingAddToMeetList(meet:Meeting) {
         meetCall = myLawyerDao.addMeeting(meet)
         meetCall.enqueue(object :Callback<Meeting>{
@@ -230,6 +242,50 @@ class MyLawyerRepository {
         })
 
     }
+
+
+    fun getAllAccountListRepo() {
+        myLawyerDao.getAllAccount().enqueue(object : Callback<AccountResult>{
+            override fun onResponse(
+                call: Call<AccountResult>,
+                response: Response<AccountResult>
+            ) {
+
+                val liste = response.body().accountsList
+                accountList.value = liste
+
+
+            }
+
+            override fun onFailure(call: Call<AccountResult>, t: Throwable?) {
+
+            }
+
+        })
+    }
+
+    fun createAccountToDatabase(account: Account) {
+        accountCall = myLawyerDao.createAccount(account)
+        accountCall.enqueue(object : Callback<Account>{
+            override fun onResponse(call: Call<Account>, response: Response<Account>) {
+
+            }
+
+            override fun onFailure(call: Call<Account>, t: Throwable) {
+
+            }
+
+        })
+    }
+
+
+
+
+
+
+
+
+
 
 
 
