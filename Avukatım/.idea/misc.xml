@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.32037037037037036" />
+        <entry key="app/src/main/res/drawable/arrow_send.xml" value="0.321025641025641" />
+        <entry key="app/src/main/res/drawable/chattext.xml" value="0.321025641025641" />
         <entry key="app/src/main/res/drawable/comment.xml" value="0.32037037037037036" />
         <entry key="app/src/main/res/drawable/delete.xml" value="0.321025641025641" />
         <entry key="app/src/main/res/drawable/fav_icon.xml" value="0.24791666666666667" />
@@ -15,6 +17,8 @@
         <entry key="app/src/main/res/drawable/row.xml" value="0.321025641025641" />
         <entry key="app/src/main/res/drawable/row_ballon.xml" value="0.321025641025641" />
         <entry key="app/src/main/res/drawable/row_ballon_right.xml" value="0.321025641025641" />
+        <entry key="app/src/main/res/drawable/rvv_desing.xml" value="0.321025641025641" />
+        <entry key="app/src/main/res/drawable/send_row.xml" value="0.321025641025641" />
         <entry key="app/src/main/res/drawable/test.xml" value="0.321025641025641" />
         <entry key="app/src/main/res/drawable/test_gray.xml" value="0.30833333333333335" />
         <entry key="app/src/main/res/drawable/test_red.xml" value="0.321025641025641" />

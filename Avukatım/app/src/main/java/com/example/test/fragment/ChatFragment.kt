@@ -42,25 +42,35 @@ private  var chats = arrayListOf<Chat>()
         design.chatRvv.adapter = adapter
         design.chatRvv.layoutManager = LinearLayoutManager(requireContext())
         design.sendButton.setOnClickListener {
-            auth.currentUser?.let {
-                val user = it.email
-                val chatText = design.messageText.text.toString()
-                val date = FieldValue.serverTimestamp()
-                val userName = it.displayName
 
-                val dataMap = HashMap<String,Any>()
-                dataMap.put("text",chatText)
-                dataMap.put("user",user!!)
-                dataMap.put("date",date)
+            if (design.messageText.text.toString() != ""){
 
 
-                fireStore.collection("Chats").add(dataMap)
-                    .addOnSuccessListener {
-                        design.messageText.setText("")
-                    }
-                    .addOnFailureListener {
+                auth.currentUser?.let {
+                    val user = it.email
+                    val chatText = design.messageText.text.toString()
+                    val date = FieldValue.serverTimestamp()
+                    val userName = it.displayName
 
-                    } }
+                    val dataMap = HashMap<String,Any>()
+                    dataMap.put("text",chatText)
+                    dataMap.put("user",user!!)
+                    dataMap.put("date",date)
+                    dataMap.put("userName",userName!!)
+
+
+
+                    fireStore.collection("Chats").add(dataMap)
+                        .addOnSuccessListener {
+                            design.messageText.setText("")
+                        }
+                        .addOnFailureListener {
+
+                        } }
+
+            }
+
+
         }
 
         fireStore.collection("Chats").orderBy("date",Query.Direction.ASCENDING)
