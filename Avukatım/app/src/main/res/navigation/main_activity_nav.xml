@@ -131,6 +131,9 @@
             android:id="@+id/toFav"
             app:destination="@+id/clientFavFragment"
             />
+        <action
+            android:id="@+id/toChatTwo"
+            app:destination="@id/chatFragment" />
     </fragment>
     <fragment
         android:id="@+id/clientAuthPageFragment"
@@ -153,5 +156,11 @@
         android:name="com.example.test.fragment.ChatFragment"
         android:label="ChatFragment"
         tools:layout="@layout/fragment_chat"
+        />
+    <fragment
+        android:id="@+id/chatListFragment"
+        android:name="com.example.test.fragment.ChatListFragment"
+        android:label="ChatListFragment"
+        tools:layout="@layout/fragment_chat_list"
         />
 </navigation>

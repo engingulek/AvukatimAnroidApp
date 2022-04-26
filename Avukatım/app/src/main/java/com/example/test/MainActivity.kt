@@ -1,5 +1,6 @@
 package com.example.test
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
@@ -15,6 +16,14 @@ class MainActivity : AppCompatActivity() {
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
 
+
+    }
+
+    override fun onBackPressed()
+    {
+        super.onBackPressed()
+        val returnIntent = Intent(this, MainActivity::class.java)
+        startActivity(returnIntent)
     }
 
 

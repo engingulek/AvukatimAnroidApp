@@ -73,9 +73,10 @@ private val VIEW_TYPE_MESSAGE_SENT  = 1
         }
         else{
             val view = LayoutInflater.from(parent.context)
-            val design = RvvRowBinding.inflate(view,parent,false)
+            val design = com.example.test.databinding.RvvRowBinding.inflate(view,parent,false)
             design.llrow.gravity = Gravity.RIGHT
             design.chatTextView.setBackgroundResource(R.drawable.row_ballon_right)
+
 
 
             return ChatHolder(design)
