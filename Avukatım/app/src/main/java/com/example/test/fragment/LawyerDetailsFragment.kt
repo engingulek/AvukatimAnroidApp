@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import com.example.test.R
 import com.example.test.adapter.LawyerCommentAdapter
@@ -51,6 +52,13 @@ class LawyerDetailsFragment : Fragment() {
         Log.e("Avukat details",getLawyerDetails.lawyerNameSurname)
         design.lawyerObject = getLawyerDetails
         Picasso.get().load(getLawyerDetails.lawyerImageUrl).into(design.imageView3)
+
+
+
+
+        design.sendMessageChat.setOnClickListener {
+            Navigation.findNavController(it).navigate(R.id.toChat)
+        }
 
         lawyerDetailViewModel.lawyerCommentList.observe(viewLifecycleOwner,{
             lawyerCommentAdapter = LawyerCommentAdapter(requireContext(),it,lawyerDetailViewModel)
@@ -361,6 +369,9 @@ class LawyerDetailsFragment : Fragment() {
 
 
         }
+
+
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
