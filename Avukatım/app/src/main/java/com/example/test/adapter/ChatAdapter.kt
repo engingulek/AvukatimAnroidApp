@@ -1,8 +1,10 @@
 package com.example.test.adapter
 
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -64,13 +66,18 @@ private val VIEW_TYPE_MESSAGE_SENT  = 1
         if (viewType == VIEW_TYPE_MESSAGE_SENT_RECEIVED) {
             val view = LayoutInflater.from(parent.context)
             val design = RvvRowBinding.inflate(view,parent,false)
+            design.llrow.gravity = Gravity.LEFT
+            design.chatTextView.setBackgroundResource(R.drawable.row_ballon)
 
             return ChatHolder(design)
         }
         else{
             val view = LayoutInflater.from(parent.context)
             val design = RvvRowBinding.inflate(view,parent,false)
-            design.chatTextView.textAlignment = View.TEXT_ALIGNMENT_TEXT_END
+            design.llrow.gravity = Gravity.RIGHT
+            design.chatTextView.setBackgroundResource(R.drawable.row_ballon_right)
+
+
             return ChatHolder(design)
 
         }
@@ -81,7 +88,7 @@ private val VIEW_TYPE_MESSAGE_SENT  = 1
 
     override fun onBindViewHolder(holder: ChatHolder, position: Int) {
         val cardDesing = holder.rvvRowBinding
-        cardDesing.chatTextView.text = "$${chats.get(position).user} : ${chats.get(position).text}"
+        cardDesing.chatTextView.text = "${chats.get(position).text}"
 
     }
 

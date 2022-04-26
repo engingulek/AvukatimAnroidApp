@@ -52,7 +52,7 @@ private  var chats = arrayListOf<Chat>()
                 dataMap.put("text",chatText)
                 dataMap.put("user",user!!)
                 dataMap.put("date",date)
-                dataMap.put("userName",userName!!)
+
 
                 fireStore.collection("Chats").add(dataMap)
                     .addOnSuccessListener {
