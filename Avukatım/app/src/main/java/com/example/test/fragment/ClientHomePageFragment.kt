@@ -75,12 +75,66 @@ class ClientHomePageFragment : Fragment() {
 
 
 
+
             //  val ita = it.filter { it.authUserId ==  }
 
 
         })
 
         return design.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        homePageViewModel.lawyerInfoList.observe(viewLifecycleOwner,{
+            val lawyerList = it
+            lawyerMeetingListViewModel.meetingList.observe(viewLifecycleOwner,{
+
+
+
+
+
+                if (it.size > 0) {
+                    for ( a in it) {
+                        val ita = lawyerList.filter { lawyerList -> lawyerList.authUserId != a.lawyerAuthUserId }
+                        lawyerListAdapter = LawyerListAdapter(requireContext(),ita,homePageViewModel)
+                        design.lawyerListAdapter = lawyerListAdapter
+
+                    }
+
+
+
+                }
+
+                else {
+                    lawyerListAdapter = LawyerListAdapter(requireContext(),lawyerList,homePageViewModel)
+                    design.lawyerListAdapter = lawyerListAdapter
+
+                }
+
+
+
+
+            })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            //  val ita = it.filter { it.authUserId ==  }
+
+
+        })
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

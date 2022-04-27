@@ -5,37 +5,38 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.test.R
 import com.example.test.adapter.ChatListAdapter
-import com.example.test.databinding.FragmentChatListBinding
-import com.example.test.entity.Chat
+import com.example.test.adapter.LawyerChatAdapter
+import com.example.test.adapter.LawyerChatListAdapter
+import com.example.test.databinding.FragmentLawyerChatListBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 
-class ChatListFragment : Fragment() {
-   private lateinit var design : FragmentChatListBinding
+class LawyerChatListFragment : Fragment() {
+   private lateinit var design : FragmentLawyerChatListBinding
     private lateinit var auth : FirebaseAuth
     private lateinit var fireStore : FirebaseFirestore
     private  var chatUserList = HashMap<String,Any>()
-    private lateinit var adapter: ChatListAdapter
+    private lateinit var adapter: LawyerChatListAdapter
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        design = DataBindingUtil.inflate(inflater,R.layout.fragment_chat_list, container, false)
+        design = DataBindingUtil.inflate(inflater,R.layout.fragment_lawyer_chat_list, container, false)
+
         fireStore = Firebase.firestore
         auth = Firebase.auth
         design.fragment = this
-
 
         fireStore.collection("Chats")
             .document(auth.currentUser?.uid!!)
@@ -46,7 +47,7 @@ class ChatListFragment : Fragment() {
                 }else{
                     if (value != null) {
                         if (value.isEmpty) {
-                           // Toast.makeText(requireContext(),"Mesaj yok",Toast.LENGTH_SHORT).show()
+                            // Toast.makeText(requireContext(),"Mesaj yok",Toast.LENGTH_SHORT).show()
                         }else {
                             val documents = value.documents
                             chatUserList.clear()
@@ -72,7 +73,7 @@ class ChatListFragment : Fragment() {
                                     }
 
                                 }
-                                adapter = ChatListAdapter(requireContext(),chatUserList)
+                                adapter = LawyerChatListAdapter(requireContext(),chatUserList)
                                 design.userListRvv.adapter = adapter
                                 design.userListRvv.layoutManager = LinearLayoutManager(requireContext())
 
@@ -96,8 +97,6 @@ class ChatListFragment : Fragment() {
 
         return design.root
     }
-
-
 
 
 }

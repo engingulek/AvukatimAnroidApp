@@ -64,7 +64,12 @@ class LawyerDetailsFragment : Fragment() {
         lawyerDetailViewModel.lawyerCommentList.observe(viewLifecycleOwner,{
             lawyerCommentAdapter = LawyerCommentAdapter(requireContext(),it,lawyerDetailViewModel)
             design.adapter = lawyerCommentAdapter
+            if (it.size != 0) {
+                lawyerCommentAdapter.notifyDataSetChanged()
+            }
             Log.e("Tarih",it[0].commentDate)
+
+
         })
         val cityItems = ArrayList<String>()
         design.bttnMeetingOne.setOnClickListener {
@@ -343,6 +348,8 @@ class LawyerDetailsFragment : Fragment() {
 
 
         }
+
+
 
 
 

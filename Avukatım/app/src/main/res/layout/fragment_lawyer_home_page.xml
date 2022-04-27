@@ -68,7 +68,7 @@
             android:layout_marginStart="12dp"
             android:layout_marginTop="45dp"
             android:layout_marginEnd="219dp"
-            android:text="Gelen Randevu İstekleri"
+            android:text="Gelen Randevular"
             android:textAlignment="center"
             android:textColor="#000000"
             android:textStyle="bold"

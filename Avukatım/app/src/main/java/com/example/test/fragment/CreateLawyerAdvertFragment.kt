@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
 import com.example.test.R
 import com.example.test.databinding.FragmentCreateLawyerAdvertBinding
 import com.example.test.entity.Lawyer
@@ -302,7 +303,7 @@ class CreateLawyerAdvertFragment : Fragment() {
 
 
 
-            val newLawyer = Lawyer("${auth.currentUser?.uid}","dsa",
+            val newLawyer = Lawyer("${auth.currentUser?.uid}",imageLawyerUrl!!,
                 "${auth.currentUser?.displayName}",
                 "${selectionGender}" ,
                 age,
@@ -316,6 +317,7 @@ class CreateLawyerAdvertFragment : Fragment() {
 
 
             createLawyerAdvertViewModel.createAdvert(newLawyer)
+            Navigation.findNavController(it).navigate(R.id.toLHomePage)
 
 
 

@@ -8,8 +8,9 @@ import android.content.Context
 import androidx.navigation.Navigation
 import com.example.test.databinding.UserListDesignBinding
 import com.example.test.R
+import com.example.test.fragment.ClientTabLayoutFragmentDirections
 
-class ChatListAdapter(var mContext: Context,var userList: List<String>)
+class ChatListAdapter(var mContext: Context,var userList: HashMap<String,Any>)
     :RecyclerView.Adapter<ChatListAdapter.ChatHolder>() {
 
         inner class ChatHolder(userListDesignBinding: UserListDesignBinding)
@@ -28,16 +29,18 @@ class ChatListAdapter(var mContext: Context,var userList: List<String>)
     }
 
     override fun onBindViewHolder(holder: ChatHolder, position: Int) {
-        val userName = userList.get(position)
+        val userName = userList.get("getUserName")
         val textDesing = holder.userListDesignBinding
-        textDesing.userNameText.text = userName
+        textDesing.userNameText.text = "Engin Gülek"
+        val uuid = userList.get("getUid")
         textDesing.userNameText.setOnClickListener {
-            Navigation.findNavController(it).navigate(R.id.toChatTwo)
+           val pass = ClientTabLayoutFragmentDirections.toChatTwo(userName.toString(),uuid.toString())
+            Navigation.findNavController(it).navigate(pass)
         }
     }
 
     override fun getItemCount(): Int {
-        return userList.size
+        return 1
     }
 
 

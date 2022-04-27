@@ -21,7 +21,7 @@ class LawyerTabLayoutFragment : Fragment() {
     private lateinit var desing : FragmentLawyerTabLayoutBinding
     private val tabIcons = intArrayOf(
         R.drawable.home_icon,
-     //   R.drawable.meeting_icon,
+       // R.drawable.meeting_icon,
 
 
     )
@@ -40,6 +40,10 @@ class LawyerTabLayoutFragment : Fragment() {
 
             fragmentList.add(LawyerHomePageFragment())
             fragmentTitleList.add("")
+
+            if(fragmentTitleList.size == 1) {
+
+            }
 
 
 
@@ -70,7 +74,7 @@ class LawyerTabLayoutFragment : Fragment() {
     }
     fun setupTabIcons() {
         desing.lawyerTabLayout.getTabAt(0)!!.setIcon(tabIcons[0])
-       // desing.lawyerTabLayout.getTabAt(1)!!.setIcon(tabIcons[1])
+      //  desing.lawyerTabLayout.getTabAt(1)!!.setIcon(tabIcons[1])
     }
 
 

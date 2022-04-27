@@ -1,19 +1,18 @@
 package com.example.test.fragment
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.test.R
 import com.example.test.adapter.ChatAdapter
-import com.example.test.databinding.FragmentChatBinding
+import com.example.test.adapter.LawyerChatAdapter
+import com.example.test.databinding.FragmentLawyerChatBinding
 import com.example.test.entity.Chat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -24,29 +23,29 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 
-class ChatFragment : Fragment() {
-private lateinit var design : FragmentChatBinding
-private lateinit var auth : FirebaseAuth
-private lateinit var fireStore : FirebaseFirestore
-private lateinit var adapter: ChatAdapter
-private  var chats = arrayListOf<Chat>()
+class LawyerChatFragment : Fragment() {
+    private lateinit var design : FragmentLawyerChatBinding
+    private lateinit var fireStore : FirebaseFirestore
+    private lateinit var adapter: LawyerChatAdapter
+    private  var chats = arrayListOf<Chat>()
+    private lateinit var auth : FirebaseAuth
+
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        design = DataBindingUtil.inflate(inflater,R.layout.fragment_chat, container, false)
-
+        design = DataBindingUtil.inflate(inflater,R.layout.fragment_lawyer_chat, container, false)
+        design.fragment = this
         fireStore = Firebase.firestore
         auth = Firebase.auth
 
-        adapter = ChatAdapter()
+        adapter = LawyerChatAdapter()
         design.chatRvv.adapter = adapter
         design.chatRvv.layoutManager = LinearLayoutManager(requireContext())
 
-        val bundle : ChatFragmentArgs by navArgs()
-
+        val bundle : LawyerChatFragmentArgs by navArgs()
 
         design.sendButton.setOnClickListener {
 
@@ -128,14 +127,14 @@ private  var chats = arrayListOf<Chat>()
         fireStore.collection("Chats")
             .document(auth.currentUser?.uid!!)
             .collection("message")
-            .orderBy("date",Query.Direction.ASCENDING)
+            .orderBy("date", Query.Direction.ASCENDING)
             .addSnapshotListener { value, error ->
                 if (error != null) {
-                  //  Toast.makeText(requireContext(),"Beklenmedik bir hata oluştu",Toast.LENGTH_SHORT).show()
+                    //  Toast.makeText(requireContext(),"Beklenmedik bir hata oluştu",Toast.LENGTH_SHORT).show()
                 }else{
                     if (value != null) {
                         if (value.isEmpty) {
-                            Toast.makeText(requireContext(),"Mesaj yok",Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(),"Mesaj yok", Toast.LENGTH_SHORT).show()
                         }else {
                             val documents = value.documents
                             chats.clear()
@@ -156,35 +155,10 @@ private  var chats = arrayListOf<Chat>()
 
 
 
-      /* fireStore.collection("Chats").orderBy("date",Query.Direction.ASCENDING)
-            .addSnapshotListener{value,error->
 
-                if (error != null) {
-                    Toast.makeText(requireContext(),"Beklenmedik bir hata oluştu",Toast.LENGTH_SHORT).show()
-                }else{
-                    if (value != null) {
-                        if (value.isEmpty) {
-                            Toast.makeText(requireContext(),"Mesaj yok",Toast.LENGTH_SHORT).show()
-                        }else {
-                            val documents = value.documents
-                            chats.clear()
-                            for (document in documents) {
-                                val text = document.get("text") as String
-                                val user = document.get("user") as String
-                                val chat = Chat(user,text)
-                                chats.add(chat)
-                                adapter.chats = chats
-                            }
-                        }
-                        adapter.notifyDataSetChanged()
-                    }
-
-                }
-
-
-            }*/
 
         return design.root
     }
+
 
 }

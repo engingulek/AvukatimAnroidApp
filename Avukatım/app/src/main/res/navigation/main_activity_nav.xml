@@ -75,6 +75,9 @@
         <action
             android:id="@+id/toLawyerAuth"
             app:destination="@id/lawyerAuthPageFragment" />
+        <action
+            android:id="@+id/toLawyerChat"
+            app:destination="@id/lawyerChatFragment" />
     </fragment>
     <fragment
         android:id="@+id/createLawyerAdvertFragment"
@@ -167,5 +170,24 @@
         android:name="com.example.test.fragment.ChatListFragment"
         android:label="ChatListFragment"
         tools:layout="@layout/fragment_chat_list"
+        />
+    <fragment
+        android:id="@+id/lawyerChatFragment"
+        android:name="com.example.test.fragment.LawyerChatFragment"
+        android:label="LawyerChatFragment"
+        tools:layout="@layout/fragment_lawyer_chat"
+        >
+        <argument
+            android:name="getUserName"
+            app:argType="string" />
+        <argument
+            android:name="getUuid"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/lawyerChatListFragment"
+        android:name="com.example.test.fragment.LawyerChatListFragment"
+        android:label="LawyerChatListFragment"
+        tools:layout="@layout/fragment_lawyer_chat_list"
         />
 </navigation>
