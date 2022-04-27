@@ -15,6 +15,7 @@ import com.example.test.entity.Chat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -36,40 +37,54 @@ class ChatListFragment : Fragment() {
         design.fragment = this
 
 
-        fireStore.collection("Chats").addSnapshotListener{value,err->
-            if (err != null) {
-                Toast.makeText(requireContext(),"Beklenmedik bir hata oluştu", Toast.LENGTH_SHORT).show()
-            }else{
-                if (value != null) {
-                    if (value.isEmpty) {
-                        Toast.makeText(requireContext(),"Mesaj yok",Toast.LENGTH_SHORT).show()
-                    }else {
-                        val documents = value.documents
+        fireStore.collection("Chats")
+            .document(auth.currentUser?.uid!!)
+            .collection("message")
+            .addSnapshotListener {value,error ->
+                if (error != null) {
+                    //  Toast.makeText(requireContext(),"Beklenmedik bir hata oluştu",Toast.LENGTH_SHORT).show()
+                }else{
+                    if (value != null) {
+                        if (value.isEmpty) {
+                           // Toast.makeText(requireContext(),"Mesaj yok",Toast.LENGTH_SHORT).show()
+                        }else {
+                            val documents = value.documents
+                            chatUserList.clear()
+                            for (document in documents) {
+                                val text = document.get("chatText") as String
+                                val user = document.get("getUserName") as String
 
-                        for (document in documents) {
+                                if (user != auth.currentUser?.displayName) {
+                                    if (chatUserList.isEmpty()) {
+                                        chatUserList.add(user)
+                                    }
+                                    else{
+                                        val check = chatUserList.contains(user)
+                                        if (check) {
 
-                            val text = document.get("text") as String
-                            val user = document.get("user") as String
-                            val userName = document.get("userName") as String
+                                        }else{
+                                            chatUserList.add(user)
 
-                            if (userName != auth.currentUser?.displayName) {
-                                chatUserList.add(userName)
+                                        }
+                                    }
 
+                                }
+                                adapter = ChatListAdapter(requireContext(),chatUserList)
+                                design.userListRvv.adapter = adapter
+                                design.userListRvv.layoutManager = LinearLayoutManager(requireContext())
 
 
                             }
-                            adapter = ChatListAdapter(requireContext(),chatUserList)
-                            design.userListRvv.adapter = adapter
-                            design.userListRvv.layoutManager = LinearLayoutManager(requireContext())
-
-
                         }
+                        adapter.notifyDataSetChanged()
                     }
 
                 }
+
+
             }
 
-        }
+
 
 
 

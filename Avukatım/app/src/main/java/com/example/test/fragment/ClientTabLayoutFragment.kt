@@ -33,10 +33,11 @@ class ClientTabLayoutFragment : Fragment() {
           fragmentList.add(ClientHomePageFragment())
           fragmentTitleList.add("Ana Sayfa")
           fragmentList.add(ClientAuthPageFragment())
-         
+         fragmentList.add(ChatListFragment())
 
           if (fragmentTitleList.size == 1) {
               fragmentTitleList.add("Profil")
+              fragmentTitleList.add("Mesaj")
 
 
           }

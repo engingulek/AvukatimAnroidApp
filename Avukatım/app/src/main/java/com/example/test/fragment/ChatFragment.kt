@@ -113,7 +113,7 @@ private  var chats = arrayListOf<Chat>()
             .orderBy("date",Query.Direction.ASCENDING)
             .addSnapshotListener { value, error ->
                 if (error != null) {
-                    Toast.makeText(requireContext(),"Beklenmedik bir hata oluştu",Toast.LENGTH_SHORT).show()
+                  //  Toast.makeText(requireContext(),"Beklenmedik bir hata oluştu",Toast.LENGTH_SHORT).show()
                 }else{
                     if (value != null) {
                         if (value.isEmpty) {
