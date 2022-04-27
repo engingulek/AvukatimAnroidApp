@@ -54,9 +54,11 @@ class LawyerCheckInFragment : Fragment() {
                             if (task.isSuccessful){
 
 
-                                val newAccount = Account(design.singUpEmailEditText.text.toString(),"lawyer")
+                                val nameSurname = auth.currentUser?.displayName.toString()
+                                var uuid = auth.currentUser?.uid.toString()
+                                val newAccount = Account(design.singUpEmailEditText.text.toString(),"lawyer",nameSurname,uuid)
                                 viewModel.createAccount(newAccount)
-                              //  Navigation.findNavController(it).navigate(R.id.toLawyerHomePage)
+                                Navigation.findNavController(it).navigate(R.id.toLawyerHomePage)
 
 
 

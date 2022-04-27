@@ -51,9 +51,11 @@ class ClientPageFragment : Fragment() {
                         }.build()
                         user?.updateProfile(profileUpdate)?.addOnCompleteListener{ task ->
                             if (task.isSuccessful){
-                                val newAccount = Account(design.singUpClientEmailEditText.text.toString(),"client")
+                                val nameSurname = auth.currentUser?.displayName.toString()
+                                var uuid = auth.currentUser?.uid.toString()
+                                val newAccount = Account(design.singUpClientEmailEditText.text.toString(),"client",nameSurname,uuid)
                                 viewModel.createAccount(newAccount)
-                               // Navigation.findNavController(it).navigate(R.id.toClientHomePage)
+                                Navigation.findNavController(it).navigate(R.id.toClientHomePage)
                             }
                         }
                     }else {

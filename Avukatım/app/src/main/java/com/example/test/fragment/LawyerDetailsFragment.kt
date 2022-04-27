@@ -57,7 +57,8 @@ class LawyerDetailsFragment : Fragment() {
 
 
         design.sendMessageChat.setOnClickListener {
-            Navigation.findNavController(it).navigate(R.id.toChat)
+            val pass = LawyerDetailsFragmentDirections.toChat(getLawyerDetails.lawyerNameSurname,getLawyerDetails.authUserId)
+            Navigation.findNavController(it).navigate(pass)
         }
 
         lawyerDetailViewModel.lawyerCommentList.observe(viewLifecycleOwner,{
@@ -102,18 +103,6 @@ class LawyerDetailsFragment : Fragment() {
                 Toast.makeText(requireContext(),"Tarih veya saat seçmediniz",Toast.LENGTH_SHORT).show()
             }
             else {
-
-
-
-
-
-
-                Log.e("Seçilen ilan id","${getLawyerDetails.id}")
-                Log.e("Seçen kişinin kullanıcı id ","${auth.currentUser?.uid}")
-                Log.e("Seçilen gün ve tarih ","${selectDate} / ${selectedTime}")
-                Log.e("Seçilen ilan avukat id","${getLawyerDetails.authUserId}")
-
-
                 val meetInfo = Meeting(
                     "${auth.currentUser?.uid}",
                     getLawyerDetails.id,
@@ -187,32 +176,21 @@ class LawyerDetailsFragment : Fragment() {
         var stateChipFourNotAvaible = false
 
         for (a in list) {
-            Log.e("Avukata Gelen randevu saatleri","${a.time}")
-            Log.e("Avukata saat 2","${design.chipTwoT.text.toString()}")
-
             if (a.time == design.chipTwoT.text.toString()) {
                 design.chipTwoC.setBackgroundResource(R.drawable.test_gray)
-                stateChipTwoNotAvaible = true
-
-            }
+                stateChipTwoNotAvaible = true }
 
             if (a.time == design.chipOneT.text.toString()) {
                 design.chipOneC.setBackgroundResource(R.drawable.test_gray)
-                stateChipOneNotAvaible = true
-
-            }
+                stateChipOneNotAvaible = true }
 
             if (a.time == design.chipThreeT.text.toString()) {
                 design.chipThreeC.setBackgroundResource(R.drawable.test_gray)
-                stateChipThreeNotAvaible = true
-
-            }
+                stateChipThreeNotAvaible = true }
 
             if (a.time == design.chipFourT.text.toString()) {
                 design.chipFourC.setBackgroundResource(R.drawable.test_gray)
-                stateChipFourNotAvaible = true
-
-            }
+                stateChipFourNotAvaible = true }
             else {
                 Log.e("aynı değil","da")
             }
@@ -250,11 +228,7 @@ class LawyerDetailsFragment : Fragment() {
                         stateChipOne = false
                     }
 
-                }
-
-
-
-            }
+                } }
         }
 
 

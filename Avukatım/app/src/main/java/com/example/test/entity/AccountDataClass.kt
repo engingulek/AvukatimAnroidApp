@@ -5,5 +5,11 @@ import java.io.Serializable
 
 data  class AccountDataClass (@SerializedName("_id") @Expose var id:String,
                  @SerializedName("email") @Expose var email:String,
-                 @SerializedName("accountType") @Expose var accountType:String) {
+                 @SerializedName("accountType") @Expose var accountType:String,
+                              @SerializedName("nameSurname") @Expose var nameSurname:String,
+                              @SerializedName("userId") @Expose var userId:String
+
+
+
+                 ) {
 }

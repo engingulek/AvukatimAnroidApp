@@ -1,6 +1,7 @@
 package com.example.test.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Adapter
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.test.R
 import com.example.test.adapter.ChatAdapter
@@ -29,6 +31,7 @@ private lateinit var fireStore : FirebaseFirestore
 private lateinit var adapter: ChatAdapter
 private  var chats = arrayListOf<Chat>()
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,39 +44,101 @@ private  var chats = arrayListOf<Chat>()
         adapter = ChatAdapter()
         design.chatRvv.adapter = adapter
         design.chatRvv.layoutManager = LinearLayoutManager(requireContext())
+
+        val bundle : ChatFragmentArgs by navArgs()
+
+
         design.sendButton.setOnClickListener {
 
             if (design.messageText.text.toString() != ""){
 
 
                 auth.currentUser?.let {
-                    val user = it.email
+                    val senduser = it.email
+                    val sendUserName = it.displayName
+                    val sendUuid = it.uid
+                    val getUserName  = bundle.getUserName
+                    val getuuid = bundle.getUuid
                     val chatText = design.messageText.text.toString()
                     val date = FieldValue.serverTimestamp()
-                    val userName = it.displayName
+
+
+
+
+
+
+
 
                     val dataMap = HashMap<String,Any>()
-                    dataMap.put("text",chatText)
-                    dataMap.put("user",user!!)
-                    dataMap.put("date",date)
-                    dataMap.put("userName",userName!!)
+                    dataMap.put("senduser",senduser!!)
+                    dataMap.put("sendUserName",sendUserName!!)
+                    dataMap.put("sendUuid",sendUuid!!)
+                    dataMap.put("getUserName",getUserName!!)
+                    dataMap.put("getuuid",getuuid!!)
+                    dataMap.put("chatText",chatText!!)
+                    dataMap.put("date",date!!)
 
 
 
-                    fireStore.collection("Chats").add(dataMap)
+
+                    fireStore.collection("Chats")
+                        .document(auth.currentUser?.uid!!).collection("message").add(dataMap)
                         .addOnSuccessListener {
                             design.messageText.setText("")
                         }
                         .addOnFailureListener {
+                            // HATA İLE KARŞILAŞILDI
+                        }
 
-                        } }
+
+                    fireStore.collection("Chats")
+                        .document(getuuid).collection("message").add(dataMap)
+                        .addOnSuccessListener {
+                            design.messageText.setText("")
+                        }
+                        .addOnFailureListener {
+                            // HATA İLE KARŞILAŞILDI
+                        }
+                }
 
             }
 
 
         }
 
-        fireStore.collection("Chats").orderBy("date",Query.Direction.ASCENDING)
+
+        fireStore.collection("Chats")
+            .document(auth.currentUser?.uid!!)
+            .collection("message")
+            .orderBy("date",Query.Direction.ASCENDING)
+            .addSnapshotListener { value, error ->
+                if (error != null) {
+                    Toast.makeText(requireContext(),"Beklenmedik bir hata oluştu",Toast.LENGTH_SHORT).show()
+                }else{
+                    if (value != null) {
+                        if (value.isEmpty) {
+                            Toast.makeText(requireContext(),"Mesaj yok",Toast.LENGTH_SHORT).show()
+                        }else {
+                            val documents = value.documents
+                            chats.clear()
+                            for (document in documents) {
+                                val text = document.get("chatText") as String
+                                val user = document.get("senduser") as String
+                                val chat = Chat(user,text)
+                                chats.add(chat)
+                                adapter.chats = chats
+                            }
+                        }
+                        adapter.notifyDataSetChanged()
+                    }
+
+                }
+
+            }
+
+
+
+      /* fireStore.collection("Chats").orderBy("date",Query.Direction.ASCENDING)
             .addSnapshotListener{value,error->
 
                 if (error != null) {
@@ -99,7 +164,7 @@ private  var chats = arrayListOf<Chat>()
                 }
 
 
-            }
+            }*/
 
         return design.root
     }

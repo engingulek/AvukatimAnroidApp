@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import com.example.test.R
 import com.example.test.databinding.FragmentSelectionPageBinding
+import com.example.test.viewModel.CreateAccountViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -16,6 +18,7 @@ import com.google.firebase.ktx.Firebase
 class SelectionPageFragment : Fragment() {
     private lateinit var desing : FragmentSelectionPageBinding
     private lateinit var auth: FirebaseAuth
+    private lateinit var viewModel : CreateAccountViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
@@ -37,12 +40,35 @@ class SelectionPageFragment : Fragment() {
         super.onStart()
         val currentUser = auth.currentUser
         if (currentUser != null ) {
-            Navigation.findNavController(desing.root).navigate(R.id.toClientHomePageTwo)
+
+            viewModel.accountList.observe(viewLifecycleOwner,{
+                for (a in it) {
+                    if (a.email == auth.currentUser?.email) {
+                        if(a.accountType == "lawyer") {
+                            Navigation.findNavController(desing.root).navigate(R.id.toLawyerHomePageTwo)
+                        }else{
+                            Navigation.findNavController(desing.root).navigate(R.id.toClientHomePageTwo)
+
+                        }
+                    }
+                }
+            })
+
+
+
+
 
         }
 
-    }
 
+
+
+    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val tempViewModel :  CreateAccountViewModel by viewModels()
+        viewModel = tempViewModel
+    }
 
 
 }

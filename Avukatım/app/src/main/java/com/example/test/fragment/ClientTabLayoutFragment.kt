@@ -33,11 +33,11 @@ class ClientTabLayoutFragment : Fragment() {
           fragmentList.add(ClientHomePageFragment())
           fragmentTitleList.add("Ana Sayfa")
           fragmentList.add(ClientAuthPageFragment())
-          fragmentList.add(ChatListFragment())
+         
 
           if (fragmentTitleList.size == 1) {
               fragmentTitleList.add("Profil")
-              fragmentTitleList.add("Mesaj")
+
 
           }
       }
@@ -45,7 +45,7 @@ class ClientTabLayoutFragment : Fragment() {
 
 
 
-
+// Basılan tablayouta ait fragmentin getirilmesi
         TabLayoutMediator(design.clientTabLayout,design.viewPager) { tab,position ->
             tab.setText(fragmentTitleList[position])
 
@@ -58,6 +58,7 @@ class ClientTabLayoutFragment : Fragment() {
         return design.root
     }
 
+    // fragment listesi kadar yer oluşturulması
     inner class MyViewPageAdapter(fragmentClientTabLayoutFragment: ClientTabLayoutFragment)
         : FragmentStateAdapter(fragmentClientTabLayoutFragment) {
         override fun getItemCount(): Int {
@@ -65,6 +66,7 @@ class ClientTabLayoutFragment : Fragment() {
 
         }
 
+        // fragmentlerin oluşturulması
         override fun createFragment(position: Int): Fragment {
             return fragmentList[position]
 

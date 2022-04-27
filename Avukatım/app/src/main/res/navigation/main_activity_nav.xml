@@ -156,7 +156,12 @@
         android:name="com.example.test.fragment.ChatFragment"
         android:label="ChatFragment"
         tools:layout="@layout/fragment_chat"
-        />
+        >
+        <argument
+            android:name="getUserName"
+            app:argType="string" />
+        <argument android:name="getUuid" />
+    </fragment>
     <fragment
         android:id="@+id/chatListFragment"
         android:name="com.example.test.fragment.ChatListFragment"
