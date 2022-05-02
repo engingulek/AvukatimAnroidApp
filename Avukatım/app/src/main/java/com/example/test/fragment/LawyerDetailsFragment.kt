@@ -175,7 +175,7 @@ class LawyerDetailsFragment : Fragment() {
         var stateChipTwo = false
         var stateChipThree = false
         var stateChipFour = false
-        var stateChipOneNotAvaible = false
+        var stateChipOneNotAvaible = true
         var stateChipTwoNotAvaible = false
         var stateChipThreeNotAvaible = false
         var stateChipFourNotAvaible = false
@@ -185,9 +185,9 @@ class LawyerDetailsFragment : Fragment() {
                 design.chipTwoC.setBackgroundResource(R.drawable.test_gray)
                 stateChipTwoNotAvaible = true }
 
-            if (a.time == design.chipOneT.text.toString()) {
-                design.chipOneC.setBackgroundResource(R.drawable.test_gray)
-                stateChipOneNotAvaible = true }
+            /*if ("16:00" == design.chipOneT.text.toString()) {
+               // design.chipOneC.setBackgroundResource(R.drawable.test_gray)
+                stateChipOneNotAvaible = true }*/
 
             if (a.time == design.chipThreeT.text.toString()) {
                 design.chipThreeC.setBackgroundResource(R.drawable.test_gray)
@@ -351,7 +351,7 @@ class LawyerDetailsFragment : Fragment() {
 
 
 
-
+        design.chipOneC.setBackgroundResource(R.drawable.test_gray)
 
     }
 

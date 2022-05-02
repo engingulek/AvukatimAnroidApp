@@ -46,15 +46,15 @@ class LawyerListAdapter(var mContext: Context, var lawyerList: List<LawyerInfo>,
         cardDesign.lawyerCardView.setOnClickListener {
             val pass = ClientTabLayoutFragmentDirections.toDetails(lawyer)
             Navigation.findNavController(it).navigate(pass)
-          /*val pass = ClientHomePageFragmentDirections.toDetails(lawyer)
-            Navigation.findNavController(it).navigate(pass)*/
+            /*val pass = ClientHomePageFragmentDirections.toDetails(lawyer)
+              Navigation.findNavController(it).navigate(pass)*/
 
         }
         val locCordinate = arrayOf("","")
         cardDesign.imageViewLawyer.setOnClickListener {
             println("Tıklandı")
-           val tets = Lawyer(lawyer.authUserId,lawyer.lawyerImageUrl,lawyer.lawyerNameSurname,lawyer.lawyerGender,lawyer.lawyerAge,lawyer.lawyerProfession,
-               lawyer.lawyerLocationCity,lawyer.lawyerLocationCounty, locCordinate,"jj",lawyer.lawyerDescription,lawyer.lawyerDescription)
+            val tets = Lawyer(lawyer.authUserId,lawyer.lawyerImageUrl,lawyer.lawyerNameSurname,lawyer.lawyerGender,lawyer.lawyerAge,lawyer.lawyerProfession,
+                lawyer.lawyerLocationCity,lawyer.lawyerLocationCounty, locCordinate,"jj",lawyer.lawyerDescription,lawyer.lawyerDescription)
             viewModel.addLayertoFav(tets)
 
         }

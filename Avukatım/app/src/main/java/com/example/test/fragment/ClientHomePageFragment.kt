@@ -1,22 +1,33 @@
 package com.example.test.fragment
 
 import android.os.Bundle
+import android.os.CountDownTimer
+import android.os.Handler
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Adapter
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import com.example.test.R
 import com.example.test.adapter.LawyerListAdapter
 import com.example.test.databinding.FragmentClientHomePageBinding
+import com.example.test.entity.LawyerInfo
+import com.example.test.entity.LawyerInfoResult
 import com.example.test.entity.MeetingDataClass
+import com.example.test.retrofit.MyLawyerDaoInterface
 import com.example.test.viewModel.HomePageViewModel
 import com.example.test.viewModel.LawyerMeetingListViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import com.example.test.retrofit.APIUtils
 
 
 class ClientHomePageFragment : Fragment() {
@@ -25,6 +36,8 @@ class ClientHomePageFragment : Fragment() {
     private lateinit var lawyerListAdapter: LawyerListAdapter
     private lateinit var lawyerMeetingListViewModel : LawyerMeetingListViewModel
     private lateinit var auth: FirebaseAuth
+    private lateinit var adapter: Adapter
+    private lateinit var myLawyerDao : MyLawyerDaoInterface
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         design = DataBindingUtil.inflate(inflater, R.layout.fragment_client_home_page, container, false)
@@ -34,34 +47,21 @@ class ClientHomePageFragment : Fragment() {
 
 
 
+        design.bttnTest.setOnClickListener {
 
-        homePageViewModel.lawyerInfoList.observe(viewLifecycleOwner,{
-            val lawyerList = it
-            lawyerMeetingListViewModel.meetingList.observe(viewLifecycleOwner,{
-
-
-                if (it.size > 0) {
-                    for ( a in it) {
-                        val ita = lawyerList.filter { lawyerList -> lawyerList.authUserId != a.lawyerAuthUserId }
-                        lawyerListAdapter = LawyerListAdapter(requireContext(),ita,homePageViewModel)
-                        design.lawyerListAdapter = lawyerListAdapter
-
-                    }
+        }
 
 
 
-                }
+        design.swipeRefreshLayout.setOnRefreshListener {
 
-                else {
-                    lawyerListAdapter = LawyerListAdapter(requireContext(),lawyerList,homePageViewModel)
-                    design.lawyerListAdapter = lawyerListAdapter
+          getList()
 
-                }
+            Handler().postDelayed(Runnable {
+                design.swipeRefreshLayout.isRefreshing = false
+            }, 1000)
 
-
-
-
-            })
+        }
 
 
 
@@ -72,69 +72,56 @@ class ClientHomePageFragment : Fragment() {
 
 
 
-
-
-
-
-            //  val ita = it.filter { it.authUserId ==  }
-
-
-        })
 
         return design.root
     }
 
-    override fun onResume() {
-        super.onResume()
+
+
+    fun getDataLawyerInfo() {
+
         homePageViewModel.lawyerInfoList.observe(viewLifecycleOwner,{
-            val lawyerList = it
-            lawyerMeetingListViewModel.meetingList.observe(viewLifecycleOwner,{
+
+            lawyerListAdapter = LawyerListAdapter(requireContext(),it,homePageViewModel)
+
+            design.lawyerListAdapter = lawyerListAdapter
+        })
+
+    }
 
 
 
 
+    fun getList() {
+myLawyerDao = APIUtils.getMyLawyerDaoInterface()
+        myLawyerDao.allLawyerInfo().enqueue(object: Callback<LawyerInfoResult> {
+            override fun onResponse(call: Call<LawyerInfoResult>, response: Response<LawyerInfoResult>) {
+                val liste = response.body().lawyerInfoList
 
-                if (it.size > 0) {
-                    for ( a in it) {
-                        val ita = lawyerList.filter { lawyerList -> lawyerList.authUserId != a.lawyerAuthUserId }
-                        lawyerListAdapter = LawyerListAdapter(requireContext(),ita,homePageViewModel)
-                        design.lawyerListAdapter = lawyerListAdapter
+                lawyerListAdapter = LawyerListAdapter(requireContext(),liste,homePageViewModel)
 
-                    }
-
-
-
-                }
-
-                else {
-                    lawyerListAdapter = LawyerListAdapter(requireContext(),lawyerList,homePageViewModel)
-                    design.lawyerListAdapter = lawyerListAdapter
-
-                }
-
-
-
-
-            })
+                design.lawyerListAdapter = lawyerListAdapter
 
 
 
 
 
 
+            }
 
+            override fun onFailure(call: Call<LawyerInfoResult>?, t: Throwable?) {
 
-
-
-
-
-
-
-            //  val ita = it.filter { it.authUserId ==  }
-
+            }
 
         })
 
+
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        getDataLawyerInfo()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -146,8 +133,12 @@ class ClientHomePageFragment : Fragment() {
 
 
 
+
         val a : LawyerMeetingListViewModel by viewModels()
         lawyerMeetingListViewModel = a
+
+
+
     }
 
 

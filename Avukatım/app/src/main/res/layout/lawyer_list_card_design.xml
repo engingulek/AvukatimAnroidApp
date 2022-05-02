@@ -153,6 +153,7 @@
                     android:innerRadius="0dp"
                     android:shape="ring"
                     android:thicknessRatio="1.9"
+                    android:visibility="gone"
                     app:cardCornerRadius="40dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imageViewLawyer"

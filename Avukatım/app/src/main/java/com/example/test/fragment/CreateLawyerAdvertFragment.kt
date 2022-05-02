@@ -303,7 +303,7 @@ class CreateLawyerAdvertFragment : Fragment() {
 
 
 
-            val newLawyer = Lawyer("${auth.currentUser?.uid}",imageLawyerUrl!!,
+           /* val newLawyer = Lawyer("${auth.currentUser?.uid}",imageLawyerUrl!!,
                 "${auth.currentUser?.displayName}",
                 "${selectionGender}" ,
                 age,
@@ -313,6 +313,19 @@ class CreateLawyerAdvertFragment : Fragment() {
                 "${selectDate}",
                 "$description",
                 universyt
+            )*/
+
+            val cars = arrayOf("Volvo", "BMW", "Ford", "Mazda")
+            val newLawyer = Lawyer("auth.currentUser?.uid","imageLawyerUrl!!",
+                "kk",
+                "mmlm" ,
+                "32",
+                cars,"ffs",
+                "ff",
+               cars,
+                "kk",
+                "mlml",
+                "universyt"
             )
 
 

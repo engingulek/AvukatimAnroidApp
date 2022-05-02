@@ -16,19 +16,30 @@
         android:layout_height="match_parent"
         tools:context=".fragment.ClientHomePageFragment">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/meetinglawyerListRvv"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayout"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="5dp"
-            android:adapter="@{lawyerListAdapter}"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            android:layout_marginTop="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:spanCount="2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView"
-             />
+           >
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/meetinglawyerListRvv"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:spanCount="2"
+                android:adapter="@{lawyerListAdapter}"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+
+                />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
 
         <TextView
             android:id="@+id/textView"
@@ -43,6 +54,20 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/bttnTest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="125dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="15dp"
+            android:text="Button"
+            app:layout_constraintBottom_toTopOf="@+id/swipeRefreshLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView"
             app:layout_constraintTop_toTopOf="parent" />
 
 

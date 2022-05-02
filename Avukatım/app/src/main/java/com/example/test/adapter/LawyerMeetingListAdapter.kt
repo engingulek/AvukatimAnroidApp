@@ -30,6 +30,7 @@ class LawyerMeetingListAdapter (var mContext:Context, var meetingLawyerList:List
 
     override fun onBindViewHolder(holder: CardDesignConservative, position: Int) {
 
+
         val meeting = meetingLawyerList.get(position)
         val cardDesign = holder.lawyerMeetingListCardDesignBinding
 

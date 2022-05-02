@@ -147,6 +147,8 @@ class MyLawyerRepository {
 
 
 
+
+
     fun addAdvertToLawyerAdvert(a:Lawyer) {
         call =myLawyerDao.createLawyerInterface(a)
 

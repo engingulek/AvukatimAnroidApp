@@ -36,6 +36,8 @@ class LawyerHomePageFragment : Fragment() {
         design.authUser = auth
 
 
+
+
         lawyerMeetingListViewModel.meetingList.observe(viewLifecycleOwner,{
 
             auth =  Firebase.auth
@@ -83,6 +85,12 @@ class LawyerHomePageFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        deneme()
+
+    }
+
+
+    fun deneme() {
         lawyerMeetingListViewModel.meetingList.observe(viewLifecycleOwner,{
 
             auth =  Firebase.auth
@@ -125,6 +133,7 @@ class LawyerHomePageFragment : Fragment() {
         design.lawyerUserImagView.setOnClickListener {
             Navigation.findNavController(it).navigate(R.id.toLawyerAuth)
         }
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
