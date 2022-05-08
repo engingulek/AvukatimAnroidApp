@@ -39,14 +39,15 @@ class LawyerChatListAdapter(var mContext: Context, var userList: HashMap<String,
         val uuid = userList.get("getUid")
         textDesing.userNameText.setOnClickListener {
             auth = Firebase.auth
-            Log.e("lawyerchatlist","${uuid}")
-            /* val pass = LawyerTabLayoutFragmentDirections.toLawyerChat(userName.toString(),uuid.toString())
-            Navigation.findNavController(it).navigate(pass)*/
+          Log.e("müşteri id","${uuid}")
+            Log.e("avuakt id","${auth.currentUser?.uid}")
+             val pass = LawyerTabLayoutFragmentDirections.toLawyerChat(userName.toString(),uuid.toString())
+            Navigation.findNavController(it).navigate(pass)
         }
     }
 
     override fun getItemCount(): Int {
-        return userList.size
+        return userList.size-1
     }
 
 

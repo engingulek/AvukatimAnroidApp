@@ -34,7 +34,7 @@
         <entry key="app/src/main/res/layout/fragment_client_tab_layout.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/fragment_create_lawyer_advert.xml" value="0.20498614958448755" />
         <entry key="app/src/main/res/layout/fragment_lawyer_auth_page.xml" value="0.3098958333333333" />
-        <entry key="app/src/main/res/layout/fragment_lawyer_chat.xml" value="0.26666666666666666" />
+        <entry key="app/src/main/res/layout/fragment_lawyer_chat.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_lawyer_chat_list.xml" value="0.26666666666666666" />
         <entry key="app/src/main/res/layout/fragment_lawyer_check_in.xml" value="0.27685185185185185" />
         <entry key="app/src/main/res/layout/fragment_lawyer_details.xml" value="0.296" />

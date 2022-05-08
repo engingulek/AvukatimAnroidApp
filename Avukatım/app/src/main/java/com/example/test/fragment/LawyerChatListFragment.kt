@@ -1,6 +1,7 @@
 package com.example.test.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -38,10 +39,35 @@ class LawyerChatListFragment : Fragment() {
         auth = Firebase.auth
         design.fragment = this
 
+
+
         fireStore.collection("Chats")
             .document(auth.currentUser?.uid!!)
-            .collection("message")
-            .addSnapshotListener {value,error ->
+            .collection("nameData").document("0").addSnapshotListener { value, error ->
+
+                if (error != null){
+
+                }else{
+                    if(value != null){
+                        Log.e("ContactNAME","${value.get("clientName")}")
+                        Log.e("Contactid","${value.get("clientid")}")
+                        Log.e("Test size","${value.get("clientName")}")
+
+                        chatUserList.put("getUserName",value.get("clientName")!!)
+                        chatUserList.put("getUid",value.get("clientid")!!)
+                        adapter = LawyerChatListAdapter(requireContext(),chatUserList)
+                        design.userListRvv.adapter = adapter
+                        design.userListRvv.layoutManager = LinearLayoutManager(requireContext())
+                        Log.e("Test size","${chatUserList.size}")
+
+                    }
+                }
+
+
+       /* fireStore.collection("Chats")
+            .document(auth.currentUser?.uid!!)
+            .collection("nameData")
+            .addSnapshotListener { value, error ->
                 if (error != null) {
                     //  Toast.makeText(requireContext(),"Beklenmedik bir hata oluştu",Toast.LENGTH_SHORT).show()
                 }else{
@@ -52,27 +78,20 @@ class LawyerChatListFragment : Fragment() {
                             val documents = value.documents
                             chatUserList.clear()
                             for (document in documents) {
-                                val text = document.get("chatText") as String
-                                val user = document.get("getUserName") as String
-                                val getUUid = document.get("getuuid") as String
 
-                                if (user != auth.currentUser?.displayName) {
-                                    if (chatUserList.isEmpty()) {
-                                        chatUserList.put("getUserName",user)
-                                        chatUserList.put("getUid",getUUid)
-                                    }
-                                    else{
-                                        val check = chatUserList.contains(user)
-                                        if (check) {
+                                val contactName = document.get("clientName") as String
+                                val contactId = document.get("clientid") as String
 
-                                        }else{
-                                            chatUserList.put("getUserName",user)
-                                            chatUserList.put("getUid",getUUid)
 
-                                        }
-                                    }
+                                chatUserList.put("getUserName",contactName)
+                                chatUserList.put("getUid",contactId)
 
-                                }
+
+
+
+
+
+
                                 adapter = LawyerChatListAdapter(requireContext(),chatUserList)
                                 design.userListRvv.adapter = adapter
                                 design.userListRvv.layoutManager = LinearLayoutManager(requireContext())
@@ -86,10 +105,19 @@ class LawyerChatListFragment : Fragment() {
 
                     }
 
-                }
+                }*/
 
 
             }
+
+
+
+
+
+
+
+
+
 
 
 

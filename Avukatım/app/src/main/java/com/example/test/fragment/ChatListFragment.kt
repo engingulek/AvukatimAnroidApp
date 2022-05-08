@@ -39,10 +39,36 @@ class ChatListFragment : Fragment() {
         design.fragment = this
         Log.e("Pzar","${auth.currentUser?.uid}")
 
+
+
         fireStore.collection("Chats")
             .document(auth.currentUser?.uid!!)
-            .collection("message")
-            .addSnapshotListener {value,error ->
+            .collection("nameData").document("0").addSnapshotListener { value, error ->
+
+                if (error != null){
+
+                }else{
+                    if(value != null){
+                        Log.e("ContactNAME","${value.get("lawyerName")}")
+                        Log.e("Contactid","${value.get("lawyerid")}")
+
+
+                        chatUserList.put("getUserName",value.get("lawyerName")!!)
+                        chatUserList.put("getUid",value.get("lawyerName")!!)
+                        adapter = ChatListAdapter(requireContext(),chatUserList)
+                        design.userListRvv.adapter = adapter
+                        design.userListRvv.layoutManager = LinearLayoutManager(requireContext())
+                        Log.e("Test size","${chatUserList.size}")
+
+                    }
+                }
+
+
+
+       /* fireStore.collection("Chats")
+            .document(auth.currentUser?.uid!!)
+            .collection("nameData")
+            .addSnapshotListener { value, error ->
                 if (error != null) {
                     //  Toast.makeText(requireContext(),"Beklenmedik bir hata oluştu",Toast.LENGTH_SHORT).show()
                 }else{
@@ -53,27 +79,32 @@ class ChatListFragment : Fragment() {
                             val documents = value.documents
                             chatUserList.clear()
                             for (document in documents) {
-                                val text = document.get("chatText")
-                                val user = document.get("getUserName")
-                                val getUUid = document.get("getuuid")
+                                val text = document.get("chatText") as String
+                                val contactName = document.get("lawyerName") as String
+                                val contactId = document.get("lawyerid") as String
 
-                                if (user != auth.currentUser?.displayName) {
-                                    if (chatUserList.isEmpty()) {
-                                        chatUserList.put("getUserName",user.toString())
-                                        chatUserList.put("getUid",getUUid.toString())
-                                    }
-                                    else{
-                                        val check = chatUserList.contains(user)
-                                        if (check) {
 
-                                        }else{
-                                            chatUserList.put("getUserName",user.toString())
-                                            chatUserList.put("getUid",getUUid!!)
 
-                                        }
-                                    }
+                                if (chatUserList.isEmpty()) {
 
+                                    chatUserList.put("getUserName",contactName)
+                                    chatUserList.put("getUid",contactId)
                                 }
+                                else{
+                                    val check = chatUserList.contains(contactName)
+                                    if (check) {
+
+                                    }else{
+                                        chatUserList.put("getUserName",contactName)
+                                        chatUserList.put("getUid",contactId)
+
+                                    }
+                                }
+
+
+
+
+
                                 adapter = ChatListAdapter(requireContext(),chatUserList)
                                 design.userListRvv.adapter = adapter
                                 design.userListRvv.layoutManager = LinearLayoutManager(requireContext())
@@ -87,10 +118,70 @@ class ChatListFragment : Fragment() {
 
                     }
 
-                }
+                }*/
 
 
             }
+
+
+
+
+
+
+
+
+        /* fireStore.collection("Chats")
+             .document(auth.currentUser?.uid!!)
+             .collection("message")
+             .addSnapshotListener {value,error ->
+                 if (error != null) {
+                     //  Toast.makeText(requireContext(),"Beklenmedik bir hata oluştu",Toast.LENGTH_SHORT).show()
+                 }else{
+                     if (value != null) {
+                         if (value.isEmpty) {
+                             // Toast.makeText(requireContext(),"Mesaj yok",Toast.LENGTH_SHORT).show()
+                         }else {
+                             val documents = value.documents
+                             chatUserList.clear()
+                             for (document in documents) {
+                                 val text = document.get("chatText")
+                                 val user = document.get("getUserName")
+                                 val getUUid = document.get("getuuid")
+
+                                 if (user != auth.currentUser?.displayName) {
+                                     if (chatUserList.isEmpty()) {
+                                         chatUserList.put("getUserName",user.toString())
+                                         chatUserList.put("getUid",getUUid.toString())
+                                     }
+                                     else{
+                                         val check = chatUserList.contains(user)
+                                         if (check) {
+
+                                         }else{
+                                             chatUserList.put("getUserName",user.toString())
+                                             chatUserList.put("getUid",getUUid!!)
+
+                                         }
+                                     }
+
+                                 }
+                                 adapter = ChatListAdapter(requireContext(),chatUserList)
+                                 design.userListRvv.adapter = adapter
+                                 design.userListRvv.layoutManager = LinearLayoutManager(requireContext())
+
+
+                             }
+                         }
+                         if(chatUserList.size != 0) {
+                             adapter.notifyDataSetChanged()
+                         }
+
+                     }
+
+                 }
+
+
+             }*/
 
 
 

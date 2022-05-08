@@ -47,6 +47,8 @@ class LawyerChatFragment : Fragment() {
         design.chatRvv.layoutManager = LinearLayoutManager(requireContext())
 
         val bundle : LawyerChatFragmentArgs by navArgs()
+        val getUserNamer  = bundle.getUserName
+        design.lawyernateTe.text = getUserNamer
 
         design.sendButton.setOnClickListener {
 
@@ -61,6 +63,41 @@ class LawyerChatFragment : Fragment() {
                     val getuuid = bundle.getUuid
                     val chatText = design.messageText.text.toString()
                     val date = FieldValue.serverTimestamp()
+
+                    Log.e("müşteri id","${getuuid}")
+
+
+
+                    val clientNamaeData  = HashMap<String,Any>()
+                    clientNamaeData.put("clientName",getUserName!!)
+                    clientNamaeData.put("lawyerName",sendUserName!!)
+                    clientNamaeData.put("clientid",getuuid)
+                    clientNamaeData.put("lawyerid",sendUuid)
+
+
+
+                    fireStore.collection("Chats")
+                        .document(auth.currentUser?.uid!!).collection("nameData").document("0").set(clientNamaeData)
+                        .addOnSuccessListener {
+                            design.messageText.setText("")
+                        }
+                        .addOnFailureListener {
+                            // HATA İLE KARŞILAŞILDI
+                        }
+
+
+                    fireStore.collection("Chats")
+                        .document(getuuid).collection("nameData").document("0").set(clientNamaeData)
+                        .addOnSuccessListener {
+                            design.messageText.setText("")
+                        }
+                        .addOnFailureListener {
+                            // HATA İLE KARŞILAŞILDI
+                        }
+
+
+
+
 
 
 
@@ -99,6 +136,9 @@ class LawyerChatFragment : Fragment() {
                         }
 
 
+
+
+
                     val dataMapA = HashMap<String,Any>()
                     dataMapA.put("senduser",senduser!!)
 
@@ -111,6 +151,8 @@ class LawyerChatFragment : Fragment() {
                     dataMapA.put("getuuid",getuuid!!)
                     dataMapA.put("chatText",chatText!!)
                     dataMapA.put("date",date!!)
+
+
 
 
                     fireStore.collection("Chats")

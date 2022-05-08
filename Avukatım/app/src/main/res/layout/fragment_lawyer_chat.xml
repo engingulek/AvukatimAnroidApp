@@ -7,6 +7,9 @@
         <variable
             name="fragment"
             type="com.example.test.fragment.LawyerChatFragment" />
+        <variable
+            name="name"
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,7 +28,7 @@
             app:layout_constraintBottom_toTopOf="@+id/sendButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nateTe" />
+            app:layout_constraintTop_toBottomOf="@+id/lawyernateTe" />
 
         <EditText
             android:id="@+id/messageText"
@@ -74,14 +77,15 @@
         </com.google.android.material.card.MaterialCardView>
 
         <TextView
-            android:id="@+id/nateTe"
+            android:id="@+id/lawyernateTe"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@color/toolbarColor"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
 
-            android:text="Engin Gülek"
+
+
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="24sp"
@@ -90,5 +94,6 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

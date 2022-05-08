@@ -71,29 +71,18 @@ private  var chats = arrayListOf<Chat>()
 
 
 
+                    Log.e("Müşteri adı","${sendUserName}")
+                    Log.e("Avukat adı","${getUserName}")
+                    design.nateTe.text = getUserName
 
-
-
-
-
-                    val dataMap = HashMap<String,Any>()
-                    dataMap.put("senduser",senduser!!)
-
-                    dataMap.put("sendUserName",sendUserName!!)
-
-                    dataMap.put("sendUuid",sendUuid!!)
-
-                    dataMap.put("getUserName",getUserName!!)
-
-                    dataMap.put("getuuid",getuuid!!)
-                    dataMap.put("chatText",chatText!!)
-                    dataMap.put("date",date!!)
-
-
-
+                    val clientNamaeData  = HashMap<String,Any>()
+                    clientNamaeData.put("clientName",sendUserName!!)
+                    clientNamaeData.put("lawyerName",getUserName!!)
+                    clientNamaeData.put("clientid",sendUuid)
+                    clientNamaeData.put("lawyerid",getuuid)
 
                     fireStore.collection("Chats")
-                        .document(auth.currentUser?.uid!!).collection("message").add(dataMap)
+                        .document(auth.currentUser?.uid!!).collection("nameData").document("0").set(clientNamaeData)
                         .addOnSuccessListener {
                             design.messageText.setText("")
                         }
@@ -102,28 +91,76 @@ private  var chats = arrayListOf<Chat>()
                         }
 
 
-                    val dataMapA = HashMap<String,Any>()
-                    dataMapA.put("senduser",senduser!!)
-
-                    dataMapA.put("sendUserName",getUserName!!)
-
-                    dataMapA.put("sendUuid",sendUuid!!)
-
-                    dataMapA.put("getUserName",sendUserName!!)
-
-                    dataMapA.put("getuuid",getuuid!!)
-                    dataMapA.put("chatText",chatText!!)
-                    dataMapA.put("date",date!!)
-
-
                     fireStore.collection("Chats")
-                        .document(getuuid).collection("message").add(dataMapA)
+                        .document(getuuid).collection("nameData").document("0").set(clientNamaeData)
                         .addOnSuccessListener {
                             design.messageText.setText("")
                         }
                         .addOnFailureListener {
                             // HATA İLE KARŞILAŞILDI
                         }
+
+
+
+
+
+
+
+
+
+                        val dataMap = HashMap<String,Any>()
+                         dataMap.put("senduser",senduser!!)
+
+                         dataMap.put("sendUserName",sendUserName!!)
+
+                         dataMap.put("sendUuid",sendUuid!!)
+
+                         dataMap.put("getUserName",getUserName!!)
+
+                         dataMap.put("getuuid",getuuid!!)
+                         dataMap.put("chatText",chatText!!)
+                         dataMap.put("date",date!!)
+
+
+
+
+                         fireStore.collection("Chats")
+                             .document(auth.currentUser?.uid!!).collection("message").add(dataMap)
+                             .addOnSuccessListener {
+                                 design.messageText.setText("")
+                             }
+                             .addOnFailureListener {
+                                 // HATA İLE KARŞILAŞILDI
+                             }
+
+
+                         val dataMapA = HashMap<String,Any>()
+                         dataMapA.put("senduser",senduser!!)
+
+                         dataMapA.put("sendUserName",getUserName!!)
+
+                         dataMapA.put("sendUuid",sendUuid!!)
+
+                         dataMapA.put("getUserName",sendUserName!!)
+
+                         dataMapA.put("getuuid",getuuid!!)
+                         dataMapA.put("chatText",chatText!!)
+                         dataMapA.put("date",date!!)
+
+
+                         fireStore.collection("Chats")
+                             .document(getuuid).collection("message").add(dataMapA)
+                             .addOnSuccessListener {
+                                 design.messageText.setText("")
+                             }
+                             .addOnFailureListener {
+                                 // HATA İLE KARŞILAŞILDI
+                             }
+
+
+
+
+
                 }
 
             }
