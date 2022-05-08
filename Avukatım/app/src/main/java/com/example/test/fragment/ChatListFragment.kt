@@ -1,6 +1,7 @@
 package com.example.test.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.test.R
 import com.example.test.adapter.ChatListAdapter
+import com.example.test.adapter.LawyerChatListAdapter
 import com.example.test.databinding.FragmentChatListBinding
 import com.example.test.entity.Chat
 import com.google.firebase.auth.FirebaseAuth
@@ -21,7 +23,7 @@ import com.google.firebase.ktx.Firebase
 
 
 class ChatListFragment : Fragment() {
-   private lateinit var design : FragmentChatListBinding
+    private lateinit var design : FragmentChatListBinding
     private lateinit var auth : FirebaseAuth
     private lateinit var fireStore : FirebaseFirestore
     private  var chatUserList = HashMap<String,Any>()
@@ -35,7 +37,7 @@ class ChatListFragment : Fragment() {
         fireStore = Firebase.firestore
         auth = Firebase.auth
         design.fragment = this
-
+        Log.e("Pzar","${auth.currentUser?.uid}")
 
         fireStore.collection("Chats")
             .document(auth.currentUser?.uid!!)
@@ -46,27 +48,27 @@ class ChatListFragment : Fragment() {
                 }else{
                     if (value != null) {
                         if (value.isEmpty) {
-                           // Toast.makeText(requireContext(),"Mesaj yok",Toast.LENGTH_SHORT).show()
+                            // Toast.makeText(requireContext(),"Mesaj yok",Toast.LENGTH_SHORT).show()
                         }else {
                             val documents = value.documents
                             chatUserList.clear()
                             for (document in documents) {
-                                val text = document.get("chatText") as String
-                                val user = document.get("getUserName") as String
-                                val getUUid = document.get("getuuid") as String
+                                val text = document.get("chatText")
+                                val user = document.get("getUserName")
+                                val getUUid = document.get("getuuid")
 
                                 if (user != auth.currentUser?.displayName) {
                                     if (chatUserList.isEmpty()) {
-                                        chatUserList.put("getUserName",user)
-                                        chatUserList.put("getUid",getUUid)
+                                        chatUserList.put("getUserName",user.toString())
+                                        chatUserList.put("getUid",getUUid.toString())
                                     }
                                     else{
                                         val check = chatUserList.contains(user)
                                         if (check) {
 
                                         }else{
-                                            chatUserList.put("getUserName",user)
-                                            chatUserList.put("getUid",getUUid)
+                                            chatUserList.put("getUserName",user.toString())
+                                            chatUserList.put("getUid",getUUid!!)
 
                                         }
                                     }
@@ -89,6 +91,9 @@ class ChatListFragment : Fragment() {
 
 
             }
+
+
+
 
 
 

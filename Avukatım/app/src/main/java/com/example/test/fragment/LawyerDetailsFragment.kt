@@ -22,6 +22,7 @@ import com.example.test.databinding.FragmentLawyerDetailsBinding
 import com.example.test.entity.Meeting
 import com.example.test.entity.MeetingDataClass
 import com.example.test.viewModel.LawyerDetailsViewModel
+import com.example.test.viewModel.LawyerMeetingListViewModel
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.datepicker.MaterialDatePicker.thisMonthInUtcMilliseconds
@@ -37,6 +38,7 @@ class LawyerDetailsFragment : Fragment() {
     private lateinit var lawyerDetailViewModel : LawyerDetailsViewModel
     private lateinit var lawyerCommentAdapter: LawyerCommentAdapter
     private lateinit var auth: FirebaseAuth
+    private lateinit var lawyerMeetingListViewModel: LawyerMeetingListViewModel
 
     var time =  ""
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -73,19 +75,33 @@ class LawyerDetailsFragment : Fragment() {
         })
         val cityItems = ArrayList<String>()
         design.bttnMeetingOne.setOnClickListener {
-            design.randevu.visibility = View.VISIBLE
+
+            lawyerMeetingListViewModel.meetingList.observe(viewLifecycleOwner,{
+
+                val check =  it.any { a -> a.lawyerAuthUserId == getLawyerDetails.authUserId }
+
+                if (check) {
+                    Toast.makeText(requireContext(),"Zaten bu avukatla bir radevunuz bulunmaktadır",Toast.LENGTH_SHORT).show()
+                }
+                else {
+
+                    design.randevu.visibility = View.VISIBLE
+                    design.chipOneC.setBackgroundResource(R.drawable.test)
+                    design.chipTwoC.setBackgroundResource(R.drawable.test)
+                    design.chipThreeC.setBackgroundResource(R.drawable.test)
+                    design.chipFourC.setBackgroundResource(R.drawable.test)
+                    lawyerMeetingFreeTime(getLawyerDetails.authUserId)
+
+                }
+
+
+            })
 
 
 
 
 
 
-
-            design.chipOneC.setBackgroundResource(R.drawable.test)
-            design.chipTwoC.setBackgroundResource(R.drawable.test)
-            design.chipThreeC.setBackgroundResource(R.drawable.test)
-            design.chipFourC.setBackgroundResource(R.drawable.test)
-            lawyerMeetingFreeTime(getLawyerDetails.authUserId)
 
         }
 
@@ -101,6 +117,8 @@ class LawyerDetailsFragment : Fragment() {
 
 
         design.bttnSendMeeting.setOnClickListener {
+
+
           val selectDate =  design.textViewMeetDate.text.toString()
             val selectedTime = time
 
@@ -358,8 +376,12 @@ class LawyerDetailsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
         val tempViewModel: LawyerDetailsViewModel by viewModels()
         lawyerDetailViewModel = tempViewModel
+
+        val tempViewModell : LawyerMeetingListViewModel by viewModels()
+        lawyerMeetingListViewModel = tempViewModell
     }
 
 

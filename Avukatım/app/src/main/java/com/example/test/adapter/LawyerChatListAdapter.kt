@@ -1,6 +1,7 @@
 package com.example.test.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.Navigation
@@ -38,8 +39,9 @@ class LawyerChatListAdapter(var mContext: Context, var userList: HashMap<String,
         val uuid = userList.get("getUid")
         textDesing.userNameText.setOnClickListener {
             auth = Firebase.auth
-             val pass = LawyerTabLayoutFragmentDirections.toLawyerChat(userName.toString(),uuid.toString())
-            Navigation.findNavController(it).navigate(pass)
+            Log.e("lawyerchatlist","${uuid}")
+            /* val pass = LawyerTabLayoutFragmentDirections.toLawyerChat(userName.toString(),uuid.toString())
+            Navigation.findNavController(it).navigate(pass)*/
         }
     }
 

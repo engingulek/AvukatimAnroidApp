@@ -54,11 +54,18 @@ private  var chats = arrayListOf<Chat>()
 
 
                 auth.currentUser?.let {
+
+
+                    val clientuser = it.email
+                    val clientUserName = it.displayName
+
+
                     val senduser = it.email
                     val sendUserName = it.displayName
                     val sendUuid = it.uid
                     val getUserName  = bundle.getUserName
                     val getuuid = bundle.getUuid
+                    Log.e("uuda","${getuuid}")
                     val chatText = design.messageText.text.toString()
                     val date = FieldValue.serverTimestamp()
 
@@ -140,9 +147,9 @@ private  var chats = arrayListOf<Chat>()
                             val documents = value.documents
                             chats.clear()
                             for (document in documents) {
-                                val text = document.get("chatText") as String
-                                val user = document.get("senduser") as String
-                                val chat = Chat(user,text)
+                                val text = document.get("chatText")
+                                val user = document.get("senduser")
+                                val chat = Chat(user.toString(),text.toString())
                                 chats.add(chat)
                                 adapter.chats = chats
                             }

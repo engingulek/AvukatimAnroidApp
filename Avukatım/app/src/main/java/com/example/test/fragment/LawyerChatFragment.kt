@@ -1,6 +1,7 @@
 package com.example.test.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -80,6 +81,10 @@ class LawyerChatFragment : Fragment() {
                     dataMap.put("getuuid",getuuid!!)
                     dataMap.put("chatText",chatText!!)
                     dataMap.put("date",date!!)
+
+                    Log.e("sendUuid","${sendUuid}")
+                    Log.e("authUuid","${auth.currentUser?.uid}")
+                    Log.e("getUuid","${getuuid}")
 
 
 
