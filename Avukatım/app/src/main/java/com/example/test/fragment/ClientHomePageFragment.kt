@@ -45,6 +45,7 @@ class ClientHomePageFragment : Fragment() {
         auth = Firebase.auth
 
 
+        getList()
 
 
         design.bttnTest.setOnClickListener {

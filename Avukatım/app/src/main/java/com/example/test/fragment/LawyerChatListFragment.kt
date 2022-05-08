@@ -52,13 +52,19 @@ class LawyerChatListFragment : Fragment() {
                         Log.e("ContactNAME","${value.get("clientName")}")
                         Log.e("Contactid","${value.get("clientid")}")
                         Log.e("Test size","${value.get("clientName")}")
+                        if (value.get("clientName") == null) {
 
-                        chatUserList.put("getUserName",value.get("clientName")!!)
-                        chatUserList.put("getUid",value.get("clientid")!!)
-                        adapter = LawyerChatListAdapter(requireContext(),chatUserList)
-                        design.userListRvv.adapter = adapter
-                        design.userListRvv.layoutManager = LinearLayoutManager(requireContext())
-                        Log.e("Test size","${chatUserList.size}")
+                        }else{
+                            chatUserList.put("getUserName",value.get("clientName")!!)
+                            chatUserList.put("getUid",value.get("clientid")!!)
+                            adapter = LawyerChatListAdapter(requireContext(),chatUserList)
+                            design.userListRvv.adapter = adapter
+                            design.userListRvv.layoutManager = LinearLayoutManager(requireContext())
+                            Log.e("Test size","${chatUserList.size}")
+
+                        }
+
+
 
                     }
                 }
