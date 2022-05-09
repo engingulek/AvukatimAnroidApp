@@ -49,16 +49,23 @@ class ChatListFragment : Fragment() {
 
                 }else{
                     if(value != null){
-                        Log.e("ContactNAME","${value.get("lawyerName")}")
-                        Log.e("Contactid","${value.get("lawyerid")}")
+
+                        if(value.get("lawyerName") == null) {
+
+                        }else{
+                            Log.e("ContactNAME","${value.get("lawyerName")}")
+                            Log.e("Contactid","${value.get("lawyerid")}")
 
 
-                        chatUserList.put("getUserName",value.get("lawyerName")!!)
-                        chatUserList.put("getUid",value.get("lawyerName")!!)
-                        adapter = ChatListAdapter(requireContext(),chatUserList)
-                        design.userListRvv.adapter = adapter
-                        design.userListRvv.layoutManager = LinearLayoutManager(requireContext())
-                        Log.e("Test size","${chatUserList.size}")
+                            chatUserList.put("getUserName",value.get("lawyerName")!!)
+                            chatUserList.put("getUid",value.get("lawyerName")!!)
+                            adapter = ChatListAdapter(requireContext(),chatUserList)
+                            design.userListRvv.adapter = adapter
+                            design.userListRvv.layoutManager = LinearLayoutManager(requireContext())
+                            Log.e("Test size","${chatUserList.size}")
+
+                        }
+
 
                     }
                 }

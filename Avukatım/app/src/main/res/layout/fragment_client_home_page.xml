@@ -40,34 +40,22 @@
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
-
         <TextView
             android:id="@+id/textView"
-            android:layout_width="146dp"
-            android:layout_height="36dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="42dp"
-            android:layout_marginEnd="249dp"
-            android:text="Randevular"
-            android:textColor="#000000"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/bttnTest"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="125dp"
+            android:layout_width="227dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="92dp"
             android:layout_marginTop="25dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginBottom="15dp"
-            android:text="Button"
+            android:layout_marginEnd="92dp"
+            android:layout_marginBottom="10dp"
+            android:text="Alınabilir Randevular"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/swipeRefreshLayout"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
 

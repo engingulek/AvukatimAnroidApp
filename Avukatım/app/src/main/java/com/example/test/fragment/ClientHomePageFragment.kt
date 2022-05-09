@@ -48,9 +48,6 @@ class ClientHomePageFragment : Fragment() {
         getList()
 
 
-        design.bttnTest.setOnClickListener {
-
-        }
 
 
 

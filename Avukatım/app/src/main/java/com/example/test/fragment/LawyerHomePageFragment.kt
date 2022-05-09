@@ -1,5 +1,9 @@
 package com.example.test.fragment
 
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context.NOTIFICATION_SERVICE
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -7,9 +11,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
+import com.example.test.MainActivity
 import com.example.test.R
 import com.example.test.adapter.LawyerListAdapter
 import com.example.test.adapter.LawyerMeetingListAdapter
@@ -23,9 +30,16 @@ import com.example.test.viewModel.LawyerMeetingListViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import io.grpc.Context
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
+import androidx.core.content.ContextCompat.getSystemService
+
+import android.os.Build
+import androidx.core.content.ContextCompat
+
 
 class LawyerHomePageFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
@@ -44,6 +58,16 @@ class LawyerHomePageFragment : Fragment() {
         design.fragmentLawyerHomePage = this
         design.authUser = auth
 
+        design.testbttn.setOnClickListener {
+
+
+
+
+
+
+
+        }
+
 
         getData()
         design.swipeRefreshLayoutMeetingList.setOnRefreshListener {
@@ -54,16 +78,6 @@ class LawyerHomePageFragment : Fragment() {
             }, 1000)
 
         }
-
-
-       
-
-
-
-
-
-
-
         design.bttntoCreateAdvert.setOnClickListener {
 
             Navigation.findNavController(it).navigate(R.id.toLawyerCreateAdvert)
