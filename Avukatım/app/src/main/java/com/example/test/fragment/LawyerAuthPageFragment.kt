@@ -119,12 +119,12 @@ val p = arrayOf<String>()
 
             })
 
-
+            Navigation.findNavController(it).navigate(R.id.toBackHomePage)
 
         }
 
 
-        desing.lawyerAdvertCreateTitleTextView.setOnClickListener {
+        desing.addLawyerAdvertbttn.setOnClickListener {
 
             val professionList = arrayOf("${desing.autoCompleteTextViewOnePer.text.toString()}",
                 "${desing.autoCompleteTextViewSeconPer.text.toString()}",
@@ -142,22 +142,44 @@ val p = arrayOf<String>()
             val selectDate =  desing.autoCompleteTextViewDate.text.toString()
 
 
+            lawyerInfoViewModel.lawyerInfoList.observe(viewLifecycleOwner,{
+                val filterList = it.filter { ob -> ob.authUserId == auth.currentUser?.uid }
+
+                val updateLawyer = DeleteLawyer(filterList[0].id,"${auth.currentUser?.uid}",imageLawyerUrl!!,
+                    "${auth.currentUser?.displayName}",
+                    "${gender}" ,
+                    age,
+                    professionList,"${desing.autoCompleteTextViewCity.text.toString()}",
+                    desing.autoCompleteTextViewDistrict.text.toString(),
+                    estiMeetHours,
+                    "${selectDate}",
+                    "$description",
+                    uni
+                )
 
 
-            val updateLawyer = Lawyer("${auth.currentUser?.uid}",imageLawyerUrl!!,
-                "${auth.currentUser?.displayName}",
-                "${gender}" ,
-                age,
-                professionList,"${desing.autoCompleteTextViewCity.text.toString()}",
-                desing.autoCompleteTextViewDistrict.text.toString(),
-                estiMeetHours,
-                "${selectDate}",
-                "$description",
-                uni
-            )
+                val kdi =  APIUtils.getMyLawyerDaoInterface()
+                kdi.updateLawyerInterface(updateLawyer).enqueue(object : Callback<DeleteLawyer>{
+                    override fun onResponse(
+                        call: Call<DeleteLawyer>?,
+                        response: Response<DeleteLawyer>?
+                    ) {
 
-            lawyerAuthViewModel.update(updateLawyer)
-            // Navigation.findNavController(it).navigate(R.id.toBackHomePage)
+                    }
+
+                    override fun onFailure(call: Call<DeleteLawyer>?, t: Throwable?) {
+
+                    }
+
+                })
+
+            })
+
+
+
+
+
+             Navigation.findNavController(it).navigate(R.id.toBackHomePage)
         }
 
 
@@ -392,7 +414,13 @@ val p = arrayOf<String>()
    fun getLawyerData() {
        lawyerInfoViewModel.lawyerInfoList.observe(viewLifecycleOwner,{
            val filterList = it.filter { a -> a.authUserId == auth.currentUser?.uid }
-           Picasso.get().load(filterList[0].lawyerImageUrl).into(desing.lawyerImageView)
+           if(filterList[0].lawyerImageUrl == "") {
+               val url = "https://cdn-icons-png.flaticon.com/512/1995/1995429.png"
+               Picasso.get().load(url).into(desing.lawyerImageView)
+           }else{
+               Picasso.get().load(filterList[0].lawyerImageUrl).into(desing.lawyerImageView)
+           }
+
            desing.ageTextField.hint = filterList[0].lawyerAge
            desing.textInputLayout34.hint = filterList[0].lawyerMeetDate
            desing.textViewMeetDate.hint = filterList[0].lawyerLocationCity

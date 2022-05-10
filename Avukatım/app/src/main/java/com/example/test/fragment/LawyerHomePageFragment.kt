@@ -134,8 +134,14 @@ class LawyerHomePageFragment : Fragment() {
                     design.nullLawyerAdvert.visibility = View.GONE
                     design.getMeetingConstLa.visibility = View.VISIBLE
 
+                    if(ita[0].lawyerImageUrl == "") {
+                        val url = "https://cdn-icons-png.flaticon.com/512/1995/1995429.png"
+                        Picasso.get().load(url).into(design.lawyerUserImagView)
+                    }else{
+                        Picasso.get().load(ita[0].lawyerImageUrl).into(design.lawyerUserImagView)
+                    }
 
-                    Picasso.get().load(ita[0].lawyerImageUrl).into(design.lawyerUserImagView)
+
 
                 }
 

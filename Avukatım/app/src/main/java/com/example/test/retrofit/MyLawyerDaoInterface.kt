@@ -53,8 +53,8 @@ interface MyLawyerDaoInterface {
     @POST("advertDelete")
     fun advertDeleteInterface(@Body advert:DeleteLawyer) : Call<DeleteLawyer>
 
-    @POST("updateLawyer")
-    fun updateLawyerInterface(@Body lawyer:Lawyer):Call<Lawyer>
+    @POST("upadteAdvert")
+    fun updateLawyerInterface(@Body lawyer:DeleteLawyer):  Call<DeleteLawyer>
 
    @POST("favlawyerRegister")
   fun addFavList(@Body a : Lawyer) : Call<Lawyer>
