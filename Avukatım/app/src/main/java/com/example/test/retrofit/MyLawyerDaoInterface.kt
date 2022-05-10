@@ -38,8 +38,8 @@ interface MyLawyerDaoInterface {
     fun getAuthInfoLawyer(@Body ada: Lawyer): Call<LawyerInfoResult>
 
     // delete
-    @POST("/deleteAdvert")
-    fun delete(@Body adaa : Lawyer) :Call<LawyerInfoResult>
+    @DELETE("/deleteAdvert")
+    fun delete() :Call<LawyerInfoResult>
 
     // favLawyer
     @GET("favLawyerInfo")
@@ -48,6 +48,9 @@ interface MyLawyerDaoInterface {
 
     @POST("lawyerRegister")
     fun createLawyerInterface(@Body test: Lawyer): Call<Lawyer>
+
+    @POST("updateLawyer")
+    fun updateLawyerInterface(@Body lawyer:Lawyer):Call<Lawyer>
 
    @POST("favlawyerRegister")
   fun addFavList(@Body a : Lawyer) : Call<Lawyer>

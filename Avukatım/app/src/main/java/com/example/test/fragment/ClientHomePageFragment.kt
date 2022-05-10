@@ -93,11 +93,15 @@ class ClientHomePageFragment : Fragment() {
 
 
 
+
+
     fun getDataLawyerInfo() {
 
         homePageViewModel.lawyerInfoList.observe(viewLifecycleOwner,{
 
             lawyerListAdapter = LawyerListAdapter(requireContext(),it,homePageViewModel)
+
+
 
             design.lawyerListAdapter = lawyerListAdapter
         })

@@ -120,7 +120,11 @@
         android:id="@+id/lawyerAuthPageFragment"
         android:name="com.example.test.fragment.LawyerAuthPageFragment"
         android:label="fragment_lawyer_auth_page"
-        tools:layout="@layout/fragment_lawyer_auth_page" />
+        tools:layout="@layout/fragment_lawyer_auth_page" >
+        <action
+            android:id="@+id/toBackHomePage"
+            app:destination="@id/lawyerTabLayoutFragment" />
+    </fragment>
     <fragment
         android:id="@+id/clientTabLayoutFragment"
         android:name="com.example.test.fragment.ClientTabLayoutFragment"

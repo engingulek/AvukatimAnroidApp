@@ -166,6 +166,22 @@ class MyLawyerRepository {
     }
 
 
+    fun updateAdvert(lawyer:Lawyer) {
+        call = myLawyerDao.updateLawyerInterface(lawyer)
+        call.enqueue(object :Callback<Lawyer>{
+            override fun onResponse(call: Call<Lawyer>?, response: Response<Lawyer>?) {
+
+            }
+
+            override fun onFailure(call: Call<Lawyer>?, t: Throwable?) {
+
+            }
+
+        })
+
+    }
+
+
 
 
     fun getAllFavLawyerInfo() {
@@ -200,6 +216,9 @@ class MyLawyerRepository {
         })
 
     }
+
+
+
 
 
 
@@ -281,6 +300,11 @@ class MyLawyerRepository {
     }
 
 
+
+
+    fun deleteAdvert(a:String) {
+        myLawyerDao.delete(a)
+    }
 
 
 

@@ -3,6 +3,7 @@ package com.example.test.viewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.test.entity.City
+import com.example.test.entity.Lawyer
 import com.example.test.entity.LawyerInfo
 import com.example.test.entity.Profession
 import com.example.test.repo.MyLawyerRepository
@@ -23,6 +24,15 @@ class LawyerAuthViewModel() : ViewModel() {
         myLayyerDao.getAllCity()
         myLayyerDao.getAllProfession()
     }
+
+    fun update(lawyer:Lawyer) {
+        myLayyerDao.updateAdvert(lawyer)
+    }
+
+    fun deleteAdvert(a:String) {
+        myLayyerDao.deleteAdvert(a)
+    }
+
 
 
 

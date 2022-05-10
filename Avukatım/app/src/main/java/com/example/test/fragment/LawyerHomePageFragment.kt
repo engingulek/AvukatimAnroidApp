@@ -39,6 +39,7 @@ import androidx.core.content.ContextCompat.getSystemService
 
 import android.os.Build
 import androidx.core.content.ContextCompat
+import com.squareup.picasso.Picasso
 
 
 class LawyerHomePageFragment : Fragment() {
@@ -58,18 +59,16 @@ class LawyerHomePageFragment : Fragment() {
         design.fragmentLawyerHomePage = this
         design.authUser = auth
 
-        design.testbttn.setOnClickListener {
 
-
-
-
-
-
-
-        }
 
 
         getData()
+
+
+        design.toAuthPageA.setOnClickListener {
+            Navigation.findNavController(it).navigate(R.id.toLawyerAuth)
+        }
+
         design.swipeRefreshLayoutMeetingList.setOnRefreshListener {
             getData()
 
@@ -85,7 +84,7 @@ class LawyerHomePageFragment : Fragment() {
 
 
         design.lawyerUserImagView.setOnClickListener {
-            Navigation.findNavController(it).navigate(R.id.toLawyerAuth)
+
         }
 
         return design.root
@@ -129,15 +128,21 @@ class LawyerHomePageFragment : Fragment() {
             override fun onResponse(call: Call<LawyerInfoResult>, response: Response<LawyerInfoResult>) {
                 val liste = response.body().lawyerInfoList
                 val ita = liste.filter { a -> a.authUserId == auth.currentUser?.uid }
+
+
                 if (ita.size > 0) {
                     design.nullLawyerAdvert.visibility = View.GONE
                     design.getMeetingConstLa.visibility = View.VISIBLE
+
+
+                    Picasso.get().load(ita[0].lawyerImageUrl).into(design.lawyerUserImagView)
 
                 }
 
                 else {
                     design.nullLawyerAdvert.visibility = View.VISIBLE
                     design.getMeetingConstLa.visibility = View.GONE
+                    design.lawyerUserImagView.setImageResource(R.drawable.imagenul)
 
 
                 }
