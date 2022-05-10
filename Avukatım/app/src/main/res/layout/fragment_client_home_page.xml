@@ -20,20 +20,19 @@
             android:id="@+id/swipeRefreshLayout"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
-           >
+            app:layout_constraintTop_toBottomOf="@+id/textView">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/meetinglawyerListRvv"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                app:spanCount="2"
                 android:adapter="@{lawyerListAdapter}"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2"
 
                 />
 
@@ -44,19 +43,74 @@
             android:id="@+id/textView"
             android:layout_width="227dp"
             android:layout_height="35dp"
-            android:layout_marginStart="92dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginEnd="92dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginStart="31dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="153dp"
             android:text="Alınabilir Randevular"
             android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/swipeRefreshLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout2"
+            android:layout_width="406dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="41dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/txtNameF"
+                android:layout_width="71dp"
+                android:layout_height="38dp"
+                android:background="@drawable/search_view_design"
+                android:text="İsim"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/txtProfF"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtProfF"
+                android:layout_width="71dp"
+                android:layout_height="38dp"
+                android:layout_weight="1"
+                android:background="@drawable/search_view_design"
+                android:text="Alan"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/txtNameF"
+                app:layout_constraintStart_toEndOf="@+id/searchViewFood"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <SearchView
+                android:id="@+id/searchViewFood"
+                android:layout_width="259dp"
+                android:layout_height="38dp"
+
+
+                android:background="@drawable/search_view_design"
+                android:queryHint="Food Search"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/txtProfF"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </SearchView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

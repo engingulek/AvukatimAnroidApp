@@ -18,6 +18,7 @@ class ClientTabLayoutFragment : Fragment() {
     private lateinit var design : FragmentClientTabLayoutBinding
 
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -25,6 +26,7 @@ class ClientTabLayoutFragment : Fragment() {
         design = DataBindingUtil.inflate(inflater,R.layout.fragment_client_tab_layout, container, false)
 
         design.fragmentClientTabLayout = this
+
 
         val adapter = MyViewPageAdapter(this)
         design.viewPager.adapter = adapter
@@ -34,10 +36,12 @@ class ClientTabLayoutFragment : Fragment() {
           fragmentTitleList.add("Ana Sayfa")
           fragmentList.add(ClientAuthPageFragment())
          fragmentList.add(ChatListFragment())
+          fragmentList.add(ClientMeetingList())
 
           if (fragmentTitleList.size == 1) {
               fragmentTitleList.add("Profil")
               fragmentTitleList.add("Mesaj")
+              fragmentTitleList.add("TopliS")
 
 
           }

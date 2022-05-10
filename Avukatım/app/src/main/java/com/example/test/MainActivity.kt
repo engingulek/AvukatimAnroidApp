@@ -38,10 +38,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
-        getData()
 
 
-        val current = LocalDateTime.now()
+
+       /* val current = LocalDateTime.now()
         val hours = current.hour
         var m = 0
 
@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
 
         val timer = object : CountDownTimer(10000.toLong(),1000 ) {
             override fun onTick(p0: Long) {
-                getData()
+
 
 
 
@@ -194,10 +194,11 @@ class MainActivity : AppCompatActivity() {
 
 
         bildirimYoneticisi.notify(1,builder.build())
-    }
+    }*/
 
    
 
+}
 }
 
 

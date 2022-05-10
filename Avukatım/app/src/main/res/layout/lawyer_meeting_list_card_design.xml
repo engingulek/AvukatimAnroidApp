@@ -23,17 +23,18 @@
             android:layout_height="match_parent"
             android:layout_margin="20dp"
             android:background="@drawable/lawyer_list_card_corner"
-            android:elevation="2dp"
-            >
+            android:elevation="2dp">
 
             <ImageView
                 android:id="@+id/imageView4"
                 android:layout_width="67dp"
                 android:layout_height="57dp"
-                android:layout_marginStart="35dp"
-                android:layout_marginTop="34dp"
-                android:layout_marginBottom="34dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="86dp"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/textViewClientName"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/man" />
@@ -42,51 +43,67 @@
                 android:id="@+id/textViewTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="31dp"
-                android:layout_marginTop="47dp"
+                android:layout_marginStart="42dp"
+                android:layout_marginTop="43dp"
                 android:layout_marginEnd="60dp"
-                android:layout_marginBottom="56dp"
                 android:text="@{meetingLawyerObject.time}"
                 android:textAlignment="center"
                 android:textColor="#000000"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textViewClientName"
+                app:layout_constraintStart_toEndOf="@+id/textViewMeetingDate"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textViewClientName"
                 android:layout_width="146dp"
                 android:layout_height="20dp"
-                android:layout_marginTop="34dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="112dp"
+                android:layout_marginBottom="13dp"
                 android:text="@{meetingLawyerObject.clientNameSurname}"
                 android:textAlignment="center"
                 android:textColor="#000000"
                 android:textSize="16sp"
                 android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/textViewMeetingDate"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toEndOf="@+id/imageView4"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
 
             <TextView
                 android:id="@+id/textViewMeetingDate"
                 android:layout_width="147dp"
                 android:layout_height="24dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="32dp"
+                android:layout_marginStart="39dp"
+                android:layout_marginTop="13dp"
+                android:layout_marginEnd="102dp"
                 android:text="@{meetingLawyerObject.date}"
                 android:textAlignment="center"
                 android:textColor="#000000"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/bttnJoinMeeting"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageView4"
                 app:layout_constraintTop_toBottomOf="@+id/textViewClientName" />
+
+            <Button
+                android:id="@+id/bttnJoinMeeting"
+                android:layout_width="155dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="21dp"
+                android:layout_marginBottom="20dp"
+                android:text="Katıl"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.564"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewMeetingDate" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

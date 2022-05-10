@@ -5,39 +5,33 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.test.databinding.ClientMeetigListCardDesignBinding
 import com.example.test.databinding.LawyerMeetingListCardDesignBinding
 import com.example.test.entity.MeetingDataClass
+import com.example.test.viewModel.ClientMeetingListViewModel
 import com.example.test.viewModel.LawyerMeetingListViewModel
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import java.time.LocalDateTime
 
-class LawyerMeetingListAdapter (var mContext:Context, var meetingLawyerList:List<MeetingDataClass>,var viewModel: LawyerMeetingListViewModel)
-    : RecyclerView.Adapter<LawyerMeetingListAdapter.CardDesignConservative>(){
+class ClientMeetingListAdapter(var mContext: Context, var meetingLawyerList:List<MeetingDataClass>, var viewModel: ClientMeetingListViewModel)
+    : RecyclerView.Adapter<ClientMeetingListAdapter.CardDesignConservative>(){
 
-        inner class CardDesignConservative(lawyerMeetingListCardDesignBinding: LawyerMeetingListCardDesignBinding)
-            :RecyclerView.ViewHolder(lawyerMeetingListCardDesignBinding.root){
-            var lawyerMeetingListCardDesignBinding : LawyerMeetingListCardDesignBinding
-            init {
-                this.lawyerMeetingListCardDesignBinding = lawyerMeetingListCardDesignBinding
-            }
+    inner class CardDesignConservative(clientMeetigListCardDesignBinding: ClientMeetigListCardDesignBinding)
+        :RecyclerView.ViewHolder(clientMeetigListCardDesignBinding.root){
+        var clientMeetigListCardDesignBinding : ClientMeetigListCardDesignBinding
+        init {
+            this.clientMeetigListCardDesignBinding = clientMeetigListCardDesignBinding
         }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardDesignConservative {
         val layoutInflater = LayoutInflater.from(mContext)
-        val design = LawyerMeetingListCardDesignBinding.inflate(layoutInflater,parent,false)
+        val design = ClientMeetigListCardDesignBinding.inflate(layoutInflater,parent,false)
         return  CardDesignConservative(design)
     }
 
     override fun onBindViewHolder(holder: CardDesignConservative, position: Int) {
-
-
         val meeting = meetingLawyerList.get(position)
-        val cardDesign = holder.lawyerMeetingListCardDesignBinding
-
-
-
+        val cardDesign = holder.clientMeetigListCardDesignBinding
         cardDesign.meetingLawyerObject = meeting
 
         cardDesign.bttnJoinMeeting.setOnClickListener {
@@ -76,18 +70,10 @@ class LawyerMeetingListAdapter (var mContext:Context, var meetingLawyerList:List
 
 
         }
-
     }
-
 
     override fun getItemCount(): Int {
         return meetingLawyerList.size
     }
 
-
-
-
-
-
-
-    }
+}

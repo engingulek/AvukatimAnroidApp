@@ -108,6 +108,7 @@ class LawyerHomePageFragment : Fragment() {
                 response: Response<MeetingDataClassResult>
             ) {
                 val list = response.body().meetingsList
+
                 lawyerMeetinfListAdapter = LawyerMeetingListAdapter(requireContext(),list,lawyerMeetingListViewModel)
                 design.lawyerMeetingListAdapter = lawyerMeetinfListAdapter
 

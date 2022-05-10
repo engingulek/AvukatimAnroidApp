@@ -38,6 +38,7 @@ class ClientHomePageFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private lateinit var adapter: Adapter
     private lateinit var myLawyerDao : MyLawyerDaoInterface
+    private var defaultFilterSearch = "name"
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         design = DataBindingUtil.inflate(inflater, R.layout.fragment_client_home_page, container, false)
@@ -45,15 +46,40 @@ class ClientHomePageFragment : Fragment() {
         auth = Firebase.auth
 
 
-        getList()
+        getList("",defaultFilterSearch)
+
+        design.txtProfF.setOnClickListener {
+            defaultFilterSearch = "prodf"
+            design.searchViewFood.setQuery("",true)
+        }
+
+        design.txtNameF.setOnClickListener {
+            defaultFilterSearch = "name"
+            design.searchViewFood.setQuery("",true)
+        }
 
 
+
+        design.searchViewFood.setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+             return false
+
+            }
+
+            override fun onQueryTextChange(p0: String?): Boolean {
+
+                getList(p0!!, defaultFilterSearch)
+
+                return true
+            }
+
+        })
 
 
 
         design.swipeRefreshLayout.setOnRefreshListener {
 
-          getList()
+          getList("",defaultFilterSearch)
 
             Handler().postDelayed(Runnable {
                 design.swipeRefreshLayout.isRefreshing = false
@@ -90,15 +116,61 @@ class ClientHomePageFragment : Fragment() {
 
 
 
-    fun getList() {
+    fun getList(search:String,defaultSF:String) {
 myLawyerDao = APIUtils.getMyLawyerDaoInterface()
         myLawyerDao.allLawyerInfo().enqueue(object: Callback<LawyerInfoResult> {
             override fun onResponse(call: Call<LawyerInfoResult>, response: Response<LawyerInfoResult>) {
                 val liste = response.body().lawyerInfoList
 
-                lawyerListAdapter = LawyerListAdapter(requireContext(),liste,homePageViewModel)
+                if (search == "") {
+                    lawyerListAdapter = LawyerListAdapter(requireContext(),liste,homePageViewModel)
 
-                design.lawyerListAdapter = lawyerListAdapter
+                    design.lawyerListAdapter = lawyerListAdapter
+
+                }else{
+
+                    if (defaultSF == "name") {
+                        val filterList : List<LawyerInfo> = liste.filter { it.lawyerNameSurname.toLowerCase().contains(search.toLowerCase()) }
+                        lawyerListAdapter = LawyerListAdapter(requireContext(),filterList,homePageViewModel)
+
+                        design.lawyerListAdapter = lawyerListAdapter
+                    }else{
+                        Log.e("Prof aranacak","${search}")
+
+
+                        val filterListA : List<LawyerInfo> = liste.filter { it.lawyerProfession[0].toLowerCase().contains(search.toLowerCase()) }
+                       Log.e("A","${filterListA.size}")
+
+                        lawyerListAdapter = LawyerListAdapter(requireContext(),filterListA,homePageViewModel)
+
+                        design.lawyerListAdapter = lawyerListAdapter
+
+                        if (filterListA.size == 0) {
+                            val filterListB : List<LawyerInfo> = liste.filter { it.lawyerProfession[1].toLowerCase().contains(search.toLowerCase()) }
+                            Log.e("B","${filterListB.size}")
+
+                            lawyerListAdapter = LawyerListAdapter(requireContext(),filterListB,homePageViewModel)
+
+                            design.lawyerListAdapter = lawyerListAdapter
+                            if (filterListB.size == 0){
+                                val filterListC : List<LawyerInfo> = liste.filter { it.lawyerProfession[2].toLowerCase().contains(search.toLowerCase()) }
+                                Log.e("C","${filterListC.size}")
+
+                                lawyerListAdapter = LawyerListAdapter(requireContext(),filterListC,homePageViewModel)
+
+                                design.lawyerListAdapter = lawyerListAdapter
+
+                            }
+
+                        }
+
+                    }
+
+
+
+                }
+
+
 
 
 
