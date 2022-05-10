@@ -1,5 +1,7 @@
 package com.example.test.fragment
 
+import android.graphics.Color
+import android.graphics.Color.RED
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
@@ -46,17 +48,17 @@ class ClientHomePageFragment : Fragment() {
         auth = Firebase.auth
 
 
+        design.txtNameF.setBackgroundResource(R.drawable.selected_text_design)
+        design.txtNameF.setTextColor(Color.WHITE)
+        design.txtAll.setBackgroundResource(R.drawable.selected_text_design)
+        design.txtAll.setTextColor(Color.WHITE)
         getList("",defaultFilterSearch)
 
-        design.txtProfF.setOnClickListener {
-            defaultFilterSearch = "prodf"
-            design.searchViewFood.setQuery("",true)
-        }
 
-        design.txtNameF.setOnClickListener {
-            defaultFilterSearch = "name"
-            design.searchViewFood.setQuery("",true)
-        }
+
+        desingClickAction()
+
+
 
 
 
@@ -86,17 +88,6 @@ class ClientHomePageFragment : Fragment() {
             }, 1000)
 
         }
-
-
-
-
-
-
-
-
-
-
-
         return design.root
     }
 
@@ -112,6 +103,11 @@ class ClientHomePageFragment : Fragment() {
         })
 
     }
+
+
+
+
+
 
 
 
@@ -169,14 +165,6 @@ myLawyerDao = APIUtils.getMyLawyerDaoInterface()
 
 
                 }
-
-
-
-
-
-
-
-
             }
 
             override fun onFailure(call: Call<LawyerInfoResult>?, t: Throwable?) {
@@ -208,6 +196,283 @@ myLawyerDao = APIUtils.getMyLawyerDaoInterface()
         lawyerMeetingListViewModel = a
 
 
+
+    }
+
+
+    fun desingClickAction() {
+        design.txtAll.setOnClickListener {
+            getList("",defaultFilterSearch)
+
+
+            design.txtAll.setBackgroundResource(R.drawable.selected_text_design)
+            design.txtAll.setTextColor(Color.WHITE)
+
+
+            design.txtFWoman.setBackgroundResource(R.drawable.search_view_design)
+            design.txtFWoman.setTextColor(Color.BLACK)
+
+            design.textFMan.setBackgroundResource(R.drawable.search_view_design)
+            design.textFMan.setTextColor(Color.BLACK)
+
+
+            design.txtAgeU.setBackgroundResource(R.drawable.search_view_design)
+            design.txtAgeU.setTextColor(Color.BLACK)
+
+            design.txtAD.setBackgroundResource(R.drawable.search_view_design)
+            design.txtAD.setTextColor(Color.BLACK)
+
+        }
+
+
+        design.txtFWoman.setOnClickListener {
+
+            myLawyerDao = APIUtils.getMyLawyerDaoInterface()
+            myLawyerDao.allLawyerInfo().enqueue(object: Callback<LawyerInfoResult> {
+                override fun onResponse(call: Call<LawyerInfoResult>, response: Response<LawyerInfoResult>) {
+                    val liste = response.body().lawyerInfoList
+                    val filterList : List<LawyerInfo> = liste.filter { it.lawyerGender.toLowerCase().contains("d".toLowerCase()) }
+                    lawyerListAdapter = LawyerListAdapter(requireContext(),filterList,homePageViewModel)
+
+                    design.lawyerListAdapter = lawyerListAdapter
+
+
+
+
+                }
+
+                override fun onFailure(call: Call<LawyerInfoResult>?, t: Throwable?) {
+
+                }
+
+            })
+
+
+
+
+
+            design.txtFWoman.setBackgroundResource(R.drawable.selected_text_design)
+            design.txtFWoman.setTextColor(Color.WHITE)
+
+
+            design.txtAll.setBackgroundResource(R.drawable.search_view_design)
+            design.txtAll.setTextColor(Color.BLACK)
+
+            design.textFMan.setBackgroundResource(R.drawable.search_view_design)
+            design.textFMan.setTextColor(Color.BLACK)
+
+
+            design.txtAgeU.setBackgroundResource(R.drawable.search_view_design)
+            design.txtAgeU.setTextColor(Color.BLACK)
+
+            design.txtAD.setBackgroundResource(R.drawable.search_view_design)
+            design.txtAD.setTextColor(Color.BLACK)
+
+        }
+
+
+
+
+
+
+
+
+
+
+        design.textFMan.setOnClickListener {
+            myLawyerDao = APIUtils.getMyLawyerDaoInterface()
+            myLawyerDao.allLawyerInfo().enqueue(object: Callback<LawyerInfoResult> {
+                override fun onResponse(call: Call<LawyerInfoResult>, response: Response<LawyerInfoResult>) {
+                    val liste = response.body().lawyerInfoList
+                    val filterList : List<LawyerInfo> = liste.filter { it.lawyerGender.toLowerCase().contains("e".toLowerCase()) }
+                    lawyerListAdapter = LawyerListAdapter(requireContext(),filterList,homePageViewModel)
+
+                    design.lawyerListAdapter = lawyerListAdapter
+
+
+
+
+                }
+
+                override fun onFailure(call: Call<LawyerInfoResult>?, t: Throwable?) {
+
+                }
+
+            })
+            design.textFMan.setBackgroundResource(R.drawable.selected_text_design)
+            design.textFMan.setTextColor(Color.WHITE)
+
+            design.txtAll.setBackgroundResource(R.drawable.search_view_design)
+            design.txtAll.setTextColor(Color.BLACK)
+
+            design.txtFWoman.setBackgroundResource(R.drawable.search_view_design)
+            design.txtFWoman.setTextColor(Color.BLACK)
+
+
+            design.txtAgeU.setBackgroundResource(R.drawable.search_view_design)
+            design.txtAgeU.setTextColor(Color.BLACK)
+
+            design.txtAD.setBackgroundResource(R.drawable.search_view_design)
+            design.txtAD.setTextColor(Color.BLACK)
+
+        }
+
+
+
+        design.txtAgeU.setOnClickListener {
+
+            myLawyerDao = APIUtils.getMyLawyerDaoInterface()
+            myLawyerDao.allLawyerInfo().enqueue(object: Callback<LawyerInfoResult> {
+                override fun onResponse(call: Call<LawyerInfoResult>, response: Response<LawyerInfoResult>) {
+                    val liste = response.body().lawyerInfoList
+                    val filterList : List<LawyerInfo> = liste.sortedBy { it.lawyerAge.toInt() }
+                    lawyerListAdapter = LawyerListAdapter(requireContext(),filterList,homePageViewModel)
+
+                    design.lawyerListAdapter = lawyerListAdapter
+
+
+
+
+                }
+
+                override fun onFailure(call: Call<LawyerInfoResult>?, t: Throwable?) {
+
+                }
+
+            })
+
+
+
+            design.txtAgeU.setBackgroundResource(R.drawable.selected_text_design)
+            design.txtAgeU.setTextColor(Color.WHITE)
+
+
+            design.txtAll.setBackgroundResource(R.drawable.search_view_design)
+            design.txtAll.setTextColor(Color.BLACK)
+
+            design.txtFWoman.setBackgroundResource(R.drawable.search_view_design)
+            design.txtFWoman.setTextColor(Color.BLACK)
+
+
+            design.textFMan.setBackgroundResource(R.drawable.search_view_design)
+            design.textFMan.setTextColor(Color.BLACK)
+
+            design.txtAD.setBackgroundResource(R.drawable.search_view_design)
+            design.txtAD.setTextColor(Color.BLACK)
+
+        }
+
+
+        design.txtAD.setOnClickListener {
+
+            myLawyerDao = APIUtils.getMyLawyerDaoInterface()
+            myLawyerDao.allLawyerInfo().enqueue(object: Callback<LawyerInfoResult> {
+                override fun onResponse(call: Call<LawyerInfoResult>, response: Response<LawyerInfoResult>) {
+                    val liste = response.body().lawyerInfoList
+                    val filterList : List<LawyerInfo> = liste.sortedByDescending { it.lawyerAge.toInt() }
+                    lawyerListAdapter = LawyerListAdapter(requireContext(),filterList,homePageViewModel)
+
+                    design.lawyerListAdapter = lawyerListAdapter
+
+
+
+
+                }
+
+                override fun onFailure(call: Call<LawyerInfoResult>?, t: Throwable?) {
+
+                }
+
+            })
+
+            design.txtAD.setBackgroundResource(R.drawable.selected_text_design)
+            design.txtAD.setTextColor(Color.WHITE)
+
+
+            design.txtAll.setBackgroundResource(R.drawable.search_view_design)
+            design.txtAll.setTextColor(Color.BLACK)
+
+            design.txtFWoman.setBackgroundResource(R.drawable.search_view_design)
+            design.txtFWoman.setTextColor(Color.BLACK)
+
+
+            design.textFMan.setBackgroundResource(R.drawable.search_view_design)
+            design.textFMan.setTextColor(Color.BLACK)
+
+
+            design.txtAgeU.setBackgroundResource(R.drawable.search_view_design)
+            design.txtAgeU.setTextColor(Color.BLACK)
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        design.txtProfF.setOnClickListener {
+            design.txtProfF.setBackgroundResource(R.drawable.selected_text_design)
+            design.txtProfF.setTextColor(Color.WHITE)
+            design.txtNameF.setBackgroundResource(R.drawable.search_view_design)
+            design.txtNameF.setTextColor(Color.BLACK)
+
+
+
+
+            defaultFilterSearch = "prodf"
+            design.searchViewFood.setQuery("",true)
+        }
+
+        design.txtNameF.setOnClickListener {
+
+
+            design.txtNameF.setBackgroundResource(R.drawable.selected_text_design)
+            design.txtNameF.setTextColor(Color.WHITE)
+
+
+            design.txtProfF.setBackgroundResource(R.drawable.search_view_design)
+            design.txtProfF.setTextColor(Color.BLACK)
+
+
+
+
+            defaultFilterSearch = "name"
+            design.searchViewFood.setQuery("",true)
+        }
+
+        design.bttnFilter.setOnClickListener {
+            design.txtFWoman.setBackgroundResource(R.drawable.search_view_design)
+            design.txtFWoman.setTextColor(Color.BLACK)
+
+            design.textFMan.setBackgroundResource(R.drawable.search_view_design)
+            design.textFMan.setTextColor(Color.BLACK)
+
+
+            design.txtAgeU.setBackgroundResource(R.drawable.search_view_design)
+            design.txtAgeU.setTextColor(Color.BLACK)
+
+
+
+            design.txtAD.setBackgroundResource(R.drawable.search_view_design)
+            design.txtAD.setTextColor(Color.BLACK)
+
+            if (design.clFilter.visibility == View.GONE) {
+                design.clFilter.visibility = View.VISIBLE
+            }else{
+                design.clFilter.visibility = View.GONE
+
+
+
+
+
+
+            }
+        }
 
     }
 
