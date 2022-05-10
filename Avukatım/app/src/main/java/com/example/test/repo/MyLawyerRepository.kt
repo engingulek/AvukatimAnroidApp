@@ -303,7 +303,7 @@ class MyLawyerRepository {
 
 
     fun deleteAdvert(a:String) {
-        myLawyerDao.delete(a)
+
     }
 
 

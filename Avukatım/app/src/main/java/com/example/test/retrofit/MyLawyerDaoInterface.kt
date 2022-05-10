@@ -1,6 +1,7 @@
 package com.example.test.retrofit
 
 import com.example.test.entity.*
+import com.squareup.okhttp.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.http.*
@@ -37,9 +38,9 @@ interface MyLawyerDaoInterface {
     @POST("/lawyerInfoAuth")
     fun getAuthInfoLawyer(@Body ada: Lawyer): Call<LawyerInfoResult>
 
-    // delete
-    @DELETE("/deleteAdvert")
-    fun delete() :Call<LawyerInfoResult>
+
+
+
 
     // favLawyer
     @GET("favLawyerInfo")
@@ -48,6 +49,9 @@ interface MyLawyerDaoInterface {
 
     @POST("lawyerRegister")
     fun createLawyerInterface(@Body test: Lawyer): Call<Lawyer>
+
+    @POST("advertDelete")
+    fun advertDeleteInterface(@Body advert:DeleteLawyer) : Call<DeleteLawyer>
 
     @POST("updateLawyer")
     fun updateLawyerInterface(@Body lawyer:Lawyer):Call<Lawyer>

@@ -17,10 +17,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import com.example.test.R
 import com.example.test.databinding.FragmentLawyerAuthPageBinding
-import com.example.test.entity.Lawyer
-import com.example.test.entity.LawyerInfo
-import com.example.test.entity.LawyerInfoResult
-import com.example.test.entity.MeetingDataClassResult
+import com.example.test.entity.*
 import com.example.test.retrofit.APIUtils
 import com.example.test.retrofit.MyLawyerDaoInterface
 import com.example.test.viewModel.CreateLawyerAdvertViewModel
@@ -88,8 +85,42 @@ desing = DataBindingUtil.inflate(inflater,R.layout.fragment_lawyer_auth_page, co
 val p = arrayOf<String>()
         desing.bttnAdvD.setOnClickListener {
 
+            lawyerInfoViewModel.lawyerInfoList.observe(viewLifecycleOwner,{
+                val filterList = it.filter { ob -> ob.authUserId == auth.currentUser?.uid }
+                filterList[0].id
 
-           lawyerAuthViewModel.deleteAdvert("627a64090dc5c700d2805c4e")
+
+
+
+                val kdi =  APIUtils.getMyLawyerDaoInterface()
+                val cars = arrayOf("Volvo", "BMW", "Ford", "Mazda")
+                val deleteLawyer = DeleteLawyer(filterList[0].id,"${auth.currentUser?.uid}","imageLawyerUrl!!",
+                    "kk",
+                    "mmlm" ,
+                    "32",
+                    cars,"ffs",
+                    "ff",
+                    cars,
+                    "kk",
+                    "mlml",
+                    "universyt")
+
+                kdi.advertDeleteInterface(deleteLawyer).enqueue(object :Callback<DeleteLawyer>{
+                    override fun onResponse(call: Call<DeleteLawyer>?, response: Response<DeleteLawyer>?) {
+
+                    }
+
+                    override fun onFailure(call: Call<DeleteLawyer>?, t: Throwable?) {
+
+                    }
+
+
+                })
+
+            })
+
+
+
         }
 
 
@@ -109,6 +140,7 @@ val p = arrayOf<String>()
             val locCordinate = arrayOf("","")
             val estiMeetHours = arrayOf(timeOneText,timeTwoText,timeThreeText,timeFourText)
             val selectDate =  desing.autoCompleteTextViewDate.text.toString()
+
 
 
 
