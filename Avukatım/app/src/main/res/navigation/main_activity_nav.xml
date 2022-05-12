@@ -168,6 +168,9 @@
             android:name="getUserName"
             app:argType="string" />
         <argument android:name="getUuid" />
+        <argument
+            android:name="getIawyerImageUrl"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/chatListFragment"

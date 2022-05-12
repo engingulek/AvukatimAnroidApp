@@ -22,6 +22,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import kotlin.math.log
 
 
 class ChatFragment : Fragment() {
@@ -66,9 +67,14 @@ private  var chats = arrayListOf<Chat>()
                     val getUserName  = bundle.getUserName
                     val getuuid = bundle.getUuid
                     Log.e("uuda","${getuuid}")
+                    val lawyerImage = bundle.getIawyerImageUrl
+                    val clientImage = it.photoUrl
                     val chatText = design.messageText.text.toString()
                     val date = FieldValue.serverTimestamp()
-                    
+
+                    Log.e("Avukat resim url",bundle.getIawyerImageUrl)
+                    Log.e("Kullanıcı image url","${it.photoUrl}")
+
 
 
 
@@ -121,9 +127,13 @@ private  var chats = arrayListOf<Chat>()
                          dataMap.put("getUserName",getUserName!!)
 
                          dataMap.put("getuuid",getuuid!!)
+                    dataMap.put("lawyerImage",lawyerImage)
+                    dataMap.put("clientImage",clientImage.toString())
 
                          dataMap.put("chatText",chatText!!)
                          dataMap.put("date",date!!)
+
+
 
 
 
@@ -148,6 +158,8 @@ private  var chats = arrayListOf<Chat>()
                          dataMapA.put("getUserName",sendUserName!!)
 
                          dataMapA.put("getuuid",getuuid!!)
+                    dataMapA.put("lawyerImage",lawyerImage)
+                    dataMapA.put("clientImage",clientImage.toString())
                          dataMapA.put("chatText",chatText!!)
                          dataMapA.put("date",date!!)
 
@@ -190,7 +202,10 @@ private  var chats = arrayListOf<Chat>()
                             for (document in documents) {
                                 val text = document.get("chatText")
                                 val user = document.get("senduser")
-                                val chat = Chat(user.toString(),text.toString())
+                                val lawyerImage = document.get("lawyerImage")
+                                val clientImage = document.get("clientImage")
+
+                                val chat = Chat(user.toString(),text.toString(), lawyerImage.toString(),clientImage.toString())
                                 chats.add(chat)
                                 adapter.chats = chats
                             }

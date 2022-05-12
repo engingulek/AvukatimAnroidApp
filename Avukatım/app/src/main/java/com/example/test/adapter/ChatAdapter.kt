@@ -1,5 +1,6 @@
 package com.example.test.adapter
 
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -12,11 +13,14 @@ import com.example.test.R
 import com.example.test.databinding.RvvRowBinding
 import com.example.test.entity.Chat
 import com.google.firebase.auth.FirebaseAuth
+import com.squareup.picasso.Picasso
 import kotlinx.coroutines.delay
 
 class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatHolder>() {
     private val VIEW_TYPE_MESSAGE_SENT  = 1
     private val VIEW_TYPE_MESSAGE_SENT_RECEIVED = 2
+    private var lawyerImage = ""
+    private  var clientImage = ""
 
     inner class ChatHolder(rvvRowBinding: RvvRowBinding)
         :RecyclerView.ViewHolder(rvvRowBinding.root) {
@@ -50,6 +54,8 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatHolder>() {
     override fun getItemViewType(position: Int): Int {
 
         val chat = chats.get(position)
+        lawyerImage = chat.lawyerImage.toString()
+        clientImage = chat.clientImage.toString()
 
         if(chat.user == FirebaseAuth.getInstance().currentUser?.email.toString()) {
 
@@ -68,7 +74,7 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatHolder>() {
             val design = RvvRowBinding.inflate(view,parent,false)
             design.llrow.gravity = Gravity.LEFT
             design.chatTextView.setBackgroundResource(R.drawable.row_ballon)
-            design.imageView8.setImageResource(R.drawable.imagenul)
+
             design.imageView9.visibility = View.GONE
 
             return ChatHolder(design)
@@ -80,7 +86,8 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatHolder>() {
             design.chatTextView.setBackgroundResource(R.drawable.row_ballon_right)
 
             design.imageView8.visibility = View.GONE
-            design.imageView9.setImageResource(R.drawable.fav_icon)
+
+
 
 
 
@@ -95,6 +102,11 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatHolder>() {
     override fun onBindViewHolder(holder: ChatHolder, position: Int) {
         val cardDesing = holder.rvvRowBinding
         cardDesing.chatTextView.text = "${chats.get(position).text}"
+        Picasso.get().load(chats.get(position).clientImage).into(cardDesing.imageView9)
+        Picasso.get().load(chats.get(position).lawyerImage).into(cardDesing.imageView8)
+
+
+
 
     }
 

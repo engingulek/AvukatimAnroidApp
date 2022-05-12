@@ -58,8 +58,9 @@ class LawyerDetailsFragment : Fragment() {
 
 
 
+
         design.sendMessageChat.setOnClickListener {
-            val pass = LawyerDetailsFragmentDirections.toChat(getLawyerDetails.lawyerNameSurname,getLawyerDetails.authUserId)
+            val pass = LawyerDetailsFragmentDirections.toChat(getLawyerDetails.lawyerNameSurname,getLawyerDetails.authUserId,getLawyerDetails.lawyerImageUrl)
             Navigation.findNavController(it).navigate(pass)
         }
 

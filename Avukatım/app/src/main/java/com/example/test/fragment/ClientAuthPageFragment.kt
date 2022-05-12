@@ -23,6 +23,7 @@ class ClientAuthPageFragment : Fragment() {
     ): View? {
         design = DataBindingUtil.inflate(inflater,R.layout.fragment_client_auth_page, container, false)
 
+        design.imageView.setImageResource(R.drawable.profile)
         design.buttonToFav.setOnClickListener {
 
             Navigation.findNavController(it).navigate(R.id.toFav)

@@ -2,6 +2,7 @@ package com.example.test.adapter
 
 import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
@@ -10,10 +11,13 @@ import com.example.test.R
 import com.example.test.databinding.RvvRowBinding
 import com.example.test.entity.Chat
 import com.google.firebase.auth.FirebaseAuth
+import com.squareup.picasso.Picasso
 
 class LawyerChatAdapter : RecyclerView.Adapter<LawyerChatAdapter.ChatHolder>() {
     private val VIEW_TYPE_MESSAGE_SENT  = 1
     private val VIEW_TYPE_MESSAGE_SENT_RECEIVED = 2
+    private var lawyerImage = ""
+    private  var clientImage = ""
 
     inner class ChatHolder(rvvRowBinding: RvvRowBinding)
         : RecyclerView.ViewHolder(rvvRowBinding.root) {
@@ -66,6 +70,9 @@ class LawyerChatAdapter : RecyclerView.Adapter<LawyerChatAdapter.ChatHolder>() {
             design.llrow.gravity = Gravity.LEFT
             design.chatTextView.setBackgroundResource(R.drawable.row_ballon)
 
+
+            design.imageView9.visibility = View.GONE
+
             return ChatHolder(design)
         }
         else{
@@ -73,6 +80,10 @@ class LawyerChatAdapter : RecyclerView.Adapter<LawyerChatAdapter.ChatHolder>() {
             val design = com.example.test.databinding.RvvRowBinding.inflate(view,parent,false)
             design.llrow.gravity = Gravity.RIGHT
             design.chatTextView.setBackgroundResource(R.drawable.row_ballon_right)
+
+            design.imageView8.visibility = View.GONE
+
+
 
 
 

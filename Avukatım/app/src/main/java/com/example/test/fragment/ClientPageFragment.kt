@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
@@ -48,6 +49,9 @@ class ClientPageFragment : Fragment() {
                         var user = auth.currentUser
                         var profileUpdate = UserProfileChangeRequest.Builder().apply {
                             displayName = design.singUpClientNameSurnameEditText.text.toString()
+
+                            val a ="https://firebasestorage.googleapis.com/v0/b/avukatimauth.appspot.com/o/images%2Fprofile.png?alt=media&token=de68420b-c006-459e-bacf-adc4a0ea72e6"
+                            photoUri = a.toUri()
                         }.build()
                         user?.updateProfile(profileUpdate)?.addOnCompleteListener{ task ->
                             if (task.isSuccessful){

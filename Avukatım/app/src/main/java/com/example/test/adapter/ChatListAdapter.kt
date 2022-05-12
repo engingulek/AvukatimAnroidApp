@@ -34,7 +34,7 @@ class ChatListAdapter(var mContext: Context,var userList: HashMap<String,Any>)
         textDesing.userNameText.text = userName.toString()
         val uuid = userList.get("getUid")
         textDesing.userNameText.setOnClickListener {
-           val pass = ClientTabLayoutFragmentDirections.toChatTwo(userName.toString(),uuid.toString())
+           val pass = ClientTabLayoutFragmentDirections.toChatTwo(userName.toString(),uuid.toString(),"")
             Navigation.findNavController(it).navigate(pass)
         }
     }

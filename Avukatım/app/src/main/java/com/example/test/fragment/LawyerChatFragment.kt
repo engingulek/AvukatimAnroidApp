@@ -63,6 +63,8 @@ class LawyerChatFragment : Fragment() {
                     val getuuid = bundle.getUuid
                     val chatText = design.messageText.text.toString()
                     val date = FieldValue.serverTimestamp()
+                    val testImageLawyer = "https://firebasestorage.googleapis.com/v0/b/avukatimauth.appspot.com/o/images%2F9d9e9e66-408b-4b8d-9fc2-3424cceb7156.jpg?alt=media&token=33fb9209-3fd1-4496-8155-7b3cfa962c23"
+                    val testImageClient = "https://firebasestorage.googleapis.com/v0/b/avukatimauth.appspot.com/o/images%2Fprofile.png?alt=media&token=de68420b-c006-459e-bacf-adc4a0ea72e6"
 
                     Log.e("müşteri id","${getuuid}")
 
@@ -73,6 +75,7 @@ class LawyerChatFragment : Fragment() {
                     clientNamaeData.put("lawyerName",sendUserName!!)
                     clientNamaeData.put("clientid",getuuid)
                     clientNamaeData.put("lawyerid",sendUuid)
+
 
 
 
@@ -118,6 +121,8 @@ class LawyerChatFragment : Fragment() {
                     dataMap.put("getuuid",getuuid!!)
                     dataMap.put("chatText",chatText!!)
                     dataMap.put("date",date!!)
+                    dataMap.put("lawyerImage",testImageLawyer)
+                    dataMap.put("clientImage",testImageClient)
 
                     Log.e("sendUuid","${sendUuid}")
                     Log.e("authUuid","${auth.currentUser?.uid}")
@@ -151,6 +156,9 @@ class LawyerChatFragment : Fragment() {
                     dataMapA.put("getuuid",getuuid!!)
                     dataMapA.put("chatText",chatText!!)
                     dataMapA.put("date",date!!)
+
+                    dataMapA.put("lawyerImage",testImageLawyer)
+                    dataMapA.put("clientImage",testImageClient)
 
 
 
@@ -188,7 +196,11 @@ class LawyerChatFragment : Fragment() {
                             for (document in documents) {
                                 val text = document.get("chatText") as String
                                 val user = document.get("senduser") as String
-                                val chat = Chat(user,text)
+                                val lawyerImage = document.get("lawyerImage")
+                                val clientImage = document.get("clientImage")
+                                Log.e("Lawyer1","${lawyerImage}")
+                                Log.e("Lawyer2","${clientImage}")
+                               val chat = Chat(user,text,lawyerImage.toString(),clientImage.toString())
                                 chats.add(chat)
                                 adapter.chats = chats
                             }
