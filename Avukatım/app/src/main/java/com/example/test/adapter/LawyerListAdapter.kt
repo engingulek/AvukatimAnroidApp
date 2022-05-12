@@ -40,7 +40,13 @@ class LawyerListAdapter(var mContext: Context, var lawyerList: List<LawyerInfo>,
 
 
         cardDesign.lawyerObject = lawyer
-        Picasso.get().load(lawyer.lawyerImageUrl).into(cardDesign.imageViewLawyer)
+        if (lawyer.lawyerImageUrl == "") {
+
+        }
+        else {
+            Picasso.get().load(lawyer.lawyerImageUrl).into(cardDesign.imageViewLawyer)
+        }
+
 
 
         cardDesign.lawyerCardView.setOnClickListener {

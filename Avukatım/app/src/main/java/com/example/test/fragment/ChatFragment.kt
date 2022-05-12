@@ -68,6 +68,8 @@ private  var chats = arrayListOf<Chat>()
                     Log.e("uuda","${getuuid}")
                     val chatText = design.messageText.text.toString()
                     val date = FieldValue.serverTimestamp()
+                    
+
 
 
 
@@ -80,6 +82,7 @@ private  var chats = arrayListOf<Chat>()
                     clientNamaeData.put("lawyerName",getUserName!!)
                     clientNamaeData.put("clientid",sendUuid)
                     clientNamaeData.put("lawyerid",getuuid)
+
 
                     fireStore.collection("Chats")
                         .document(auth.currentUser?.uid!!).collection("nameData").document("0").set(clientNamaeData)
@@ -118,6 +121,7 @@ private  var chats = arrayListOf<Chat>()
                          dataMap.put("getUserName",getUserName!!)
 
                          dataMap.put("getuuid",getuuid!!)
+
                          dataMap.put("chatText",chatText!!)
                          dataMap.put("date",date!!)
 

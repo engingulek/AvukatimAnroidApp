@@ -15,17 +15,17 @@ import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.delay
 
 class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatHolder>() {
-private val VIEW_TYPE_MESSAGE_SENT  = 1
+    private val VIEW_TYPE_MESSAGE_SENT  = 1
     private val VIEW_TYPE_MESSAGE_SENT_RECEIVED = 2
 
     inner class ChatHolder(rvvRowBinding: RvvRowBinding)
         :RecyclerView.ViewHolder(rvvRowBinding.root) {
-            var rvvRowBinding :RvvRowBinding
-            init {
-                this.rvvRowBinding = rvvRowBinding
-            }
-
+        var rvvRowBinding :RvvRowBinding
+        init {
+            this.rvvRowBinding = rvvRowBinding
         }
+
+    }
 
 
 
@@ -44,8 +44,8 @@ private val VIEW_TYPE_MESSAGE_SENT  = 1
     private val recyclerListDiffer = AsyncListDiffer(this,diffUtil)
 
     var chats : List<Chat>
-    get() = recyclerListDiffer.currentList
-    set(value) = recyclerListDiffer.submitList(value)
+        get() = recyclerListDiffer.currentList
+        set(value) = recyclerListDiffer.submitList(value)
 
     override fun getItemViewType(position: Int): Int {
 
@@ -68,6 +68,8 @@ private val VIEW_TYPE_MESSAGE_SENT  = 1
             val design = RvvRowBinding.inflate(view,parent,false)
             design.llrow.gravity = Gravity.LEFT
             design.chatTextView.setBackgroundResource(R.drawable.row_ballon)
+            design.imageView8.setImageResource(R.drawable.imagenul)
+            design.imageView9.visibility = View.GONE
 
             return ChatHolder(design)
         }
@@ -76,6 +78,9 @@ private val VIEW_TYPE_MESSAGE_SENT  = 1
             val design = com.example.test.databinding.RvvRowBinding.inflate(view,parent,false)
             design.llrow.gravity = Gravity.RIGHT
             design.chatTextView.setBackgroundResource(R.drawable.row_ballon_right)
+
+            design.imageView8.visibility = View.GONE
+            design.imageView9.setImageResource(R.drawable.fav_icon)
 
 
 
