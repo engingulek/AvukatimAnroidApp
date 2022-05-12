@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.test.databinding.FragmentChatListBinding
 import android.content.Context
+import android.util.Log
 import androidx.navigation.Navigation
 import com.example.test.databinding.UserListDesignBinding
 import com.example.test.R
@@ -34,6 +35,8 @@ class ChatListAdapter(var mContext: Context,var userList: HashMap<String,Any>)
         textDesing.userNameText.text = userName.toString()
         val uuid = userList.get("getUid")
         textDesing.userNameText.setOnClickListener {
+            Log.e("A3","${userName.toString()}")
+            Log.e("A4","${uuid.toString()}")
            val pass = ClientTabLayoutFragmentDirections.toChatTwo(userName.toString(),uuid.toString(),"")
             Navigation.findNavController(it).navigate(pass)
         }

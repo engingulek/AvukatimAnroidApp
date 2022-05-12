@@ -103,7 +103,7 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatHolder>() {
         val cardDesing = holder.rvvRowBinding
         cardDesing.chatTextView.text = "${chats.get(position).text}"
         Picasso.get().load(chats.get(position).clientImage).into(cardDesing.imageView9)
-        Picasso.get().load(chats.get(position).lawyerImage).into(cardDesing.imageView8)
+       // Picasso.get().load(chats.get(position).lawyerImage).into(cardDesing.imageView8)
 
 
 

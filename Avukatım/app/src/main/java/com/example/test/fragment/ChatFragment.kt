@@ -89,6 +89,10 @@ private  var chats = arrayListOf<Chat>()
                     clientNamaeData.put("clientid",sendUuid)
                     clientNamaeData.put("lawyerid",getuuid)
 
+                    Log.e("A1","${getuuid}")
+                    Log.e("A2","${getuuid}")
+
+
 
                     fireStore.collection("Chats")
                         .document(auth.currentUser?.uid!!).collection("nameData").document("0").set(clientNamaeData)
@@ -138,7 +142,7 @@ private  var chats = arrayListOf<Chat>()
 
 
 
-                         fireStore.collection("Chats")
+                        fireStore.collection("Chats")
                              .document(auth.currentUser?.uid!!).collection("message").add(dataMap)
                              .addOnSuccessListener {
                                  design.messageText.setText("")
