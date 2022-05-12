@@ -31,13 +31,18 @@ class ChatListAdapter(var mContext: Context,var userList: HashMap<String,Any>)
 
     override fun onBindViewHolder(holder: ChatHolder, position: Int) {
         val userName = userList.get("getUserName")
+
+
         val textDesing = holder.userListDesignBinding
         textDesing.userNameText.text = userName.toString()
         val uuid = userList.get("getUid")
         textDesing.userNameText.setOnClickListener {
             Log.e("A3","${userName.toString()}")
             Log.e("A4","${uuid.toString()}")
-           val pass = ClientTabLayoutFragmentDirections.toChatTwo(userName.toString(),uuid.toString(),"")
+            val lawyerImage = userList.get("lawyerImage")
+            Log.e("A16","$lawyerImage")
+
+           val pass = ClientTabLayoutFragmentDirections.toChatTwo(userName.toString(),uuid.toString(),lawyerImage.toString())
             Navigation.findNavController(it).navigate(pass)
         }
     }

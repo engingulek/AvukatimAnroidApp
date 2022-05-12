@@ -29,6 +29,7 @@ class ChatListFragment : Fragment() {
     private  var chatUserList = HashMap<String,Any>()
     private lateinit var adapter: ChatListAdapter
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -57,14 +58,15 @@ class ChatListFragment : Fragment() {
                             Log.e("Contactid","${value.get("lawyerid")}")
 
 
-
-                            if(value.get("lawyerName") != null) {
+                            if(value.get("lawyerName") != null && value.get("lawyerImage") != null) {
                                 chatUserList.put("getUserName",value.get("lawyerName")!!)
                                 chatUserList.put("getUid",value.get("lawyerid")!!)
+                                chatUserList.put("lawyerImage",value.get("lawyerImage")!!)
+
                                 Log.e("A6","${value.get("lawyerid")!!}")
                                 Log.e("A7","${chatUserList.get("getUid")}")
 
-                                if (value.get("lawyerName") != null) {
+                                if (value.get("lawyerName") != null && value.get("lawyerImage") != null) {
                                     adapter = ChatListAdapter(requireContext(),chatUserList)
                                     design.userListRvv.adapter = adapter
                                     design.userListRvv.layoutManager = LinearLayoutManager(requireContext())
@@ -83,60 +85,6 @@ class ChatListFragment : Fragment() {
 
 
 
-       /* fireStore.collection("Chats")
-            .document(auth.currentUser?.uid!!)
-            .collection("nameData")
-            .addSnapshotListener { value, error ->
-                if (error != null) {
-                    //  Toast.makeText(requireContext(),"Beklenmedik bir hata oluştu",Toast.LENGTH_SHORT).show()
-                }else{
-                    if (value != null) {
-                        if (value.isEmpty) {
-                            // Toast.makeText(requireContext(),"Mesaj yok",Toast.LENGTH_SHORT).show()
-                        }else {
-                            val documents = value.documents
-                            chatUserList.clear()
-                            for (document in documents) {
-                                val text = document.get("chatText") as String
-                                val contactName = document.get("lawyerName") as String
-                                val contactId = document.get("lawyerid") as String
-
-
-
-                                if (chatUserList.isEmpty()) {
-
-                                    chatUserList.put("getUserName",contactName)
-                                    chatUserList.put("getUid",contactId)
-                                }
-                                else{
-                                    val check = chatUserList.contains(contactName)
-                                    if (check) {
-
-                                    }else{
-                                        chatUserList.put("getUserName",contactName)
-                                        chatUserList.put("getUid",contactId)
-
-                                    }
-                                }
-
-
-
-
-
-                                adapter = ChatListAdapter(requireContext(),chatUserList)
-                                design.userListRvv.adapter = adapter
-                                design.userListRvv.layoutManager = LinearLayoutManager(requireContext())
-
-
-                            }
-                        }
-                        if(chatUserList.size != 0) {
-                            adapter.notifyDataSetChanged()
-                        }
-
-                    }
-
-                }*/
 
 
             }
@@ -148,58 +96,7 @@ class ChatListFragment : Fragment() {
 
 
 
-        /* fireStore.collection("Chats")
-             .document(auth.currentUser?.uid!!)
-             .collection("message")
-             .addSnapshotListener {value,error ->
-                 if (error != null) {
-                     //  Toast.makeText(requireContext(),"Beklenmedik bir hata oluştu",Toast.LENGTH_SHORT).show()
-                 }else{
-                     if (value != null) {
-                         if (value.isEmpty) {
-                             // Toast.makeText(requireContext(),"Mesaj yok",Toast.LENGTH_SHORT).show()
-                         }else {
-                             val documents = value.documents
-                             chatUserList.clear()
-                             for (document in documents) {
-                                 val text = document.get("chatText")
-                                 val user = document.get("getUserName")
-                                 val getUUid = document.get("getuuid")
 
-                                 if (user != auth.currentUser?.displayName) {
-                                     if (chatUserList.isEmpty()) {
-                                         chatUserList.put("getUserName",user.toString())
-                                         chatUserList.put("getUid",getUUid.toString())
-                                     }
-                                     else{
-                                         val check = chatUserList.contains(user)
-                                         if (check) {
-
-                                         }else{
-                                             chatUserList.put("getUserName",user.toString())
-                                             chatUserList.put("getUid",getUUid!!)
-
-                                         }
-                                     }
-
-                                 }
-                                 adapter = ChatListAdapter(requireContext(),chatUserList)
-                                 design.userListRvv.adapter = adapter
-                                 design.userListRvv.layoutManager = LinearLayoutManager(requireContext())
-
-
-                             }
-                         }
-                         if(chatUserList.size != 0) {
-                             adapter.notifyDataSetChanged()
-                         }
-
-                     }
-
-                 }
-
-
-             }*/
 
 
 
@@ -212,6 +109,11 @@ class ChatListFragment : Fragment() {
     }
 
 
+    fun getImageLawyer() {
+
+
+
+    }
 
 
 }

@@ -47,7 +47,8 @@ private  var chats = arrayListOf<Chat>()
         design.chatRvv.layoutManager = LinearLayoutManager(requireContext())
 
         val bundle : ChatFragmentArgs by navArgs()
-
+        val lawyerImagee = bundle.getIawyerImageUrl
+        Log.e("A18","$lawyerImagee")
 
         design.sendButton.setOnClickListener {
 
@@ -72,6 +73,8 @@ private  var chats = arrayListOf<Chat>()
                     val chatText = design.messageText.text.toString()
                     val date = FieldValue.serverTimestamp()
 
+
+
                     Log.e("Avukat resim url",bundle.getIawyerImageUrl)
                     Log.e("Kullanıcı image url","${it.photoUrl}")
 
@@ -88,6 +91,7 @@ private  var chats = arrayListOf<Chat>()
                     clientNamaeData.put("lawyerName",getUserName!!)
                     clientNamaeData.put("clientid",sendUuid)
                     clientNamaeData.put("lawyerid",getuuid)
+                    clientNamaeData.put("lawyerImage",lawyerImage)
 
                     Log.e("A1","${getuuid}")
                     Log.e("A2","${getuuid}")

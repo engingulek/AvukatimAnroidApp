@@ -51,6 +51,8 @@ class LawyerChatAdapter : RecyclerView.Adapter<LawyerChatAdapter.ChatHolder>() {
     override fun getItemViewType(position: Int): Int {
 
         val chat = chats.get(position)
+        lawyerImage = chat.lawyerImage.toString()
+        clientImage = chat.clientImage.toString()
 
         if(chat.user == FirebaseAuth.getInstance().currentUser?.email.toString()) {
 
@@ -98,6 +100,8 @@ class LawyerChatAdapter : RecyclerView.Adapter<LawyerChatAdapter.ChatHolder>() {
     override fun onBindViewHolder(holder: ChatHolder, position: Int) {
         val cardDesing = holder.rvvRowBinding
         cardDesing.chatTextView.text = "${chats.get(position).text}"
+        Picasso.get().load(chats.get(position).clientImage).into(cardDesing.imageView8)
+       Picasso.get().load(chats.get(position).lawyerImage).into(cardDesing.imageView9)
 
     }
 
