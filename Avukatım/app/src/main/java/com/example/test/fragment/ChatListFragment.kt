@@ -66,7 +66,7 @@ class ChatListFragment : Fragment() {
                                 Log.e("A6","${value.get("lawyerid")!!}")
                                 Log.e("A7","${chatUserList.get("getUid")}")
 
-                                if (value.get("lawyerName") != null && value.get("lawyerImage") != null) {
+                                if (value.get("lawyerName") != null && value.get("lawyerImage") != null && value.get("lawyerid") != null) {
                                     adapter = ChatListAdapter(requireContext(),chatUserList)
                                     design.userListRvv.adapter = adapter
                                     design.userListRvv.layoutManager = LinearLayoutManager(requireContext())

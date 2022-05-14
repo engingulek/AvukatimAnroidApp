@@ -74,7 +74,7 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatHolder>() {
             val design = RvvRowBinding.inflate(view,parent,false)
             design.llrow.gravity = Gravity.LEFT
             design.chatTextView.setBackgroundResource(R.drawable.row_ballon)
-
+            design.rigtTime.visibility = View.GONE
             design.imageView9.visibility = View.GONE
 
             return ChatHolder(design)
@@ -84,6 +84,8 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatHolder>() {
             val design = com.example.test.databinding.RvvRowBinding.inflate(view,parent,false)
             design.llrow.gravity = Gravity.RIGHT
             design.chatTextView.setBackgroundResource(R.drawable.row_ballon_right)
+            design.leftTime.visibility = View.GONE
+
 
             design.imageView8.visibility = View.GONE
 
@@ -104,6 +106,8 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatHolder>() {
         cardDesing.chatTextView.text = "${chats.get(position).text}"
         Picasso.get().load(chats.get(position).clientImage).into(cardDesing.imageView9)
         Picasso.get().load(chats.get(position).lawyerImage).into(cardDesing.imageView8)
+        cardDesing.leftTime.text = "${chats.get(position).date}"
+        cardDesing.rigtTime.text = "${chats.get(position).date}"
 
 
 

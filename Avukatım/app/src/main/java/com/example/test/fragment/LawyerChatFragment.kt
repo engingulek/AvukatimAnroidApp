@@ -22,6 +22,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.HashMap
 
 
 class LawyerChatFragment : Fragment() {
@@ -201,9 +204,24 @@ class LawyerChatFragment : Fragment() {
                                 val user = document.get("senduser") as String
                                  lawyerImage = document.get("lawyerImage") as String
                                  clientImage = document.get("clientImage") as String
-                               val chat = Chat(user,text,lawyerImage.toString(),clientImage.toString())
-                                chats.add(chat)
-                                adapter.chats = chats
+
+
+
+
+                                if (document.get("date") != null) {
+                                    val timestamp = document.get("date") as com.google.firebase.Timestamp
+                                    val milliseconds = timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000
+                                    val sdf = SimpleDateFormat("dd/MM/yyyy HH:mm")
+                                    val netDate = Date(milliseconds)
+                                    val date = sdf.format(netDate).toString()
+
+                                    val chat = Chat(user,text,lawyerImage.toString(),clientImage.toString(),date.toString())
+                                    chats.add(chat)
+                                    adapter.chats = chats
+                                }
+
+
+
                             }
                         }
                         adapter.notifyDataSetChanged()

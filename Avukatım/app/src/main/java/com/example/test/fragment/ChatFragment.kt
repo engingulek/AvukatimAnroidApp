@@ -15,6 +15,7 @@ import com.example.test.R
 import com.example.test.adapter.ChatAdapter
 import com.example.test.databinding.FragmentChatBinding
 import com.example.test.entity.Chat
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue
@@ -22,7 +23,14 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.HashMap
 import kotlin.math.log
+
+
+
+
 
 
 class ChatFragment : Fragment() {
@@ -213,9 +221,27 @@ private  var chats = arrayListOf<Chat>()
                                 val lawyerImage = document.get("lawyerImage")
                                 val clientImage = document.get("clientImage")
 
-                                val chat = Chat(user.toString(),text.toString(), lawyerImage.toString(),clientImage.toString())
-                                chats.add(chat)
-                                adapter.chats = chats
+                                if (document.get("date") != null) {
+                                    val timestamp = document.get("date") as Timestamp
+                                    Log.e("date","${timestamp}")
+
+
+                                    val milliseconds = timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000
+                                    val sdf = SimpleDateFormat("dd/MM/yyyy HH:mm")
+                                    val netDate = Date(milliseconds)
+                                    val date = sdf.format(netDate).toString()
+
+                                    Log.e("da","${date}")
+
+
+                                    val chat = Chat(user.toString(),text.toString(), lawyerImage.toString(),clientImage.toString(),date.toString())
+                                    chats.add(chat)
+                                    adapter.chats = chats
+
+                                }
+
+
+
                             }
                         }
                         adapter.notifyDataSetChanged()
