@@ -49,23 +49,47 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:id="@+id/chatTextView"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:paddingTop="3dp"
             android:paddingBottom="3dp"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp"
+            android:paddingRight="10dp">
 
-            android:text="test"
-            android:textAlignment="textEnd"
-            android:textColor="@color/white"
-            android:textSize="20dp">
+            <TextView
+                android:id="@+id/chatTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="test"
+                android:textAlignment="textEnd"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/chatImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+
+                />
 
 
-        </TextView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
 
 
         <androidx.constraintlayout.widget.ConstraintLayout

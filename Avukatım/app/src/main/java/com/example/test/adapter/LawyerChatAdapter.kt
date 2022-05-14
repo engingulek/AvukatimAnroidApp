@@ -100,7 +100,14 @@ class LawyerChatAdapter : RecyclerView.Adapter<LawyerChatAdapter.ChatHolder>() {
 
     override fun onBindViewHolder(holder: ChatHolder, position: Int) {
         val cardDesing = holder.rvvRowBinding
-        cardDesing.chatTextView.text = "${chats.get(position).text}"
+        if (chats.get(position).text == "") {
+            cardDesing.chatTextView.visibility = View.GONE
+            Picasso.get().load(chats.get(position).chatImage).into(cardDesing.chatImageView)
+
+        }else{
+            cardDesing.chatImageView.visibility = View.GONE
+            cardDesing.chatTextView.text = "${chats.get(position).text}"
+        }
         Picasso.get().load(chats.get(position).clientImage).into(cardDesing.imageView8)
        Picasso.get().load(chats.get(position).lawyerImage).into(cardDesing.imageView9)
         cardDesing.leftTime.text = "${chats.get(position).date}"
