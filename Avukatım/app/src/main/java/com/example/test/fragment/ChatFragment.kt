@@ -35,6 +35,10 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
 import kotlin.math.log
+import android.content.ContentResolver
+
+
+
 
 
 
@@ -256,6 +260,13 @@ private  var chats = arrayListOf<Chat>()
                                     val chat = Chat(user.toString(),text.toString(), lawyerImage.toString(),clientImage.toString(),date.toString(),chatImageUrlData.toString())
                                     chats.add(chat)
                                     adapter.chats = chats
+                                    adapter.constraintLayout = design.bigImageCL
+                                    adapter.bigImageView = design.bigImageView
+                                    adapter.saveButton = design.bttnImageSave
+                                    adapter.closeBttn = design.closeButton
+                                    adapter.context = requireContext()
+                                    val resolver = activity!!.contentResolver
+                                    adapter.resolver = resolver
 
                                 }
 
