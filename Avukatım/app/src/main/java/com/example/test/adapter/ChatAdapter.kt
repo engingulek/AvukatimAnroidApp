@@ -152,17 +152,6 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatHolder>() {
                 val dr = (bigImageView as ImageView).drawable
                 val uri = saveImage(dr,"${newUUID}")
 
-
-
-
-
-
-
-
-
-
-
-
             }
 
 

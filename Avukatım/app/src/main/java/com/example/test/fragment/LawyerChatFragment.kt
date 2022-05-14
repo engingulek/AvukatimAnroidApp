@@ -237,6 +237,13 @@ class LawyerChatFragment : Fragment() {
                                     val chat = Chat(user,text,lawyerImage.toString(),clientImage.toString(),date.toString(),chatImageUrlData.toString())
                                     chats.add(chat)
                                     adapter.chats = chats
+                                    adapter.constraintLayout = design.bigImageCL
+                                    adapter.bigImageView = design.bigImageView
+                                    adapter.saveButton = design.bttnImageSave
+                                    adapter.closeBttn = design.closeButton
+                                    adapter.context = requireContext()
+                                    val resolver = activity!!.contentResolver
+                                    adapter.resolver = resolver
                                 }
 
 

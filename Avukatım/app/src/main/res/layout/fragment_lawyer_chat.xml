@@ -163,5 +163,51 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/bigImageCL"
+            android:layout_width="260dp"
+            android:layout_height="300dp"
+            android:layout_marginBottom="40dp"
+            android:background="@drawable/search_view_design"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/chatRvv"
+            app:layout_constraintEnd_toEndOf="@+id/chatRvv"
+            app:layout_constraintStart_toStartOf="@+id/chatRvv">
+
+
+            <ImageView
+                android:id="@+id/bigImageView"
+                android:layout_width="205dp"
+                android:layout_height="203dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/man" />
+
+            <Button
+                android:id="@+id/bttnImageSave"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="23dp"
+                android:text="Kaydet"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/closeButton"
+                app:layout_constraintTop_toBottomOf="@+id/bigImageView" />
+
+            <Button
+                android:id="@+id/closeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="23dp"
+                android:text="Close"
+                app:layout_constraintEnd_toStartOf="@+id/bttnImageSave"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bigImageView" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -1,9 +1,19 @@
 package com.example.test.adapter
 
+import android.content.ContentResolver
+import android.content.Context
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
+import android.net.Uri
+import android.provider.MediaStore
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -12,12 +22,19 @@ import com.example.test.databinding.RvvRowBinding
 import com.example.test.entity.Chat
 import com.google.firebase.auth.FirebaseAuth
 import com.squareup.picasso.Picasso
+import java.util.*
 
 class LawyerChatAdapter : RecyclerView.Adapter<LawyerChatAdapter.ChatHolder>() {
     private val VIEW_TYPE_MESSAGE_SENT  = 1
     private val VIEW_TYPE_MESSAGE_SENT_RECEIVED = 2
     private var lawyerImage = ""
     private  var clientImage = ""
+    var constraintLayout: ConstraintLayout? = null
+    var saveButton : Button? = null
+    var bigImageView : ImageView? = null
+    var closeBttn : Button? = null
+    var context : Context? = null
+    var resolver : ContentResolver? = null
 
     inner class ChatHolder(rvvRowBinding: RvvRowBinding)
         : RecyclerView.ViewHolder(rvvRowBinding.root) {
@@ -104,6 +121,34 @@ class LawyerChatAdapter : RecyclerView.Adapter<LawyerChatAdapter.ChatHolder>() {
             cardDesing.chatTextView.visibility = View.GONE
             Picasso.get().load(chats.get(position).chatImage).into(cardDesing.chatImageView)
 
+            cardDesing.chatImageView.setOnClickListener {
+                constraintLayout?.visibility = View.VISIBLE
+                Picasso.get().load(chats.get(position).chatImage).into(bigImageView)
+
+
+            }
+
+            saveButton?.setOnClickListener {
+                Log.e("Kaydetmeişleöş","da")
+
+
+                val newUUID = UUID.randomUUID()
+                val dr = (bigImageView as ImageView).drawable
+                val uri = saveImage(dr,"${newUUID}")
+
+            }
+
+
+
+            closeBttn?.setOnClickListener {
+                constraintLayout?.visibility = View.GONE
+            }
+
+
+
+
+
+
         }else{
             cardDesing.chatImageView.visibility = View.GONE
             cardDesing.chatTextView.text = "${chats.get(position).text}"
@@ -113,6 +158,26 @@ class LawyerChatAdapter : RecyclerView.Adapter<LawyerChatAdapter.ChatHolder>() {
         cardDesing.leftTime.text = "${chats.get(position).date}"
         cardDesing.rigtTime.text = "${chats.get(position).date}"
 
+    }
+
+    private fun saveImage(drawable: Drawable, title:String): Uri {
+        // Get the image from drawable resource as drawable object
+
+
+        // Get the bitmap from drawable object
+        val bitmap = (drawable as BitmapDrawable).bitmap
+
+        // Save image to gallery
+        val savedImageURL = MediaStore.Images.Media.insertImage(
+            resolver,
+            bitmap,
+            title,
+            "Image of $title"
+        )
+
+        // Parse the gallery image url to uri
+        constraintLayout?.visibility = View.GONE
+        return Uri.parse(savedImageURL)
     }
 
     override fun getItemCount(): Int {
