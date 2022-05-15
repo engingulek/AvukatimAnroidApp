@@ -298,6 +298,15 @@ private  var chats = arrayListOf<Chat>()
             Log.e("SendImageButton","${imageChatrUrl}")
 
         }
+        design.sendDocsMessage.setOnClickListener {
+            val intent = Intent()
+                .setType("*/*")
+                .setAction(Intent.ACTION_GET_CONTENT)
+
+            startActivityForResult(Intent.createChooser(intent, "Select a file"), 111)
+
+
+        }
 
 
 
@@ -478,6 +487,27 @@ private  var chats = arrayListOf<Chat>()
 
     }
 
+    fun uploadStrongeDoc(fileUri : Uri) {
+        val fileName = UUID.randomUUID().toString()+".pdf"
+        var docUrl = ""
+        val refStorage = FirebaseStorage.getInstance().reference.child("messageDocs/$fileName")
+        refStorage.putFile(fileUri)
+            .addOnSuccessListener(
+                OnSuccessListener<UploadTask.TaskSnapshot> { taskSnapshot ->
+                    taskSnapshot.storage.downloadUrl.addOnSuccessListener {
+                        docUrl = it.toString()
+                        imageUrlString(docUrl)
+                        Log.e("Docs url","${docUrl}")
+                       // addSendImage(imageUrl)
+                    }
+                })
+
+            .addOnFailureListener(OnFailureListener { e ->
+                print(e.message)
+            })
+
+    }
+
     fun imageUrlString(k:String) {
         imageChatrUrl = k
 
@@ -501,8 +531,21 @@ private  var chats = arrayListOf<Chat>()
 
         }
 
+        if (requestCode == 111 && resultCode == Activity.RESULT_OK) {
+
+            val selectedFile = data?.data //The uri with the location of the file
+            Log.e("Seçilen döküman","${selectedFile}")
+            uploadStrongeDoc(selectedFile!!)
+        }
+
 
     }
+
+
+
+
+
+
 
 
 
