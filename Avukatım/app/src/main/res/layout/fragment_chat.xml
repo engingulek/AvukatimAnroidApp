@@ -128,7 +128,7 @@
             android:layout_height="100dp"
             android:layout_marginBottom="20dp"
             android:background="@drawable/search_view_design"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/chatRvv"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">

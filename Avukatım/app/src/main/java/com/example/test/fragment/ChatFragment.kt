@@ -408,6 +408,7 @@ private  var chats = arrayListOf<Chat>()
                 dataMap.put("chatText","")
                 dataMap.put("date",date!!)
                 dataMap.put("chatImage","${imageChatrUrl}")
+                dataMap.put("chatDoc","")
 
 
 
@@ -440,6 +441,7 @@ private  var chats = arrayListOf<Chat>()
                 dataMapA.put("chatText","")
                 dataMapA.put("date",date!!)
                 dataMapA.put("chatImage","${imageChatrUrl}")
+                dataMapA.put("chatDoc","")
 
 
                 fireStore.collection("Chats")
@@ -461,6 +463,170 @@ private  var chats = arrayListOf<Chat>()
 
 
     }
+
+
+
+
+
+    fun addSendDobs(chatDocsUrls : String) {
+        val bundle : ChatFragmentArgs by navArgs()
+        val lawyerImagee = bundle.getIawyerImageUrl
+        Log.e("Resim url chat","${chatDocsUrls}")
+
+        auth.currentUser?.let {
+
+
+            val clientuser = it.email
+            val clientUserName = it.displayName
+
+
+            val senduser = it.email
+            val sendUserName = it.displayName
+            val sendUuid = it.uid
+            val getUserName  = bundle.getUserName
+            val getuuid = bundle.getUuid
+            Log.e("uuda","${getuuid}")
+            val lawyerImage = bundle.getIawyerImageUrl
+            val clientImage = it.photoUrl
+            val chatText = design.messageText.text.toString()
+            val date = FieldValue.serverTimestamp()
+
+
+
+            Log.e("Avukat resim url",bundle.getIawyerImageUrl)
+            Log.e("Kullanıcı image url","${it.photoUrl}")
+
+
+
+
+
+            Log.e("Müşteri adı","${sendUserName}")
+            Log.e("Avukat adı","${getUserName}")
+            design.nateTe.text = getUserName
+
+            val clientNamaeData  = HashMap<String,Any>()
+            clientNamaeData.put("clientName",sendUserName!!)
+            clientNamaeData.put("lawyerName",getUserName!!)
+            clientNamaeData.put("clientid",sendUuid)
+            clientNamaeData.put("lawyerid",getuuid)
+            clientNamaeData.put("lawyerImage",lawyerImage)
+
+            Log.e("A1","${getuuid}")
+            Log.e("A2","${getuuid}")
+
+
+
+            fireStore.collection("Chats")
+                .document(auth.currentUser?.uid!!).collection("nameData").document("0").set(clientNamaeData)
+                .addOnSuccessListener {
+                    design.messageText.setText("")
+                }
+                .addOnFailureListener {
+                    // HATA İLE KARŞILAŞILDI
+                }
+
+
+            fireStore.collection("Chats")
+                .document(getuuid).collection("nameData").document("0").set(clientNamaeData)
+                .addOnSuccessListener {
+                    design.messageText.setText("")
+                }
+                .addOnFailureListener {
+                    // HATA İLE KARŞILAŞILDI
+                }
+
+
+
+
+
+
+
+
+
+            val dataMap = HashMap<String,Any>()
+            dataMap.put("senduser",senduser!!)
+
+            dataMap.put("sendUserName",sendUserName!!)
+
+            dataMap.put("sendUuid",sendUuid!!)
+
+            dataMap.put("getUserName",getUserName!!)
+
+            dataMap.put("getuuid",getuuid!!)
+            dataMap.put("lawyerImage",lawyerImage)
+            dataMap.put("clientImage",clientImage.toString())
+
+            dataMap.put("chatText","")
+            dataMap.put("date",date!!)
+            dataMap.put("chatImage","")
+            dataMap.put("chatDoc","${chatDocsUrls}")
+
+
+
+
+
+
+
+            fireStore.collection("Chats")
+                .document(auth.currentUser?.uid!!).collection("message").add(dataMap)
+                .addOnSuccessListener {
+                    design.messageText.setText("")
+                }
+                .addOnFailureListener {
+                    // HATA İLE KARŞILAŞILDI
+                }
+
+
+            val dataMapA = HashMap<String,Any>()
+            dataMapA.put("senduser",senduser!!)
+
+            dataMapA.put("sendUserName",getUserName!!)
+
+            dataMapA.put("sendUuid",sendUuid!!)
+
+            dataMapA.put("getUserName",sendUserName!!)
+
+            dataMapA.put("getuuid",getuuid!!)
+            dataMapA.put("lawyerImage",lawyerImage)
+            dataMapA.put("clientImage",clientImage.toString())
+            dataMapA.put("chatText","")
+            dataMapA.put("date",date!!)
+            dataMapA.put("chatImage","")
+            dataMapA.put("chatDoc","${chatDocsUrls}")
+
+
+            fireStore.collection("Chats")
+                .document(getuuid).collection("message").add(dataMapA)
+                .addOnSuccessListener {
+                    design.messageText.setText("")
+
+                }
+                .addOnFailureListener {
+                    // HATA İLE KARŞILAŞILDI
+                }
+
+
+
+
+
+        }
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -498,7 +664,8 @@ private  var chats = arrayListOf<Chat>()
                         docUrl = it.toString()
                         imageUrlString(docUrl)
                         Log.e("Docs url","${docUrl}")
-                       // addSendImage(imageUrl)
+                        addSendDobs(docUrl)
+
                     }
                 })
 

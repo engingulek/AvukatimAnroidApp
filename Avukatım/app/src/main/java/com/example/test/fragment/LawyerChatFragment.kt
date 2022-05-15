@@ -274,6 +274,17 @@ class LawyerChatFragment : Fragment() {
         }
 
 
+        design.sendDocsMessage.setOnClickListener {
+            val intent = Intent()
+                .setType("*/*")
+                .setAction(Intent.ACTION_GET_CONTENT)
+
+            startActivityForResult(Intent.createChooser(intent, "Select a file"), 111)
+
+
+        }
+
+
 
 
 
@@ -356,6 +367,7 @@ class LawyerChatFragment : Fragment() {
                 dataMap.put("lawyerImage",lawyerImage)
                 dataMap.put("clientImage",clientImage)
                 dataMap.put("chatImage","${imageChatrUrl}")
+                dataMap.put("chatDoc","")
 
                 Log.e("sendUuid","${sendUuid}")
                 Log.e("authUuid","${auth.currentUser?.uid}")
@@ -393,6 +405,7 @@ class LawyerChatFragment : Fragment() {
                 dataMapA.put("lawyerImage",lawyerImage)
                 dataMapA.put("clientImage",clientImage)
                 dataMapA.put("chatImage","${imageChatrUrl}")
+                dataMapA.put("chatDoc","")
 
 
 
@@ -408,6 +421,139 @@ class LawyerChatFragment : Fragment() {
             }
 
 
+
+
+    }
+
+
+    fun addSendDocs(docUrl:String) {
+        val bundle : LawyerChatFragmentArgs by navArgs()
+        val getUserNamer  = bundle.getUserName
+
+
+
+        auth.currentUser?.let {
+            val senduser = it.email
+            val sendUserName = it.displayName
+            val sendUuid = it.uid
+            val getUserName  = bundle.getUserName
+            val getuuid = bundle.getUuid
+            val chatText = design.messageText.text.toString()
+            val date = FieldValue.serverTimestamp()
+            // val testImageLawyer = "https://firebasestorage.googleapis.com/v0/b/avukatimauth.appspot.com/o/images%2F9d9e9e66-408b-4b8d-9fc2-3424cceb7156.jpg?alt=media&token=33fb9209-3fd1-4496-8155-7b3cfa962c23"
+            //val testImageClient = "https://firebasestorage.googleapis.com/v0/b/avukatimauth.appspot.com/o/images%2Fprofile.png?alt=media&token=de68420b-c006-459e-bacf-adc4a0ea72e6"
+
+            Log.e("müşteri id","${getuuid}")
+
+
+
+            val clientNamaeData  = HashMap<String,Any>()
+            clientNamaeData.put("clientName",getUserName!!)
+            clientNamaeData.put("lawyerName",sendUserName!!)
+            clientNamaeData.put("clientid",getuuid)
+            clientNamaeData.put("lawyerid",sendUuid)
+            clientNamaeData.put("lawyerImage",lawyerImage)
+
+
+
+
+            fireStore.collection("Chats")
+                .document(auth.currentUser?.uid!!).collection("nameData").document("0").set(clientNamaeData)
+                .addOnSuccessListener {
+                    design.messageText.setText("")
+                }
+                .addOnFailureListener {
+                    // HATA İLE KARŞILAŞILDI
+                }
+
+
+            fireStore.collection("Chats")
+                .document(getuuid).collection("nameData").document("0").set(clientNamaeData)
+                .addOnSuccessListener {
+                    design.messageText.setText("")
+                }
+                .addOnFailureListener {
+                    // HATA İLE KARŞILAŞILDI
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+            val dataMap = HashMap<String,Any>()
+            dataMap.put("senduser",senduser!!)
+
+            dataMap.put("sendUserName",sendUserName!!)
+
+            dataMap.put("sendUuid",sendUuid!!)
+
+            dataMap.put("getUserName",getUserName!!)
+
+            dataMap.put("getuuid",getuuid!!)
+            dataMap.put("chatText","")
+            dataMap.put("date",date!!)
+            dataMap.put("lawyerImage",lawyerImage)
+            dataMap.put("clientImage",clientImage)
+            dataMap.put("chatImage","")
+            dataMap.put("chatDoc","${docUrl}")
+
+            Log.e("sendUuid","${sendUuid}")
+            Log.e("authUuid","${auth.currentUser?.uid}")
+            Log.e("getUuid","${getuuid}")
+
+
+
+
+            fireStore.collection("Chats")
+                .document(auth.currentUser?.uid!!).collection("message").add(dataMap)
+                .addOnSuccessListener {
+                    design.messageText.setText("")
+                }
+                .addOnFailureListener {
+                    // HATA İLE KARŞILAŞILDI
+                }
+
+
+
+
+
+            val dataMapA = HashMap<String,Any>()
+            dataMapA.put("senduser",senduser!!)
+
+            dataMapA.put("sendUserName",getUserName!!)
+
+            dataMapA.put("sendUuid",sendUuid!!)
+
+            dataMapA.put("getUserName",sendUserName!!)
+
+            dataMapA.put("getuuid",getuuid!!)
+            dataMapA.put("chatText","")
+            dataMapA.put("date",date!!)
+
+            dataMapA.put("lawyerImage",lawyerImage)
+            dataMapA.put("clientImage",clientImage)
+            dataMapA.put("chatImage","${imageChatrUrl}")
+            dataMapA.put("chatDoc","${docUrl}")
+
+
+
+
+            fireStore.collection("Chats")
+                .document(getuuid).collection("message").add(dataMapA)
+                .addOnSuccessListener {
+                    design.messageText.setText("")
+                }
+                .addOnFailureListener {
+                    // HATA İLE KARŞILAŞILDI
+                }
+        }
 
 
     }
@@ -458,6 +604,36 @@ class LawyerChatFragment : Fragment() {
 
         }
 
+        if (requestCode == 111 && resultCode == Activity.RESULT_OK) {
+
+            val selectedFile = data?.data //The uri with the location of the file
+            Log.e("Seçilen döküman","${selectedFile}")
+            uploadStrongeDoc(selectedFile!!)
+        }
+
+
+    }
+
+
+    fun uploadStrongeDoc(fileUri : Uri) {
+        val fileName = UUID.randomUUID().toString()+".pdf"
+        var docUrl = ""
+        val refStorage = FirebaseStorage.getInstance().reference.child("messageDocs/$fileName")
+        refStorage.putFile(fileUri)
+            .addOnSuccessListener(
+                OnSuccessListener<UploadTask.TaskSnapshot> { taskSnapshot ->
+                    taskSnapshot.storage.downloadUrl.addOnSuccessListener {
+                        docUrl = it.toString()
+                        imageUrlString(docUrl)
+                        Log.e("Docs url","${docUrl}")
+                        addSendDocs(docUrl)
+
+                    }
+                })
+
+            .addOnFailureListener(OnFailureListener { e ->
+                print(e.message)
+            })
 
     }
 
