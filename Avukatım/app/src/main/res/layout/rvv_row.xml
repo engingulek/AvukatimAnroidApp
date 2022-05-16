@@ -8,6 +8,10 @@
         android:layout_height="wrap_content"
 
         android:layout_margin="5dp">
+
+
+
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -50,13 +54,56 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/pdfCL"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:paddingTop="3dp"
-            android:paddingBottom="3dp"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp">
+            android:paddingTop="3dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="3dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/chatPdfView"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="20dp"
+
+                android:padding="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/pdfDowloandBttn"
+
+                style="@style/Widget.MaterialComponents.Button.Icon"
+                android:layout_width="110dp"
+                android:layout_height="44dp"
+                android:layout_marginTop="5dp"
+                android:text="İndir"
+
+                android:textAllCaps="false"
+                app:icon="@drawable/pdf_dowloand"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/chatPdfView" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clRowL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="3dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="3dp">
 
             <TextView
                 android:id="@+id/chatTextView"
@@ -71,6 +118,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
             <ImageView
                 android:id="@+id/chatImageView"
                 android:layout_width="wrap_content"
@@ -83,6 +131,8 @@
                 app:layout_constraintTop_toTopOf="parent"
 
                 />
+
+
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -129,6 +179,8 @@
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 
 

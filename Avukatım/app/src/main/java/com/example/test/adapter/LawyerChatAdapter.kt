@@ -1,10 +1,12 @@
 package com.example.test.adapter
 
+import android.app.DownloadManager
 import android.content.ContentResolver
 import android.content.Context
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import android.view.Gravity
@@ -21,7 +23,10 @@ import com.example.test.R
 import com.example.test.databinding.RvvRowBinding
 import com.example.test.entity.Chat
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import com.squareup.picasso.Picasso
+import java.lang.Exception
 import java.util.*
 
 class LawyerChatAdapter : RecyclerView.Adapter<LawyerChatAdapter.ChatHolder>() {
@@ -35,7 +40,7 @@ class LawyerChatAdapter : RecyclerView.Adapter<LawyerChatAdapter.ChatHolder>() {
     var closeBttn : Button? = null
     var context : Context? = null
     var resolver : ContentResolver? = null
-
+    var manager: DownloadManager? = null
     inner class ChatHolder(rvvRowBinding: RvvRowBinding)
         : RecyclerView.ViewHolder(rvvRowBinding.root) {
         var rvvRowBinding : RvvRowBinding
@@ -89,6 +94,8 @@ class LawyerChatAdapter : RecyclerView.Adapter<LawyerChatAdapter.ChatHolder>() {
             design.llrow.gravity = Gravity.LEFT
             design.chatTextView.setBackgroundResource(R.drawable.row_ballon)
             design.rigtTime.visibility = View.GONE
+            design.clRowL.setBackgroundResource(R.drawable.row_ballon)
+            design.pdfCL.setBackgroundResource(R.drawable.row_ballon)
 
             design.imageView9.visibility = View.GONE
 
@@ -99,7 +106,8 @@ class LawyerChatAdapter : RecyclerView.Adapter<LawyerChatAdapter.ChatHolder>() {
             val design = com.example.test.databinding.RvvRowBinding.inflate(view,parent,false)
             design.llrow.gravity = Gravity.RIGHT
             design.chatTextView.setBackgroundResource(R.drawable.row_ballon_right)
-
+            design.clRowL.setBackgroundResource(R.drawable.row_ballon_right)
+            design.pdfCL.setBackgroundResource(R.drawable.row_ballon_right)
             design.leftTime.visibility = View.GONE
             design.imageView8.visibility = View.GONE
 
@@ -117,7 +125,7 @@ class LawyerChatAdapter : RecyclerView.Adapter<LawyerChatAdapter.ChatHolder>() {
 
     override fun onBindViewHolder(holder: ChatHolder, position: Int) {
         val cardDesing = holder.rvvRowBinding
-        if (chats.get(position).text == "") {
+        if (chats.get(position).text == "" && chats.get(position).chatDoc == "") {
             cardDesing.chatTextView.visibility = View.GONE
             Picasso.get().load(chats.get(position).chatImage).into(cardDesing.chatImageView)
 
@@ -149,7 +157,14 @@ class LawyerChatAdapter : RecyclerView.Adapter<LawyerChatAdapter.ChatHolder>() {
 
 
 
-        }else{
+        }else if(chats.get(position).text == "" && chats.get(position).chatImage == ""){
+            cardDesing.pdfCL.visibility = View.VISIBLE
+            cardDesing.clRowL.visibility = View.GONE
+
+            cardDesing.chatPdfView.setImageResource(R.drawable.pdf_image)
+        }
+
+        else{
             cardDesing.chatImageView.visibility = View.GONE
             cardDesing.chatTextView.text = "${chats.get(position).text}"
         }
@@ -157,6 +172,48 @@ class LawyerChatAdapter : RecyclerView.Adapter<LawyerChatAdapter.ChatHolder>() {
        Picasso.get().load(chats.get(position).lawyerImage).into(cardDesing.imageView9)
         cardDesing.leftTime.text = "${chats.get(position).date}"
         cardDesing.rigtTime.text = "${chats.get(position).date}"
+
+
+
+
+
+
+
+        cardDesing.pdfDowloandBttn.setOnClickListener {
+
+
+            val k  = chats.get(position).chatDoc.toString()
+
+            try {
+                val url = "${chats.get(position).chatDoc.toString()}"
+                val imageLink = Uri.parse(url)
+                val request = DownloadManager.Request(imageLink)
+                request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE or DownloadManager.Request.NETWORK_WIFI)
+                    .setMimeType("files/pdf")
+                    .setAllowedOverRoaming(false)
+                    .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+                    .setTitle("dosya")
+                    .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOCUMENTS,"dosya.pdf")
+
+                manager!!.enqueue(request)
+            }catch (e: Exception){
+                Log.e("da","dadadsa")
+            }
+
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
 
     }
 

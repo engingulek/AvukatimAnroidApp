@@ -1,5 +1,6 @@
 package com.example.test.adapter
 
+import android.app.DownloadManager
 import android.content.ContentResolver
 import android.content.Context
 import android.content.ContextWrapper
@@ -24,17 +25,24 @@ import kotlinx.coroutines.delay
 import android.provider.MediaStore
 
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
-import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
-import java.io.OutputStream
 import java.util.*
 import android.graphics.drawable.Drawable
-
-
-
+import android.os.Environment
+import androidx.core.net.toUri
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import retrofit2.http.Url
+import java.io.*
+import java.net.URL
+import java.nio.channels.Channel
+import java.nio.channels.Channels
+import androidx.core.content.ContextCompat.getSystemService
+import java.lang.Exception
 
 
 class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatHolder>() {
@@ -48,6 +56,8 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatHolder>() {
     var closeBttn : Button? = null
     var context : Context? = null
     var resolver : ContentResolver? = null
+    var manager: DownloadManager? = null
+
 
     inner class ChatHolder(rvvRowBinding: RvvRowBinding)
         :RecyclerView.ViewHolder(rvvRowBinding.root) {
@@ -102,6 +112,8 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatHolder>() {
             val design = RvvRowBinding.inflate(view,parent,false)
             design.llrow.gravity = Gravity.LEFT
             design.chatTextView.setBackgroundResource(R.drawable.row_ballon)
+            design.clRowL.setBackgroundResource(R.drawable.row_ballon)
+            design.pdfCL.setBackgroundResource(R.drawable.row_ballon)
             design.rigtTime.visibility = View.GONE
             design.imageView9.visibility = View.GONE
 
@@ -112,6 +124,8 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatHolder>() {
             val design = com.example.test.databinding.RvvRowBinding.inflate(view,parent,false)
             design.llrow.gravity = Gravity.RIGHT
             design.chatTextView.setBackgroundResource(R.drawable.row_ballon_right)
+            design.clRowL.setBackgroundResource(R.drawable.row_ballon_right)
+            design.pdfCL.setBackgroundResource(R.drawable.row_ballon_right)
             design.leftTime.visibility = View.GONE
 
 
@@ -131,9 +145,10 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatHolder>() {
 
     override fun onBindViewHolder(holder: ChatHolder, position: Int) {
         val cardDesing = holder.rvvRowBinding
-        if (chats.get(position).text == "") {
+        if (chats.get(position).text == "" && chats.get(position).chatDoc == "") {
             cardDesing.chatTextView.visibility = View.GONE
             Picasso.get().load(chats.get(position).chatImage).into(cardDesing.chatImageView)
+            cardDesing.pdfCL.visibility = View.GONE
 
 
             cardDesing.chatImageView.setOnClickListener {
@@ -161,8 +176,19 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatHolder>() {
                 constraintLayout?.visibility = View.GONE
             }
 
-        }else{
-            cardDesing.chatImageView.visibility = View.GONE
+        }else if(chats.get(position).text == "" && chats.get(position).chatImage == ""){
+
+            cardDesing.pdfCL.visibility = View.VISIBLE
+            cardDesing.clRowL.visibility = View.GONE
+
+            cardDesing.chatPdfView.setImageResource(R.drawable.pdf_image)
+
+
+        }
+
+        else{
+            cardDesing.pdfCL.visibility = View.GONE
+            cardDesing.chatPdfView.visibility = View.GONE
             cardDesing.chatTextView.text = "${chats.get(position).text}"
 
         }
@@ -174,8 +200,43 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatHolder>() {
 
 
 
+        cardDesing.pdfDowloandBttn.setOnClickListener {
+
+            Log.e("Pdf da","${chats.get(position).chatDoc.toString()}")
+
+            try {
+                val url = "${chats.get(position).chatDoc.toString()}"
+                val imageLink = Uri.parse(url)
+                val request = DownloadManager.Request(imageLink)
+                request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE or DownloadManager.Request.NETWORK_WIFI)
+                    .setMimeType("files/pdf")
+                    .setAllowedOverRoaming(false)
+                    .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+                    .setTitle("dosya")
+                    .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOCUMENTS,"dosya.pdf")
+
+                manager!!.enqueue(request)
+            }catch (e:Exception){
+                Log.e("da","dadadsa")
+            }
+
+
+
+
+
+
+
+
+
+        }
 
     }
+
+
+
+
+
+
 
 
     private fun saveImage(drawable:Drawable, title:String):Uri{
@@ -192,6 +253,8 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatHolder>() {
             title,
             "Image of $title"
         )
+
+   
 
         // Parse the gallery image url to uri
         constraintLayout?.visibility = View.GONE

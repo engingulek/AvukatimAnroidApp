@@ -1,6 +1,8 @@
 package com.example.test.fragment
 
 import android.app.Activity
+import android.app.DownloadManager
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -146,6 +148,7 @@ class LawyerChatFragment : Fragment() {
                     dataMap.put("lawyerImage",lawyerImage)
                     dataMap.put("clientImage",clientImage)
                     dataMap.put("chatImage","")
+                    dataMap.put("chatDoc","")
 
                     Log.e("sendUuid","${sendUuid}")
                     Log.e("authUuid","${auth.currentUser?.uid}")
@@ -183,6 +186,7 @@ class LawyerChatFragment : Fragment() {
                     dataMapA.put("lawyerImage",lawyerImage)
                     dataMapA.put("clientImage",clientImage)
                     dataMapA.put("chatImage","")
+                    dataMap.put("chatDoc","")
 
 
 
@@ -223,6 +227,7 @@ class LawyerChatFragment : Fragment() {
                                  lawyerImage = document.get("lawyerImage") as String
                                  clientImage = document.get("clientImage") as String
                                 val chatImageUrlData = document.get("chatImage")
+                                val chatDocUrlData = document.get("chatDoc")
 
 
 
@@ -234,7 +239,7 @@ class LawyerChatFragment : Fragment() {
                                     val netDate = Date(milliseconds)
                                     val date = sdf.format(netDate).toString()
 
-                                    val chat = Chat(user,text,lawyerImage.toString(),clientImage.toString(),date.toString(),chatImageUrlData.toString())
+                                    val chat = Chat(user,text,lawyerImage.toString(),clientImage.toString(),date.toString(),chatImageUrlData.toString(),chatDocUrlData.toString())
                                     chats.add(chat)
                                     adapter.chats = chats
                                     adapter.constraintLayout = design.bigImageCL
@@ -244,6 +249,9 @@ class LawyerChatFragment : Fragment() {
                                     adapter.context = requireContext()
                                     val resolver = activity!!.contentResolver
                                     adapter.resolver = resolver
+                                    val downloadManager =
+                                        activity!!.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+                                    adapter.manager = downloadManager
                                 }
 
 
@@ -539,7 +547,7 @@ class LawyerChatFragment : Fragment() {
 
             dataMapA.put("lawyerImage",lawyerImage)
             dataMapA.put("clientImage",clientImage)
-            dataMapA.put("chatImage","${imageChatrUrl}")
+            dataMapA.put("chatImage","")
             dataMapA.put("chatDoc","${docUrl}")
 
 
@@ -609,6 +617,7 @@ class LawyerChatFragment : Fragment() {
             val selectedFile = data?.data //The uri with the location of the file
             Log.e("Seçilen döküman","${selectedFile}")
             uploadStrongeDoc(selectedFile!!)
+            design.imageAndDocConsL.visibility = View.GONE
         }
 
 

@@ -1,6 +1,7 @@
 package com.example.test.fragment
 
 import android.app.Activity
+import android.app.DownloadManager
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -36,13 +37,12 @@ import java.util.*
 import kotlin.collections.HashMap
 import kotlin.math.log
 import android.content.ContentResolver
-
-
-
-
-
-
-
+import android.content.Context
+import android.os.Environment
+import android.os.FileUtils
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.net.toUri
+import java.lang.Exception
 
 
 class ChatFragment : Fragment() {
@@ -53,6 +53,9 @@ private lateinit var adapter: ChatAdapter
 private  var chats = arrayListOf<Chat>()
     private var imageUri: Uri? = null
     private var imageChatrUrl:String? = ""
+
+
+
 
     companion object {
         val IMAGE_REQUEST_CODE = 100
@@ -76,6 +79,8 @@ private  var chats = arrayListOf<Chat>()
         val bundle : ChatFragmentArgs by navArgs()
         val lawyerImagee = bundle.getIawyerImageUrl
         Log.e("A18","$lawyerImagee")
+
+
 
         design.sendButton.setOnClickListener {
 
@@ -168,6 +173,7 @@ private  var chats = arrayListOf<Chat>()
                          dataMap.put("chatText",chatText!!)
                          dataMap.put("date",date!!)
                     dataMap.put("chatImage","")
+                    dataMap.put("chatDoc","")
 
 
 
@@ -200,6 +206,7 @@ private  var chats = arrayListOf<Chat>()
                          dataMapA.put("chatText",chatText!!)
                          dataMapA.put("date",date!!)
                     dataMapA.put("chatImage","")
+                    dataMapA.put("chatDoc","")
 
 
                          fireStore.collection("Chats")
@@ -253,11 +260,12 @@ private  var chats = arrayListOf<Chat>()
                                     val sdf = SimpleDateFormat("dd/MM/yyyy HH:mm")
                                     val netDate = Date(milliseconds)
                                     val date = sdf.format(netDate).toString()
+                                    val chatDocUrlData = document.get("chatDoc")
 
                                     Log.e("da","${date}")
 
 
-                                    val chat = Chat(user.toString(),text.toString(), lawyerImage.toString(),clientImage.toString(),date.toString(),chatImageUrlData.toString())
+                                    val chat = Chat(user.toString(),text.toString(), lawyerImage.toString(),clientImage.toString(),date.toString(),chatImageUrlData.toString(),chatDocUrlData.toString())
                                     chats.add(chat)
                                     adapter.chats = chats
                                     adapter.constraintLayout = design.bigImageCL
@@ -267,6 +275,11 @@ private  var chats = arrayListOf<Chat>()
                                     adapter.context = requireContext()
                                     val resolver = activity!!.contentResolver
                                     adapter.resolver = resolver
+                                    val downloadManager =
+                                        activity!!.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+                                    adapter.manager = downloadManager
+
+
 
                                 }
 
@@ -315,6 +328,7 @@ private  var chats = arrayListOf<Chat>()
 
         return design.root
     }
+
 
 
     fun addSendImage(chatImageUrls : String) {
@@ -703,10 +717,14 @@ private  var chats = arrayListOf<Chat>()
             val selectedFile = data?.data //The uri with the location of the file
             Log.e("Seçilen döküman","${selectedFile}")
             uploadStrongeDoc(selectedFile!!)
+            design.imageAndDocConsL.visibility = View.GONE
         }
 
 
     }
+
+
+
 
 
 
