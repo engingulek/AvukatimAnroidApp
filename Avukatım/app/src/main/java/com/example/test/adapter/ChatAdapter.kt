@@ -163,9 +163,29 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatHolder>() {
                 Log.e("Kaydetmeişleöş","da")
 
 
-                val newUUID = UUID.randomUUID()
+                try {
+                    val url = "${chats.get(position).chatImage}"
+                    val imageLink = Uri.parse(url)
+                    val request = DownloadManager.Request(imageLink)
+                    request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE or DownloadManager.Request.NETWORK_WIFI)
+                        .setMimeType("images/png")
+                        .setAllowedOverRoaming(false)
+                        .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+                        .setTitle("resim")
+                        .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOCUMENTS,"resim.png")
+
+                    manager!!.enqueue(request)
+                }catch (e:Exception){
+                    Log.e("da","dadadsa")
+                }
+
+
+
+
+
+              /*  val newUUID = UUID.randomUUID()
                 val dr = (bigImageView as ImageView).drawable
-                val uri = saveImage(dr,"${newUUID}")
+                val uri = saveImage(dr,"${newUUID}")*/
 
             }
 

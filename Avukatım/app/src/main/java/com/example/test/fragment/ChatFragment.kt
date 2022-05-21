@@ -240,7 +240,7 @@ private  var chats = arrayListOf<Chat>()
                 }else{
                     if (value != null) {
                         if (value.isEmpty) {
-                            Toast.makeText(requireContext(),"Mesaj yok",Toast.LENGTH_SHORT).show()
+                           // Toast.makeText(requireContext(),"Mesaj yok",Toast.LENGTH_SHORT).show()
                         }else {
                             val documents = value.documents
                             chats.clear()
@@ -272,9 +272,12 @@ private  var chats = arrayListOf<Chat>()
                                     adapter.bigImageView = design.bigImageView
                                     adapter.saveButton = design.bttnImageSave
                                     adapter.closeBttn = design.closeButton
-                                    adapter.context = requireContext()
-                                    val resolver = activity!!.contentResolver
-                                    adapter.resolver = resolver
+
+
+
+
+
+                                   // adapter.resolver = resolver
                                     val downloadManager =
                                         activity!!.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
                                     adapter.manager = downloadManager
