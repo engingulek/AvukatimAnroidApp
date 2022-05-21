@@ -41,6 +41,10 @@ class CreateLawyerAdvertFragment : Fragment() {
     private lateinit var  testInterface : MyLawyerDaoInterface
     private lateinit var auth: FirebaseAuth
     private lateinit var call : Call<Lawyer>
+    private var selected = 0
+
+
+
 
 
     private var imageUri: Uri? = null
@@ -207,7 +211,16 @@ class CreateLawyerAdvertFragment : Fragment() {
 
         // profession(Uzmanlık Alanı)
         var professionList = ArrayList<String>()
+
         createLawyerAdvertViewModel.professionListe.observe(viewLifecycleOwner,{
+            desing.checkBoxPer1.text = it[0].professionName
+            desing.checkBoxPer3.text = it[1].professionName
+            desing.checkBoxPer2.text = it[2].professionName
+            desing.checkBoxPer4.text = it[3].professionName
+            desing.checkBoxPer5.text = it[4].professionName
+            desing.checkBoxPer6.text = it[5].professionName
+        })
+        /*createLawyerAdvertViewModel.professionListe.observe(viewLifecycleOwner,{
             for (a in it) {
                 professionList.add(a.professionName)
             }
@@ -238,7 +251,7 @@ class CreateLawyerAdvertFragment : Fragment() {
 
             val professionAdapter = ArrayAdapter(requireContext(),R.layout.dropdown_item,professionList)
             desing.autoCompleteTextViewThirdPer.setAdapter(professionAdapter)
-        }
+        }*/
 
 
 
@@ -260,18 +273,28 @@ class CreateLawyerAdvertFragment : Fragment() {
 
         val cityArrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, cityItems)
         desing.autoCompleteTextViewDate.setAdapter(cityArrayAdapter)
-
+        setupCheckboxState()
         desing.addLawyerAdvertbttn.setOnClickListener {
+           val a = selectedProfes()
+            Log.e("FFFFF","$a")
+            val pref1 = a[0]
+            val pref2 = a[1]
+            val pref3 = a[2]
 
-            val professionList = arrayOf("${desing.autoCompleteTextViewOnePer.text.toString()}",
-                "${desing.autoCompleteTextViewSeconPer.text.toString()}",
-                "${desing.autoCompleteTextViewThirdPer.text.toString()}")
+            Log.e("NNNN","$pref1")
+            Log.e("NNNN","$pref2")
+            Log.e("NNNN","$pref3")
+            val professionList = arrayOf(pref1,pref2,pref3)
+
+
 
            // val estiOnliHours = "${desing.timeOneTextView.text.toString()} / ${desing.timeTwoTextView.text.toString()}"
 
             val location ="${desing.autoCompleteTextViewCity.text.toString()} / ${desing.autoCompleteTextViewDistrict.text.toString()}"
 
             val age = desing.a.text.toString()
+
+
 
 
             val universyt = desing.autoCompleteTextViewUni.text.toString()
@@ -298,12 +321,13 @@ class CreateLawyerAdvertFragment : Fragment() {
             val locCordinate = arrayOf("","")
             val estiMeetHours = arrayOf(timeOneText,timeTwoText,timeThreeText,timeFourText)
             val selectDate =  desing.autoCompleteTextViewDate.text.toString()
+            var ag = "https://cdn2.vectorstock.com/i/1000x1000/67/21/lawyer-icon-profession-and-job-vector-33186721.jpg"
 
 
 
 
 
-            val newLawyer = Lawyer("${auth.currentUser?.uid}",imageLawyerUrl!!,
+            val newLawyer = Lawyer("${auth.currentUser?.uid}",ag!!,
                 "${auth.currentUser?.displayName}",
                 "${selectionGender}" ,
                 age,
@@ -315,8 +339,8 @@ class CreateLawyerAdvertFragment : Fragment() {
                 universyt
             )
 
-            val cars = arrayOf("Volvo", "BMW", "Ford", "Mazda")
-          /*  val newLawyer = Lawyer("${auth.currentUser?.uid}","imageLawyerUrl!!",
+           /* val cars = arrayOf("Volvo", "BMW", "Ford", "Mazda")
+           val newLawyer = Lawyer("${auth.currentUser?.uid}","imageLawyerUrl!!",
                 "kk",
                 "mmlm" ,
                 "32",
@@ -329,8 +353,9 @@ class CreateLawyerAdvertFragment : Fragment() {
             )*/
 
 
+
             createLawyerAdvertViewModel.createAdvert(newLawyer)
-            Navigation.findNavController(it).navigate(R.id.toLHomePage)
+           Navigation.findNavController(it).navigate(R.id.toLHomePage)
 
 
 
@@ -341,6 +366,212 @@ class CreateLawyerAdvertFragment : Fragment() {
 
         return desing.root
     }
+
+
+
+
+
+    fun setupCheckboxState() {
+        desing.checkBoxPer1.setOnClickListener {
+            if (selected == 3) {
+
+                if (!desing.checkBoxPer1.isChecked) {
+                    selected-=1
+                    Log.e("B","${selected}")
+
+                }else{
+                    desing.checkBoxPer1.isChecked = false
+
+                }
+
+            }else {
+                if (desing.checkBoxPer1.isChecked){
+                    selected+=1
+                    Log.e("A","${selected}")
+
+                }
+                else if (!desing.checkBoxPer1.isChecked){
+                    selected-=1
+                    Log.e("B","${selected}")
+                }
+
+            }
+
+
+
+        }
+
+        desing.checkBoxPer2.setOnClickListener {
+            if (selected == 3) {
+                if (!desing.checkBoxPer2.isChecked) {
+                    selected-=1
+                    Log.e("B","${selected}")
+
+                }else{
+                    desing.checkBoxPer2.isChecked = false
+
+                }
+            }else{
+                if (desing.checkBoxPer2.isChecked){
+                    selected+=1
+                    Log.e("A2","${selected}")
+
+                }
+                else if (!desing.checkBoxPer2.isChecked){
+                    selected-=1
+                    Log.e("B2","${selected}")
+                }
+
+            }
+
+        }
+
+        desing.checkBoxPer3.setOnClickListener {
+            if (selected == 3) {
+                if (!desing.checkBoxPer3.isChecked) {
+                    selected-=1
+                    Log.e("B","${selected}")
+
+                }else{
+                    desing.checkBoxPer3.isChecked = false
+
+                }
+
+            }else {
+                if (desing.checkBoxPer3.isChecked){
+                    selected+=1
+                    Log.e("A3","${selected}")
+
+                }
+                else if (!desing.checkBoxPer3.isChecked){
+                    selected-=1
+                    Log.e("B3","${selected}")
+                }
+
+            }
+
+        }
+
+
+        desing.checkBoxPer4.setOnClickListener {
+            if (selected == 3) {
+                if (!desing.checkBoxPer4.isChecked) {
+                    selected-=1
+                    Log.e("B","${selected}")
+
+                }else{
+                    desing.checkBoxPer4.isChecked = false
+
+                }
+
+            }else{
+                if (desing.checkBoxPer4.isChecked){
+                    selected+=1
+                    Log.e("A4","${selected}")
+
+                }
+                else if (!desing.checkBoxPer4.isChecked){
+                    selected-=1
+                    Log.e("B4","${selected}")
+                }
+
+            }
+        }
+
+
+
+
+        desing.checkBoxPer5.setOnClickListener {
+            if (selected == 3) {
+                if (!desing.checkBoxPer5.isChecked) {
+                    selected-=1
+                    Log.e("B","${selected}")
+
+                }else{
+                    desing.checkBoxPer5.isChecked = false
+
+                }
+
+            }else{
+                if (desing.checkBoxPer5.isChecked){
+                    selected+=1
+                    Log.e("A4","${selected}")
+
+                }
+                else if (!desing.checkBoxPer5.isChecked){
+                    selected-=1
+                    Log.e("B4","${selected}")
+                }
+
+            }
+        }
+
+
+        desing.checkBoxPer6.setOnClickListener {
+            if (selected == 3) {
+                if (!desing.checkBoxPer6.isChecked) {
+                    selected-=1
+                    Log.e("B","${selected}")
+
+                }else{
+                    desing.checkBoxPer6.isChecked = false
+
+                }
+
+            }else{
+                if (desing.checkBoxPer6.isChecked){
+                    selected+=1
+                    Log.e("A4","${selected}")
+
+                }
+                else if (!desing.checkBoxPer6.isChecked){
+                    selected-=1
+                    Log.e("B4","${selected}")
+                }
+
+            }
+        }
+
+
+
+
+
+    }
+
+
+    fun selectedProfes() : ArrayList<String> {
+        var selectedprofessionList = ArrayList<String>()
+        if (desing.checkBoxPer1.isChecked == true ) {
+            Log.e("TestChek","${desing.checkBoxPer1.text}")
+            selectedprofessionList.add("${desing.checkBoxPer1.text}")
+
+
+
+        }
+        if (desing.checkBoxPer2.isChecked == true ) {
+            Log.e("TestChek","${desing.checkBoxPer2.text}")
+            selectedprofessionList.add("${desing.checkBoxPer2.text}")
+        }
+        if (desing.checkBoxPer3.isChecked == true ) {
+            Log.e("TestChek","${desing.checkBoxPer3.text}")
+            selectedprofessionList.add("${desing.checkBoxPer3.text}")
+        }
+        if (desing.checkBoxPer4.isChecked == true ) {
+            Log.e("TestChek","${desing.checkBoxPer4.text}")
+            selectedprofessionList.add("${desing.checkBoxPer4.text}")
+        }
+        if (desing.checkBoxPer5.isChecked == true ) {
+            Log.e("TestChek","${desing.checkBoxPer5.text}")
+            selectedprofessionList.add("${desing.checkBoxPer5.text}")
+        }
+        if (desing.checkBoxPer6.isChecked == true ) {
+            Log.e("TestChek","${desing.checkBoxPer6.text}")
+            selectedprofessionList.add("${desing.checkBoxPer6.text}")
+        }
+
+        return  selectedprofessionList
+    }
+
 
 
 
