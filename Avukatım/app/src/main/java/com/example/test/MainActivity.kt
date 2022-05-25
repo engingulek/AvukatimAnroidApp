@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.viewModels
 import androidx.core.app.NotificationCompat
 import com.example.test.adapter.LawyerMeetingListAdapter
@@ -22,6 +23,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.lang.Exception
 import java.time.LocalDateTime
+import java.util.jar.Manifest
 import java.util.logging.Logger
 import kotlin.concurrent.timer
 
@@ -33,7 +35,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        requestPermission()
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
 
@@ -41,6 +43,12 @@ class MainActivity : AppCompatActivity() {
 
 
 }
+
+    fun requestPermission(){
+        ActivityCompat.requestPermissions(this,
+            arrayOf(android.Manifest.permission.CAMERA,
+                android.Manifest.permission.RECORD_AUDIO),22)
+    }
 
 
 

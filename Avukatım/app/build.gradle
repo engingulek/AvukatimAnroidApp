@@ -3,6 +3,8 @@ plugins {
     id 'kotlin-android'
 }
 
+
+
 android {
     compileSdk 32
     buildFeatures {
@@ -93,5 +95,20 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-storage:17.0.0'
     implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
+
+
+    implementation 'io.agora.rtc:full-sdk:3.0.0.2'
+    //Agora RTM SDK for chat messaging
+    implementation 'io.agora.rtm:rtm-sdk:1.2.2'
+
+    implementation 'io.agora.uikit:agorauikit:2.0.1'
+
+
+
+
+
+
+
+
 
 }

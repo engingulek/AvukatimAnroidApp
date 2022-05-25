@@ -4,7 +4,9 @@ import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
+import com.example.test.R
 import com.example.test.databinding.ClientMeetigListCardDesignBinding
 import com.example.test.databinding.LawyerMeetingListCardDesignBinding
 import com.example.test.entity.MeetingDataClass
@@ -36,7 +38,13 @@ class ClientMeetingListAdapter(var mContext: Context, var meetingLawyerList:List
 
         cardDesign.bttnJoinMeeting.setOnClickListener {
 
-            val time = meetingLawyerList[position].time
+            Navigation.findNavController(it).navigate(R.id.toContactClient)
+
+
+
+
+
+           /* val time = meetingLawyerList[position].time
             val getTimeHA = "${time[0]}"
             val getTimeHB = "${time[1]}"
 
@@ -64,7 +72,7 @@ class ClientMeetingListAdapter(var mContext: Context, var meetingLawyerList:List
 
             if (dataHours==hours){
                 println("Toplantıya katıla bilirsiniz")
-            }
+            }*/
 
 
 

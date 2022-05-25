@@ -78,6 +78,9 @@
         <action
             android:id="@+id/toLawyerChat"
             app:destination="@id/lawyerChatFragment" />
+        <action
+            android:id="@+id/toContactLawyer"
+            app:destination="@id/contactLawyerFragment" />
     </fragment>
     <fragment
         android:id="@+id/createLawyerAdvertFragment"
@@ -141,6 +144,9 @@
         <action
             android:id="@+id/toChatTwo"
             app:destination="@id/chatFragment" />
+        <action
+            android:id="@+id/toContactClient"
+            app:destination="@id/contactClientFragment" />
     </fragment>
     <fragment
         android:id="@+id/clientAuthPageFragment"
@@ -197,4 +203,14 @@
         android:label="LawyerChatListFragment"
         tools:layout="@layout/fragment_lawyer_chat_list"
         />
+    <fragment
+        android:id="@+id/contactClientFragment"
+        android:name="com.example.test.fragment.ContactClientFragment"
+        android:label="fragment_contact_client"
+        tools:layout="@layout/fragment_contact_client" />
+    <fragment
+        android:id="@+id/contactLawyerFragment"
+        android:name="com.example.test.fragment.ContactLawyerFragment"
+        android:label="fragment_contact_lawyer"
+        tools:layout="@layout/fragment_contact_lawyer" />
 </navigation>
