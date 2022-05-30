@@ -20,7 +20,7 @@ class LawyerTabLayoutFragment : Fragment() {
     private val fragmentTitleList = ArrayList<String>()
     private lateinit var desing : FragmentLawyerTabLayoutBinding
     private val tabIcons = intArrayOf(
-        R.drawable.home_icon,
+        R.drawable.selected_home_icon,
         R.drawable.meeting_icon,
 
 
