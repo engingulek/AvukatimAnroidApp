@@ -27,7 +27,8 @@ private  lateinit var  design : FragmentContactClientBinding
     private  var mRtcEngine:RtcEngine? = null
     private var channelName : String? = null
     private  var userRole = 1
-
+    private var token = "0069b8e0461c24b454a8980f221a3d7b13cIADnGKl+LhePF9tk1AslPjdkkdwbDLXqp1NrDbOVKa6bIKvtyjgAAAAAEAC0lltg4YeQYgEAAQDgh5Bi"
+    val APP_ID = "9b8e0461c24b454a8980f221a3d7b13c"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -82,7 +83,7 @@ private  lateinit var  design : FragmentContactClientBinding
     private fun initializeAgoraEngine(){
 
         try {
-            mRtcEngine = RtcEngine.create(activity?.baseContext,"APP_ID",mRtcEventHandler)
+            mRtcEngine = RtcEngine.create(activity?.baseContext,APP_ID,mRtcEventHandler)
         }catch (e:Exception){
             println("Hata cam ${e.localizedMessage}")
         }
@@ -97,12 +98,13 @@ private  lateinit var  design : FragmentContactClientBinding
         mRtcEngine!!.setupLocalVideo(VideoCanvas(surfaceView,VideoCanvas.RENDER_MODE_FIT,0))
     }
     private  fun joinChannel(){
-        mRtcEngine!!.joinChannel("token","engin",null,0)
+        mRtcEngine!!.joinChannel(token,"kaka",null,0)
     }
 
 
     private fun setupRemoteVideo(uid:Int){
-        val container = design.remoteVideoViewContainer as FrameLayout
+        val container = design.localVideo as FrameLayout
+        container.visibility =  View.VISIBLE
 
         if (container.childCount >= 1){
             return
