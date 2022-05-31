@@ -124,6 +124,10 @@ private  var chats = arrayListOf<Chat>()
                     clientNamaeData.put("clientid",sendUuid)
                     clientNamaeData.put("lawyerid",getuuid)
                     clientNamaeData.put("lawyerImage",lawyerImage)
+                    clientNamaeData.put("clientImage",it.photoUrl.toString())
+                    clientNamaeData.put("chatText",chatText)
+                    clientNamaeData.put("date",date!!)
+
 
                     Log.e("A1","${getuuid}")
                     Log.e("A2","${getuuid}")

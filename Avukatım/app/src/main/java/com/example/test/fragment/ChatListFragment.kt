@@ -62,6 +62,8 @@ class ChatListFragment : Fragment() {
                                 chatUserList.put("getUserName",value.get("lawyerName")!!)
                                 chatUserList.put("getUid",value.get("lawyerid")!!)
                                 chatUserList.put("lawyerImage",value.get("lawyerImage")!!)
+                                chatUserList.put("chatText",value.get("chatText")!!)
+                                chatUserList.put("date",value.get("date")!!)
 
                                 Log.e("A6","${value.get("lawyerid")!!}")
                                 Log.e("A7","${chatUserList.get("getUid")}")
@@ -82,27 +84,7 @@ class ChatListFragment : Fragment() {
 
                     }
                 }
-
-
-
-
-
             }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         return design.root
